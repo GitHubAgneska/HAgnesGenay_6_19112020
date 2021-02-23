@@ -1,6 +1,5 @@
-node_modules/
-/.sass-cachenode_modules/
+# FISHEYE
+### Accessible platform for photographers
 
-*.log
-log.txt
-npm-debug.log*
+
+
