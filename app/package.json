@@ -1,0 +1,31 @@
+{
+  "name": "hagnesgenay_6_19112020",
+  "version": "1.0.0",
+  "description": "An accessible platform for photographers",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sass": "sass --watch ./src/scss/style.scss:./src/css/style.css",
+    "prefix": "postcss ./css/style.css --use autoprefixer -d ./css/prefixed/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GitHubAgneska/HAgnesGenay_6_19112020.git"
+  },
+  "keywords": [
+    "accessibility",
+    "sass",
+    "html",
+    "javascript",
+    "aria"
+  ],
+  "author": "HAGENAY",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/GitHubAgneska/HAgnesGenay_6_19112020/issues"
+  },
+  "homepage": "https://github.com/GitHubAgneska/HAgnesGenay_6_19112020#readme",
+  "dependencies": {
+    "sass": "^1.32.8"
+  }
+}

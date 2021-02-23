@@ -1,0 +1,6 @@
+node_modules/
+/.sass-cachenode_modules/
+
+*.log
+log.txt
+npm-debug.log*
