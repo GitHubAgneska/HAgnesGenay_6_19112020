@@ -1,0 +1,108 @@
+
+@use "sass:map";
+
+/* ======================================== */
+/* BREAKPOINTS*/
+/* ======================================== */
+$breakpoints: (xs-mobile: 375px, mobile: 600px, tablet: 768px, laptop: 992px, desktop: 1200px );
+
+/* == up to 375  */
+@mixin max-375px {
+    @media screen and (max-width: map-get($breakpoints, xs-mobile )) {
+        @content;
+        @include transition(1s);
+    }
+}
+/* == from 375  */
+@mixin min-375px {
+    @media screen and (min-width: map-get($breakpoints, xs-mobile )) {
+        @content;
+        @include transition(1s);
+    }
+}
+/* == up to 600  */
+@mixin max-600px {
+    @media screen and (max-width: map-get($breakpoints, mobile )) {
+        @content;
+        @include transition(1s);
+    }
+}
+/* == from 600  */
+@mixin min-600px {
+    @media screen and (min-width: map-get($breakpoints, mobile )) {
+        @content;
+        @include transition(1s);
+    }
+}
+
+
+
+/* ======================================== */
+/* MARGINS  */
+/* ======================================== */
+
+@mixin mlmr-auto { margin-left: auto; margin-right: auto; }
+
+@mixin m-auto { margin: auto; }
+
+
+
+/* ======================================== */
+/* PADDINGS  */
+/* ======================================== */
+
+@mixin p-top-base {
+    padding-top: 25px;
+}
+
+
+/* ======================================== */
+/* SIZE */
+/* ======================================== */
+@mixin h100w100 {
+    height:100%; width:100%;
+}
+
+/* ======================================== */
+/* POSITION */
+/* ======================================== */
+@mixin centered {
+    display: flex;       
+    justify-content: center;
+    align-items: center;
+}
+
+/* ======================================== */
+/* FLEXBOX */
+/* ======================================== */
+@mixin flex($dir, $wraptype) {
+    display: flex;
+    flex-flow: $dir $wraptype;
+}
+
+
+/* ======================================== */
+/* BORDER-RADIUS */
+/* ======================================== */
+
+@mixin border-radius($pixel...) {
+    border-radius: $pixel;
+}
+
+/* ======================================== */
+/* TRANSITIONS */
+/* ======================================== */
+
+@mixin transition($elements, $duration, $type) {
+    transition: $elements $duration $type;
+    -webkit-transition: $elements $duration $type;
+    -ms-transition: $elements $duration $type;
+    -moz-transition: $elements $duration $type;
+    -o-transition: $elements $duration $type;
+}
+
+
+/* ======================================== */
+/* COLORS */
+/* ======================================== */
+

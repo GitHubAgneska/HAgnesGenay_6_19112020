@@ -1,0 +1,31 @@
+/* ================================== */
+/* General rules */
+/* ================================== */
+
+* {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+html {
+    font-size: 14px;
+    text-rendering: optimizeLegibility;
+}
+
+body { 
+    margin: auto;
+    height: 100%;
+}
+
+a { text-decoration: none; color: unset; }
+input { border: transparent; }
+ul { margin: 0; padding: 0;}
+ul li { list-style: none; }
+button {  display: block; border: none; }
+
+a, input, button {cursor: pointer; }
+
+
+

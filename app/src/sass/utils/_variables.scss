@@ -1,0 +1,50 @@
+/* ======================================== */
+/* COLOURS */
+/* ======================================== */
+
+/* base */
+$white: #ffff;
+$dark: #0000;
+
+$orange-main: #D3573C; /* name */
+$red-main:#901C1C;/* location */
+
+$grey:#525252; /* tagline txt / price txt */ 
+$greySpecial: #C4C4C4; /* navtag border */
+$lightgrey: #FAFAFA; /* bg infos block */
+
+
+/* buttons  */
+$btn-palette:(
+    static : (bg: $red-main, txt: $white ),
+    hover: ( bg: $orange-main, txt: $dark ),
+    focus: ( bg: $orange-main, txt: $dark )
+);
+
+@mixin btn-palette($palettes) {
+    @each $state, $palette in $palettes{
+        @debug "palettes=" #{$palettes};  /* --------- ?  */
+        &:#{$state}{
+            background-color: map-get($palette, bg);
+            color: map-get($palette, txt);
+        }
+    }
+}
+
+/* nav tag links  */
+$tag-palette:(
+    static : (bg: $white, txt: $red-main, border: 0.5px solid $greySpecial ),
+    hover: ( bg: $red-main, txt: $white, border: none ),
+    focus: ( bg: $red-main, txt: $white, border: none )
+);
+
+@mixin tag-palette($palettes) {
+    @each $state, $palette in $palettes{
+        &:#{$state}{
+            background-color: map-get($palette, bg);
+            color: map-get($palette, txt);
+            border: map-get($palette, border )
+        }
+    }
+}
+
