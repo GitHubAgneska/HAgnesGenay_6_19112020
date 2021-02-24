@@ -5,9 +5,21 @@
     <meta charset="utf-8" />
     <title>Fisheye homepage</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <link rel="stylesheet" href="./css/style.css" />
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+
+    <!-- Open Graph data -->
+    <meta property="og:title" content="Fisheye homepage" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://www.fisheye.com/home" />
+    <meta property="og:image" content="http://example.com/image.jpg" />
+    <meta property="og:description" content="" />
+
     <!-- Font awesome cdn -->
     <script src="https://kit.fontawesome.com/711ecd1ff8.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="./css/style.css" />
 </head>
 
 <body>
@@ -16,15 +28,8 @@
             <div class="header__logo-wrapper">
                 <a href="#" aria-label="Fisheye Home page"><img src="./assets/logo/logo.png" alt="Fisheye logo"></a>
             </div>
-            <nav class="header__nav" id="header__nav" aria-label="photographer categories" role="navigation">
-                <a href="">#Portrait</a>
-                <a href="">#Art</a>
-                <a href="">#Fashion</a>
-                <a href="">#Architecture</a>
-                <a href="">#Travel</a>
-                <a href="">#Sports</a>
-                <a href="">#Animals</a>
-                <a href="">#Events</a>
+            <nav class="header__nav" id="tags__nav" aria-label="photographer categories" role="navigation">
+                <a href="" class="nav-tag" id="nav-tag"></a>
             </nav>
         </header>
     </div>
@@ -34,19 +39,18 @@
             <h1>Nos photographes</h1>
         </div>
         <div class="homepage-photographers" aria-label="photographers presentation">
-                <div class="photographer">
-                    <a href="" aria-label="" class="photographer__main-block">
-                        <figure role="group" aria-labelledby="">
-                            <img src="" alt="">
-                            <figcaption id=""></figcaption>
-                        </figure>
-                    </a>
-                    <p class="photographer__text></p>
-                    <div class="class="photographer__tags" id="photographer-tags">
-                        
-                    </div>
-
-                </div>
+            <div class="photographer" id="photographer">
+                <a href="" aria-label="" class="photographer__main-block">
+                    <figure role="group" aria-labelledby="">
+                        <img src="" alt="" id="pres-picture">
+                        <figcaption id="name"></figcaption>
+                    </figure>
+                </a>
+                <p class="photographer__location" id="location"></p>
+                <p class="photographer__text" id="tagline"></p>
+                <div class="photographer__tags" id="tags"></div>
+                <p class="photographer__price" id="price"></p>
+            </div>
         </div>
 
     </main>
