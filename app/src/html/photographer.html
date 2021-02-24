@@ -1,0 +1,81 @@
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photographer page</title>
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+
+    <!-- Open Graph data -->
+    <meta property="og:title" content="Photographer page" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://www.fisheye.com/{photographerName}" />
+    <meta property="og:image" content="http://example.com/image.jpg" />
+    <meta property="og:description" content="" />
+
+    <link rel="stylesheet" href="./css/style.css" />
+</head>
+
+<body>
+    <div class="header-wrapper">
+        <header class="header" role="banner">
+            <div class="header__logo-wrapper">
+                <a href="#" aria-label="Fisheye Home page"><img src="./assets/logo/logo.png" alt="Fisheye logo"></a>
+            </div>
+        </header>
+    </div>
+
+    <main id="photographer-content" class="photographer-content-wrapper">
+
+        <section class="photographer" id="photographer" aria-label="photographer presentation">
+            <a href="" aria-label="" class="photographer__main-block">
+                <figure role="group" aria-labelledby="">
+                    <img src="" alt="" id="pres-picture">
+                    <figcaption id="name"></figcaption>
+                </figure>
+            </a>
+            <p class="photographer__location" id="location"></p>
+            <p class="photographer__text" id="tagline"></p>
+            <div class="photographer__tags" id="tags"></div>
+            <div class="bottom-infos" id="bottom-infos">
+                <p class="photographer__likes" id="likes"></p>
+                <p class="photographer__price" id="price"></p>
+            </div>
+        </section>
+
+        <section class="gallery-wrapper" id="gallery-section" aria-label="photographer collection section">
+            <p class="dropdown-menu-title">trier par</p>
+            <nav class="gallery-nav" id="gallery-nav" aria-label="gallery navigation">
+                <ul id="menubar" role="menubar" aria-label="gallery navigation">
+                    <li>
+                        <a role="menuitem" aria-haspopup="true" aria-expanded="false" href="" tabindex="0">popularité</a>
+                    </li>
+                    <li>
+                        <a role="menuitem" aria-haspopup="true" aria-expanded="false" href="" tabindex="0">date</a>
+                    </li>
+                    <li>
+                        <a role="menuitem" aria-haspopup="true" aria-expanded="false" href="" tabindex="0">titre</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <ul class="gallery" id="gallery-collection" aria-label="photo gallery">
+                <li class="photo-item" id="photo-item">
+                    <a aria-label="enlarge photo" href="">
+                        <img src="" alt="">
+                    </a>
+                    <div class="photo-infos" aria-label="photo infos">
+                        <p class="photo-title" id="photo-title"></p>
+                        <p class="photo-price" id="photo-price"></p>
+                        <p class="photo-likes" id="photo-likes"></p>
+                    </div>
+                </li>
+            </ul>     
+        </section>
+    </main>
+    <script src="../index.js"></script>
+</body>
+
+</html>
