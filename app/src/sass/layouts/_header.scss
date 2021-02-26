@@ -4,16 +4,13 @@
 
 .header-wrapper {
     border:1px solid palevioletred;
-    // height:125px;
-/*     display: flex;
-    align-items: center; */
     
     .header {
         background-color: lightcoral;
         height:50px;
         @include flex(row, wrap);
         @include max-1200px { justify-content: space-between; }
-        @include min-1200px { justify-content: unset; }
+        @include min-1200px { width: 80%; justify-content: space-between; }
 
         &__logo-wrapper {
             @include max-1200px{ width:150px; }
@@ -22,11 +19,17 @@
         }
         &__nav {
             background-color: lightskyblue;
+            height: 100%;
             display: flex;
             align-items: center;
             @include max-1200px{ width:100%; @include flex(row, wrap);justify-content: center; margin-top:25px; } 
             @include min-1200px{ width:700px; @include flex(row, nowrap);justify-content: center; } 
-            a { border: 1px solid black; height:20px; margin: 0 1%;}
+            a { 
+                border: 1px solid black; 
+                height:20px; 
+                @include max-1200px {margin: 0 1%;}
+                @include min-1200px {margin: 1%;}
+            }
         }
     }
 }
