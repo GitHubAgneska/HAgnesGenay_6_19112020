@@ -10,28 +10,44 @@ $breakpoints: (xs-mobile: 375px, mobile: 600px, tablet: 768px, laptop: 992px, de
 @mixin max-375px {
     @media screen and (max-width: map-get($breakpoints, xs-mobile )) {
         @content;
-        @include transition(1s);
+        @include transition(all, 1s, ease-in-out);
     }
 }
 /* == from 375  */
 @mixin min-375px {
     @media screen and (min-width: map-get($breakpoints, xs-mobile )) {
         @content;
-        @include transition(1s);
+        @include transition(all, 1s, ease-in-out);
     }
 }
 /* == up to 600  */
 @mixin max-600px {
     @media screen and (max-width: map-get($breakpoints, mobile )) {
         @content;
-        @include transition(1s);
+        @include transition(all, 1s, ease-in-out);
     }
 }
 /* == from 600  */
 @mixin min-600px {
     @media screen and (min-width: map-get($breakpoints, mobile )) {
         @content;
-        @include transition(1s);
+        @include transition(all, 1s, ease-in-out);
+    }
+}
+
+/* == up to 1200  */
+@mixin max-1200px {
+    @media screen and (max-width: map-get($breakpoints, desktop )) {
+        @content;
+        @include transition(all, 1s, ease-in-out);
+    }
+}
+
+/* == from 1200  */
+@mixin min-1200px {
+    @media screen and (min-width: map-get($breakpoints, desktop )) {
+        @content;
+        @include transition(all, 1s, ease-in-out);
     }
 }
 
