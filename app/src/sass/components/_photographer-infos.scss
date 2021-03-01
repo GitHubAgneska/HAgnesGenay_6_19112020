@@ -1,0 +1,36 @@
+/* =============================================== */
+/* PHOTOGRAPHER INFOS RULES  */
+/* =============================================== */
+
+.photographer {
+    &__pic {
+        border-radius:50%;
+        width:12.5em; height:12.5em;
+        /* photographer pic on own page - mobile */
+        &--page { @include max-1200px {width:6.25em; height:6.25em; }} 
+    }
+    &__name {
+        color: $orange-main; text-transform: capitalize;
+        &--home { font-size: 2.25em; }
+        &--page { @include max-1200px{font-size: 2.25em; } @include min-1200px { font-size:4em;} }
+    }
+    &__location {
+        color: $red-main; text-transform: capitalize;
+        &--home {font-size: 0.825em; }
+        &--page { @include max-1200px{font-size: 0.8125em; } @include min-1200px { font-size:1.5em;}}
+    }
+    &__tagline {
+        color: $grey; text-transform: capitalize;
+        &--home {font-size: 0.625em; }
+        &--page {@include max-1200px{font-size: 0.8125em; } @include min-1200px { font-size:1.125em;}}
+    }
+     /* &__tags { } => FYI : see '_nav-tags.scss' */ 
+    
+    /* likes and price  */
+    &__bottom-infos  {
+        color:$dark;
+        font-size: 1.25em;
+        font-weight: 500; 
+    }
+
+}

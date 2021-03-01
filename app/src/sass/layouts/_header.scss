@@ -20,16 +20,7 @@
         &__nav {
             background-color: lightskyblue;
             height: 100%;
-            display: flex;
-            align-items: center;
-            @include max-1200px{ width:100%; @include flex(row, wrap);justify-content: center; margin-top:25px; } 
-            @include min-1200px{ width:700px; @include flex(row, nowrap);justify-content: center; } 
-            a { 
-                border: 1px solid black; 
-                height:20px; 
-                @include max-1200px {margin: 0 1%;}
-                @include min-1200px {margin: 1%;}
-            }
+            /* FYI : see '_nav-tags.scss' */
         }
     }
 }

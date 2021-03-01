@@ -1,0 +1,29 @@
+/* =============================================== */
+/* NAV TAGS RULES  */
+/* =============================================== */
+
+.tags-list { 
+    display: flex;
+    align-items: center;
+    @include max-1200px{ width:100%; @include flex(row, wrap);justify-content: center; margin-top:25px; } 
+    @include min-1200px{ width:700px; @include flex(row, nowrap);justify-content: center; } 
+    .nav-tag { 
+        height:20px; 
+        color: $red-main;
+        font-weight: 500;
+        border: 1px solid $greySpecial;
+        @include border-radius(5px);
+        @include max-1200px {margin: 0 1%;}
+        @include min-1200px {margin: 1%;}
+    }
+    &--home { 
+        .nav-tag {
+            font-size: 0.75em;
+        }
+    }
+    &--page{ 
+        .nav-tag {
+            font-size: 1.125em;
+        }
+    }
+}

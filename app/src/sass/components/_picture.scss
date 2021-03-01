@@ -1,0 +1,28 @@
+/* =============================================== */
+/* GALLERY + PICTURES RULES  */
+/* =============================================== */
+
+
+.gallery { 
+    @include max-1200px {@include flex(row wrap); justify-content: space-between;}
+    @include min-1200px {@include flex(column wrap); }
+
+    .photo-item {
+        @include max-1200px { width: 100%; }
+        @include min-1200px {
+            width: 350px;
+        }
+    
+        .photo-infos {
+            @include flex(row, nowrap);
+            color: $red-main;
+            @include min-1200px { font-size: 1.25em; }
+            .photo-likes, .photo-price { font-weight:500; }
+            @include max-1200px {
+                .photo-title,
+                .photo-likes { font-size: 0.875em;}
+                .photo-price { font-size: 0.75em;}
+            }
+        }
+    }
+}

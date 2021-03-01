@@ -3,6 +3,21 @@
 /* HOMEPAGE FONTS RULES  */
 /* =============================================== */
 
+/* .homepage-title  */
+h1 { 
+    color: $red-main;
+    @include max-1200px { font-size:0.875em; }
+    @include min-1200px { font-size:2.25em; }
+}
+
+/* 'accessibility hint 'passer au contenu' 
+= visible only on hovering main content */
+.nav-help {
+    color:$dark;
+    font-size: 1.125em;
+    font-weight: 700;
+    background-color: $orange-main;
+}
 
 
 
