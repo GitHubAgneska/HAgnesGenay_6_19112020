@@ -4,13 +4,14 @@
 
 .header-wrapper {
     border:1px solid palevioletred;
+    padding-bottom: 3.75em;
     
     .header {
         background-color: lightcoral;
         height:50px;
         @include flex(row, wrap);
         @include max-1200px { justify-content: space-between; }
-        @include min-1200px { width: 80%; justify-content: space-between; }
+        @include min-1200px { width: 75%; justify-content: space-between; }
 
         &__logo-wrapper {
             @include max-1200px{ width:150px; }
@@ -28,8 +29,8 @@
 .homepage-content {
     .homepage-title {
         position: absolute;  /* force page title into header top right */
-        @include max-1200px {right: 25px; top: 25px; }
-        @include min-1200px {right: 75px; top: 35px; }
+        @include max-1200px {right: 1.5em; top: 2.5em }
+        @include min-1200px {right: 4.6em; top: 1.5em; }
         }
     }
 

@@ -6,13 +6,15 @@
 /* .homepage-title  */
 h1 { 
     color: $red-main;
-    @include max-1200px { font-size:0.875em; }
-    @include min-1200px { font-size:2.25em; }
+    @include max-1200px {font-size:0.875em; }
+    @include min-1200px {font-size:2.25em; }
 }
 
 /* 'accessibility hint 'passer au contenu' 
 = visible only on hovering main content */
 .nav-help {
+    position: absolute;
+    top: 0;
     color:$dark;
     font-size: 1.125em;
     font-weight: 700;
@@ -26,7 +28,7 @@ h1 {
 /* =============================================== */
 
 body {
-    background-color: lightyellow;
+   // background-color: lightyellow;
     @include max-1200px { margin: 35px 15px; }
     @include min-1200px { margin: 45px 70px; }
 }

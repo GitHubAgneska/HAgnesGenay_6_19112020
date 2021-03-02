@@ -15,14 +15,14 @@
     <meta property="og:image" content="http://example.com/image.jpg" />
     <meta property="og:description" content="" />
 
-    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="../css/style.css" />
 </head>
 
 <body>
     <div class="header-wrapper">
         <header class="header" role="banner">
             <div class="header__logo-wrapper">
-                <a href="../index.html" aria-label="Fisheye Home page"><img src="./assets/logo/logo.png" alt="Fisheye logo"></a>
+                <a href="../index.html" aria-label="Fisheye Home page"><img src="../assets/logo/logo.png" alt="Fisheye logo"></a>
             </div>
         </header>
     </div>
@@ -30,15 +30,21 @@
     <main id="photographer-content" class="photographer-content-wrapper">
 
         <section>
-            <div class="photographer" id="photographer" aria-label="photographer presentation">
-                <img class="photographer__pic--page" src="" alt="" id="pres-picture">
-                <h1 class="photographer__name--page" id="name"></h1>
-                <h2 class="photographer__location--page" id="location"></h2>
-                <h3 class="photographer__tagline--page" id="tagline"></h3>
-                <div class="photographer__tags-list--page tags-list--page" id="tags"></div>
+            <div class="photographer photographer--page" id="photographer" aria-label="photographer presentation">
+                <img class="photographer__pic page" src="../assets/img/Photographers_ID_photos/S/EllieRoseWilkens_S.jpg" alt="" id="pres-picture">
+                <div class="photographer__text-infos">
+                    <h1 class="photographer__name page" id="name">name</h1>
+                    <h2 class="photographer__location page" id="location">location</h2>
+                    <h3 class="photographer__tagline page" id="tagline">tagline</h3>
+                    <div class="photographer__tags-list tags-list page" id="tags">
+                        <a href="" class="nav-tag" id="nav-tag">ABCD</a>
+                        <a href="" class="nav-tag" id="nav-tag">EFGH</a>
+                        <a href="" class="nav-tag" id="nav-tag">IJKL</a>
+                    </div>
+                </div>
                 <div class="photographer__bottom-infos" id="bottom-infos">
-                    <h4 class="photographer__likes" id="likes"></h4>
-                    <h4 class="photographer__price" id="price"></h4>
+                    <h4 class="photographer__likes" id="likes">45 667</h4>
+                    <h4 class="photographer__price" id="price">78€</h4>
                 </div>
             </div> 
         </section>
@@ -62,12 +68,12 @@
             <ul class="gallery" id="gallery-collection" aria-label="photo gallery">
                 <li class="photo-item" id="photo-item">
                     <a aria-label="enlarge photo" href="">
-                        <img src="" alt="">
+                        <img src="../assets/img/Ellie Rose/S/Architecture_Connected_Curves_S.jpg" alt="">
                     </a>
                     <div class="photo-infos" aria-label="photo infos">
-                        <h5 class="photo-title" id="photo-title"></h5>
-                        <h5 class="photo-price" id="photo-price"></h5>
-                        <h5 class="photo-likes" id="photo-likes"></h5>
+                        <h5 class="photo-title" id="photo-title">pic title</h5>
+                        <h5 class="photo-price" id="photo-price">pic price</h5>
+                        <h5 class="photo-likes" id="photo-likes">12</h5>
                         <img class="like-icon" src="../assets/icons/heart-icon.png" alt="heart icon">
                     </div>
                 </li>

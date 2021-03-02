@@ -3,26 +3,32 @@
 /* =============================================== */
 
 
-.gallery { 
-    @include max-1200px {@include flex(row wrap); justify-content: space-between;}
-    @include min-1200px {@include flex(column wrap); }
+.gallery {
+    background-color: lightseagreen;
+    width: 100%;
+    @include max-1200px {@include flex(row, wrap); justify-content: space-between;}
+    @include min-1200px {@include flex(column, wrap); }
 
     .photo-item {
+        border: 1px lightcoral;
         @include max-1200px { width: 100%; }
         @include min-1200px {
-            width: 350px;
-        }
-    
-        .photo-infos {
-            @include flex(row, nowrap);
-            color: $red-main;
-            @include min-1200px { font-size: 1.25em; }
-            .photo-likes, .photo-price { font-weight:500; }
-            @include max-1200px {
-                .photo-title,
-                .photo-likes { font-size: 0.875em;}
-                .photo-price { font-size: 0.75em;}
+            width: 350px;height:350px;
+
+            img { max-width:100%; height:auto; background-color: blueviolet;}
+
+            .photo-infos {
+                @include flex(row, nowrap);
+                color: $red-main;
+                @include min-1200px { font-size: 1.25em; }
+                .photo-likes, .photo-price { font-weight:500; }
+                @include max-1200px {
+                    .photo-title,
+                    .photo-likes { font-size: 0.875em;}
+                    .photo-price { font-size: 0.75em;}
+                }
             }
         }
+    
     }
 }

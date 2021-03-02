@@ -3,34 +3,53 @@
 /* =============================================== */
 
 .photographer {
+    border:2px solid red;
+    
+    &--home {
+        @include min-600px { width:400px;}
+        @include flex(column, nowrap);text-align: center;padding:1em;
+
+    }
+    &--page{ 
+        width:100%;
+        @include flex(row-reverse, nowrap);
+        justify-content: space-between; align-items: center;
+        @include min-600px{ padding: 25px; }
+        @include min-1200px { padding: 45px; background-color:$lightgrey;}
+    }
     &__pic {
         border-radius:50%;
-        width:12.5em; height:12.5em;
-        /* photographer pic on own page - mobile */
-        &--page { @include max-1200px {width:6.25em; height:6.25em; }} 
+        object-fit: cover;
+        &.home {width:12.5em; height:12.5em;} 
+        &.page {@include max-1200px {width:6.25em; height:6.25em;}@include min-1200px{width:12.5em; height:12.5em;}}
     }
     &__name {
         color: $orange-main; text-transform: capitalize;
-        &--home { font-size: 2.25em; }
-        &--page { @include max-1200px{font-size: 2.25em; } @include min-1200px { font-size:4em;} }
+        &.home { font-size: 2.25em; }
+        &.page { @include max-1200px{font-size: 2.25em; } @include min-1200px {font-size:4em;} }
     }
     &__location {
         color: $red-main; text-transform: capitalize;
-        &--home {font-size: 0.825em; }
-        &--page { @include max-1200px{font-size: 0.8125em; } @include min-1200px { font-size:1.5em;}}
+        &.home {font-size: 0.825em;text-transform: capitalize; }
+        &.page { @include max-1200px{font-size: 0.8125em; } @include min-1200px {font-size:1.5em;}}
     }
     &__tagline {
         color: $grey; text-transform: capitalize;
-        &--home {font-size: 0.625em; }
-        &--page {@include max-1200px{font-size: 0.8125em; } @include min-1200px { font-size:1.125em;}}
+        &.home {font-size: 0.625em; }
+        &.page {@include max-1200px{font-size: 0.8125em; } @include min-1200px {font-size:1.125em;}}
     }
+    &__price {
+        &.home{color: $lightgrey;font-size: 0.5625em;}}
      /* &__tags { } => FYI : see '_nav-tags.scss' */ 
     
     /* likes and price  */
     &__bottom-infos  {
         color:$dark;
+        background-color:$orange-main;
         font-size: 1.25em;
-        font-weight: 500; 
+        font-weight: 500;
+        position: absolute;
+        bottom: 0;
     }
 
 }
