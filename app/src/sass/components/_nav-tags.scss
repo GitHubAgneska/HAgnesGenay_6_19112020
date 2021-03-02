@@ -3,25 +3,26 @@
 /* =============================================== */
 
 .tags-list { 
-    background-color: lightgreen;
+    // border:1px solid lightgreen;
     display: flex;
     align-items: center;
     flex:auto; // takes whatever x space is left
-    
-    @include max-1200px{ width:100%; @include flex(row, wrap);justify-content: center; margin-top:25px; } 
-    @include min-1200px{ @include flex(row, nowrap);justify-content: center; } 
+
+    // up to 1200 nav takes the whole width
+    @include max-1200px{ width:100%; @include flex(row, wrap);justify-content: center; }
+    // from 1200 nav will wrap to next line 
+    @include min-1200px{ @include flex(row, nowrap);justify-content: center; margin: 0 80px;} 
     .nav-tag { 
-        background-color: green;
-        height:1.25em; 
+        padding: 0.1em 0.5em;
         color: $red-main;
-        font-weight: 500;
+        font-weight: 500;text-transform: capitalize;
         border: 1px solid $greySpecial;
-        @include border-radius(5px);
+        @include border-radius(10px);
         @include max-1200px {margin: 0 1%;}
         @include min-1200px {margin: 1%;}
-
     }
-    &--home { 
+    &--home {
+        @include max-1200px{ margin:25px auto; } 
         .nav-tag {
             font-size: 0.75em;
         }
@@ -31,4 +32,9 @@
             font-size: 1.125em;
         }
     }
+}
+
+/* navigation tags inside photographer profile  HOME */
+.photographer__tags-list {
+    margin:5px auto;
 }

@@ -6,9 +6,9 @@
     border:2px solid red;
     
     &--home {
-        @include min-600px { width:400px;}
-        @include flex(column, nowrap);text-align: center;padding:1em;
-
+        @include flex(column, nowrap);text-align: center;
+        @include max-600px { flex-basis:100%;}
+        @include min-600px { flex-basis:30%;}
     }
     &--page{ 
         width:100%;
@@ -20,26 +20,26 @@
     &__pic {
         border-radius:50%;
         object-fit: cover;
-        &.home {width:12.5em; height:12.5em;} 
+        &.home {width:12.5em; height:12.5em; margin:1em auto;} 
         &.page {@include max-1200px {width:6.25em; height:6.25em;}@include min-1200px{width:12.5em; height:12.5em;}}
     }
     &__name {
         color: $orange-main; text-transform: capitalize;
-        &.home { font-size: 2.25em; }
+        &.home { font-size: 2.25em; margin: 0; }
         &.page { @include max-1200px{font-size: 2.25em; } @include min-1200px {font-size:4em;} }
     }
     &__location {
         color: $red-main; text-transform: capitalize;
-        &.home {font-size: 0.825em;text-transform: capitalize; }
+        &.home {font-size: 0.825em;text-transform: capitalize; margin:0.15em auto; }
         &.page { @include max-1200px{font-size: 0.8125em; } @include min-1200px {font-size:1.5em;}}
     }
     &__tagline {
         color: $grey; text-transform: capitalize;
-        &.home {font-size: 0.625em; }
+        &.home {font-size: 0.625em; margin:0.375em auto; }
         &.page {@include max-1200px{font-size: 0.8125em; } @include min-1200px {font-size:1.125em;}}
     }
     &__price {
-        &.home{color: $lightgrey;font-size: 0.5625em;}}
+        &.home{color: $grey2;font-size: 0.5625em; margin:0;}}
      /* &__tags { } => FYI : see '_nav-tags.scss' */ 
     
     /* likes and price  */

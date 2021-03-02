@@ -29,6 +29,13 @@ h1 {
 
 body {
    // background-color: lightyellow;
-    @include max-1200px { margin: 35px 15px; }
-    @include min-1200px { margin: 45px 70px; }
+    @include max-1200px { margin: 0 20px; }
+    @include min-1200px { margin: 0 35px; }
+}
+
+/* home photographers list presentation */
+.photographers { 
+    @include flex(row, wrap); // list will always unfold as a row
+    @include max-600px { margin:1.5em 0;}
+    @include min-600px { margin:3.75em 0;}
 }

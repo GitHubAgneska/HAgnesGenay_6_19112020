@@ -3,23 +3,24 @@
 /* ================================== */
 
 .header-wrapper {
-    border:1px solid palevioletred;
+    // border:1px solid palevioletred;background-color:lightcyan;
     padding-bottom: 3.75em;
-    
+    @include min-1200px { height:110px;}
+
     .header {
-        background-color: lightcoral;
-        height:50px;
-        @include flex(row, wrap);
-        @include max-1200px { justify-content: space-between; }
-        @include min-1200px { width: 75%; justify-content: space-between; }
+        // border:1px solid lightcoral; 
+        height:50px;margin:30px 0;
+        @include flex(row, wrap);justify-content: space-between;align-items:center;
+        @include max-1200px {align-items:center;}
+        @include min-1200px { width: 75%;}
 
         &__logo-wrapper {
             @include max-1200px{ width:150px; }
-            @include min-1200px{ width:200px; }
+            @include min-1200px{ width:200px;margin-left:80px; }
             img { max-width: 100%;}
         }
         &__nav {
-            background-color: lightskyblue;
+            // border:1px solid lightskyblue;
             height: 100%;
             /* FYI : see '_nav-tags.scss' */
         }
@@ -29,8 +30,10 @@
 .homepage-content {
     .homepage-title {
         position: absolute;  /* force page title into header top right */
-        @include max-1200px {right: 1.5em; top: 2.5em }
-        @include min-1200px {right: 4.6em; top: 1.5em; }
-        }
+        height: 50px;top: 3em;
+        @include max-1200px {right: 1.5em;  }
+        @include min-1200px {right: 4.6em; }
+        h1 { margin:0;}
     }
+}
 

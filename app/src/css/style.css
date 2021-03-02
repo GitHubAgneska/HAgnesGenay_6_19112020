@@ -4,7 +4,8 @@
 /* base */
 /* name */
 /* location */
-/* tagline txt / price txt */
+/* tagline txt /  */
+/* price txt */
 /* navtag border */
 /* bg infos block */
 /* buttons  */
@@ -140,11 +141,20 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   flex-flow: column nowrap;
   text-align: center;
-  padding: 1em;
+}
+@media screen and (max-width: 600px) {
+  .photographer--home {
+    flex-basis: 100%;
+    transition: all 1s ease-in-out;
+    -webkit-transition: all 1s ease-in-out;
+    -ms-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+  }
 }
 @media screen and (min-width: 600px) {
   .photographer--home {
-    width: 400px;
+    flex-basis: 30%;
     transition: all 1s ease-in-out;
     -webkit-transition: all 1s ease-in-out;
     -ms-transition: all 1s ease-in-out;
@@ -187,6 +197,7 @@ h1, h2, h3, h4, h5, h6 {
 .photographer__pic.home {
   width: 12.5em;
   height: 12.5em;
+  margin: 1em auto;
 }
 @media screen and (max-width: 1200px) {
   .photographer__pic.page {
@@ -216,6 +227,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .photographer__name.home {
   font-size: 2.25em;
+  margin: 0;
 }
 @media screen and (max-width: 1200px) {
   .photographer__name.page {
@@ -244,6 +256,7 @@ h1, h2, h3, h4, h5, h6 {
 .photographer__location.home {
   font-size: 0.825em;
   text-transform: capitalize;
+  margin: 0.15em auto;
 }
 @media screen and (max-width: 1200px) {
   .photographer__location.page {
@@ -271,6 +284,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .photographer__tagline.home {
   font-size: 0.625em;
+  margin: 0.375em auto;
 }
 @media screen and (max-width: 1200px) {
   .photographer__tagline.page {
@@ -293,8 +307,9 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 .photographer__price.home {
-  color: #FAFAFA;
+  color: #757575;
   font-size: 0.5625em;
+  margin: 0;
 }
 .photographer__bottom-infos {
   color: #0000;
@@ -405,7 +420,6 @@ h1, h2, h3, h4, h5, h6 {
 /* NAV TAGS RULES  */
 /* =============================================== */
 .tags-list {
-  background-color: lightgreen;
   display: flex;
   align-items: center;
   flex: auto;
@@ -416,7 +430,6 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
-    margin-top: 25px;
     transition: all 1s ease-in-out;
     -webkit-transition: all 1s ease-in-out;
     -ms-transition: all 1s ease-in-out;
@@ -429,6 +442,7 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
+    margin: 0 80px;
     transition: all 1s ease-in-out;
     -webkit-transition: all 1s ease-in-out;
     -ms-transition: all 1s ease-in-out;
@@ -437,12 +451,12 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 .tags-list .nav-tag {
-  background-color: green;
-  height: 1.25em;
+  padding: 0.1em 0.5em;
   color: #901C1C;
   font-weight: 500;
+  text-transform: capitalize;
   border: 1px solid #C4C4C4;
-  border-radius: 5px;
+  border-radius: 10px;
 }
 @media screen and (max-width: 1200px) {
   .tags-list .nav-tag {
@@ -464,6 +478,16 @@ h1, h2, h3, h4, h5, h6 {
     -o-transition: all 1s ease-in-out;
   }
 }
+@media screen and (max-width: 1200px) {
+  .tags-list--home {
+    margin: 25px auto;
+    transition: all 1s ease-in-out;
+    -webkit-transition: all 1s ease-in-out;
+    -ms-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+  }
+}
 .tags-list--home .nav-tag {
   font-size: 0.75em;
 }
@@ -471,22 +495,38 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 1.125em;
 }
 
+/* navigation tags inside photographer profile  HOME */
+.photographer__tags-list {
+  margin: 5px auto;
+}
+
 /* ================================== */
 /* HEADER */
 /* ================================== */
 .header-wrapper {
-  border: 1px solid palevioletred;
   padding-bottom: 3.75em;
 }
+@media screen and (min-width: 1200px) {
+  .header-wrapper {
+    height: 110px;
+    transition: all 1s ease-in-out;
+    -webkit-transition: all 1s ease-in-out;
+    -ms-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+  }
+}
 .header-wrapper .header {
-  background-color: lightcoral;
   height: 50px;
+  margin: 30px 0;
   display: flex;
   flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
 }
 @media screen and (max-width: 1200px) {
   .header-wrapper .header {
-    justify-content: space-between;
+    align-items: center;
     transition: all 1s ease-in-out;
     -webkit-transition: all 1s ease-in-out;
     -ms-transition: all 1s ease-in-out;
@@ -497,7 +537,6 @@ h1, h2, h3, h4, h5, h6 {
 @media screen and (min-width: 1200px) {
   .header-wrapper .header {
     width: 75%;
-    justify-content: space-between;
     transition: all 1s ease-in-out;
     -webkit-transition: all 1s ease-in-out;
     -ms-transition: all 1s ease-in-out;
@@ -518,6 +557,7 @@ h1, h2, h3, h4, h5, h6 {
 @media screen and (min-width: 1200px) {
   .header-wrapper .header__logo-wrapper {
     width: 200px;
+    margin-left: 80px;
     transition: all 1s ease-in-out;
     -webkit-transition: all 1s ease-in-out;
     -ms-transition: all 1s ease-in-out;
@@ -529,7 +569,6 @@ h1, h2, h3, h4, h5, h6 {
   max-width: 100%;
 }
 .header-wrapper .header__nav {
-  background-color: lightskyblue;
   height: 100%;
   /* FYI : see '_nav-tags.scss' */
 }
@@ -537,11 +576,12 @@ h1, h2, h3, h4, h5, h6 {
 .homepage-content .homepage-title {
   position: absolute;
   /* force page title into header top right */
+  height: 50px;
+  top: 3em;
 }
 @media screen and (max-width: 1200px) {
   .homepage-content .homepage-title {
     right: 1.5em;
-    top: 2.5em;
     transition: all 1s ease-in-out;
     -webkit-transition: all 1s ease-in-out;
     -ms-transition: all 1s ease-in-out;
@@ -552,13 +592,15 @@ h1, h2, h3, h4, h5, h6 {
 @media screen and (min-width: 1200px) {
   .homepage-content .homepage-title {
     right: 4.6em;
-    top: 1.5em;
     transition: all 1s ease-in-out;
     -webkit-transition: all 1s ease-in-out;
     -ms-transition: all 1s ease-in-out;
     -moz-transition: all 1s ease-in-out;
     -o-transition: all 1s ease-in-out;
   }
+}
+.homepage-content .homepage-title h1 {
+  margin: 0;
 }
 
 /* =============================================== */
@@ -605,7 +647,7 @@ h1 {
 /* =============================================== */
 @media screen and (max-width: 1200px) {
   body {
-    margin: 35px 15px;
+    margin: 0 20px;
     transition: all 1s ease-in-out;
     -webkit-transition: all 1s ease-in-out;
     -ms-transition: all 1s ease-in-out;
@@ -615,7 +657,33 @@ h1 {
 }
 @media screen and (min-width: 1200px) {
   body {
-    margin: 45px 70px;
+    margin: 0 35px;
+    transition: all 1s ease-in-out;
+    -webkit-transition: all 1s ease-in-out;
+    -ms-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+  }
+}
+
+/* home photographers list presentation */
+.photographers {
+  display: flex;
+  flex-flow: row wrap;
+}
+@media screen and (max-width: 600px) {
+  .photographers {
+    margin: 1.5em 0;
+    transition: all 1s ease-in-out;
+    -webkit-transition: all 1s ease-in-out;
+    -ms-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+  }
+}
+@media screen and (min-width: 600px) {
+  .photographers {
+    margin: 3.75em 0;
     transition: all 1s ease-in-out;
     -webkit-transition: all 1s ease-in-out;
     -ms-transition: all 1s ease-in-out;
