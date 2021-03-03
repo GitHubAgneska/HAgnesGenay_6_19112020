@@ -479,7 +479,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 @media screen and (max-width: 1200px) {
-  .tags-list--home {
+  .tags-list.home {
     margin: 25px auto;
     transition: all 1s ease-in-out;
     -webkit-transition: all 1s ease-in-out;
@@ -488,10 +488,10 @@ h1, h2, h3, h4, h5, h6 {
     -o-transition: all 1s ease-in-out;
   }
 }
-.tags-list--home .nav-tag {
+.tags-list.home .nav-tag {
   font-size: 0.75em;
 }
-.tags-list--page .nav-tag {
+.tags-list.page .nav-tag {
   font-size: 1.125em;
 }
 
@@ -577,11 +577,11 @@ h1, h2, h3, h4, h5, h6 {
   position: absolute;
   /* force page title into header top right */
   height: 50px;
-  top: 3em;
 }
 @media screen and (max-width: 1200px) {
   .homepage-content .homepage-title {
     right: 1.5em;
+    top: 2.5em;
     transition: all 1s ease-in-out;
     -webkit-transition: all 1s ease-in-out;
     -ms-transition: all 1s ease-in-out;
@@ -592,6 +592,7 @@ h1, h2, h3, h4, h5, h6 {
 @media screen and (min-width: 1200px) {
   .homepage-content .homepage-title {
     right: 4.6em;
+    top: 2em;
     transition: all 1s ease-in-out;
     -webkit-transition: all 1s ease-in-out;
     -ms-transition: all 1s ease-in-out;

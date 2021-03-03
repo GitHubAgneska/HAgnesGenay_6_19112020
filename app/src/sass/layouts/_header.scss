@@ -23,6 +23,7 @@
             // border:1px solid lightskyblue;
             height: 100%;
             /* FYI : see '_nav-tags.scss' */
+            @include max-1200px{ margin:25px auto; } 
         }
     }
 }
@@ -30,9 +31,9 @@
 .homepage-content {
     .homepage-title {
         position: absolute;  /* force page title into header top right */
-        height: 50px;top: 3em;
-        @include max-1200px {right: 1.5em;  }
-        @include min-1200px {right: 4.6em; }
+        height: 50px;
+        @include max-1200px {right: 1.5em; top: 2.5em;}
+        @include min-1200px {right: 4.6em; top: 2em;}
         h1 { margin:0;}
     }
 }

@@ -21,13 +21,13 @@
         @include max-1200px {margin: 0 1%;}
         @include min-1200px {margin: 1%;}
     }
-    &--home {
-        @include max-1200px{ margin:25px auto; } 
+    &.home {
+        // @include max-1200px{ margin:25px auto; } 
         .nav-tag {
             font-size: 0.75em;
         }
     }
-    &--page{ 
+    &.page{ 
         .nav-tag {
             font-size: 1.125em;
         }
