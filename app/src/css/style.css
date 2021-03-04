@@ -11,6 +11,9 @@
 /* buttons  */
 /* nav tag links  */
 /* ======================================== */
+/* MIXINS */
+/* ======================================== */
+/* ======================================== */
 /* BREAKPOINTS*/
 /* ======================================== */
 /* == up to 375  */
@@ -478,16 +481,6 @@ h1, h2, h3, h4, h5, h6 {
     -o-transition: all 1s ease-in-out;
   }
 }
-@media screen and (max-width: 1200px) {
-  .tags-list.home {
-    margin: 25px auto;
-    transition: all 1s ease-in-out;
-    -webkit-transition: all 1s ease-in-out;
-    -ms-transition: all 1s ease-in-out;
-    -moz-transition: all 1s ease-in-out;
-    -o-transition: all 1s ease-in-out;
-  }
-}
 .tags-list.home .nav-tag {
   font-size: 0.75em;
 }
@@ -571,6 +564,16 @@ h1, h2, h3, h4, h5, h6 {
 .header-wrapper .header__nav {
   height: 100%;
   /* FYI : see '_nav-tags.scss' */
+}
+@media screen and (max-width: 1200px) {
+  .header-wrapper .header__nav {
+    margin: 25px auto;
+    transition: all 1s ease-in-out;
+    -webkit-transition: all 1s ease-in-out;
+    -ms-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+  }
 }
 
 .homepage-content .homepage-title {
