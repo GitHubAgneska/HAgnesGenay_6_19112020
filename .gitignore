@@ -1,6 +1,8 @@
 node_modules/
 /.sass-cachenode_modules/
+dist
 
 *.log
 log.txt
 npm-debug.log*
+
