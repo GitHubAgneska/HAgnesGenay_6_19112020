@@ -1,6 +1,6 @@
 // PHOTOGRAPHER CUSTOM HTML ELEMENT
 
-class Photographer extends HTMLElement {
+export class Photographer extends HTMLElement {
     constructor() {
         super();
 

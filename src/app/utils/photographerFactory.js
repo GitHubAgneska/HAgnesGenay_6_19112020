@@ -1,6 +1,6 @@
 
 // PhotographerModel constructor
-function PhotographerModel(properties) {
+export function PhotographerModel(properties) {
 
     this.photographerName = properties.photographerName;
     this.idPicUrl = properties.idPicUrl;
@@ -25,6 +25,5 @@ PhotographerFactory.prototype.createPhotographer = function (properties) {
     // if ( options.whatever === "xxx") { this.photographerClass = yyyy } etc
     return new this.photographerClass(properties);
 }
-// 3/ Create an instance of factory that makes photographers
-var photographerFact = new PhotographerFactory();
-var photog = photographerFact.createPhotographer(properties);
+
+
