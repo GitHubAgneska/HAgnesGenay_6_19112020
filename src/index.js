@@ -1,4 +1,5 @@
 import { startInitHomePage } from './app/app';
+import "./main.scss";
 import { Photographer } from './app/utils/photographer';
 import { PhotographerModel, PhotographerFactory } from './app/utils/photographerFactory';
 
