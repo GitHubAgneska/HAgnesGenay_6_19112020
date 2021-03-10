@@ -1,17 +1,17 @@
-@import "../sass/utils/variables";
+@import "../src/sass/utils/variables";
 // @import "../sass/utils/functions";
-@import "../sass/utils/mixins";
+@import "../src/sass/utils/mixins";
 
-@import "../sass/base/fonts";
-@import "../sass/base/main-rules"; 
+@import "../src/sass/base/fonts";
+@import "../src/sass/base/main-rules"; 
 
-@import "../sass/components/main-btn";
-@import "../sass/components/photographer-infos";
-@import "../sass/components/picture";
-@import "../sass/components/nav-tags";
+@import "../src/sass/components/main-btn";
+@import "../src/sass/components/photographer-infos";
+@import "../src/sass/components/picture";
+@import "../src/sass/components/nav-tags";
 
-@import "../sass/layouts/header";
-@import "../sass/layouts/modal";
+@import "../src/sass/layouts/header";
+@import "../src/sass/layouts/modal";
 
-@import "../sass/pages/homepage";
-@import "../sass/pages/photographer-page";
+@import "../src/sass/pages/homepage";
+@import "../src/sass/pages/photographer-page";

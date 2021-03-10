@@ -1,9 +1,12 @@
 // PHOTOGRAPHER CUSTOM HTML ELEMENT
 
+// Define what a photographer custom element object should be
 export class Photographer extends HTMLElement {
     constructor() {
         super();
 
+        // alert('Photographer class called!');
+        
         // retrieve data to inject into template
         // ( mock data )
         const photographerName = 'test';
@@ -16,7 +19,7 @@ export class Photographer extends HTMLElement {
         // link component to main stylesheet
         const style = document.createElement('link');
         style.setAttribute('rel', 'stylesheet');
-        style.setAttribute('href', './css/style.css');
+        style.setAttribute('href', 'main.scss');  // .css ?
 
         // create a shadow root
         const shadow = this.attachShadow({mode: 'open'});
@@ -35,7 +38,9 @@ export class Photographer extends HTMLElement {
         photographerMainBlock.setAttribute('class', 'photographer__main-block');
         photographerMainBlock.innerHTML = `
             <a href="${photographerPageUrl}" aria-label="go to ${photographerName} page">
-                <img class="photographer__pic home" src="${idPicUrl}" alt="${photographerName} presentation picture" id="${photographerName}-pres-picture">
+                <img class="photographer__pic home" 
+                    src="${idPicUrl}" alt="${photographerName} presentation picture" 
+                    id="${photographerName}-pres-picture">
                 <h2 class="photographer__name home" id="${photographerName}">${photographerName}</h2>
             </a>
             `;
