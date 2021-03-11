@@ -22,9 +22,15 @@ module.exports = merge(common, {
                 use: [
                     "style-loader", // 3 - inject <style> in DOM (≠ prod where separate bundle css file with mini-css-extract-plugin)
                     "css-loader",   // 2 - css => js
+                    "postcss-loader", // 1B - 
                     "sass-loader"   // 1 - scss => css
                 ]
             }
         ]
+    },
+    devtool: "source-map", // makes bundled main.js more readable in browser devtools to debug, using source code and not transpiled code
+    devServer: {
+        contentBase: "./dist",
+        hot: true // hot reloading : live dom changes when touching scss -- could also be used as 'serve --hot' flag
     }
 });
