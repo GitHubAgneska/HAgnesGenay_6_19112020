@@ -1,21 +1,10 @@
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+
 const path = require("path");
 
 module.exports = {
-    entry: "./src/index.js",
-    plugins: [new HtmlWebpackPlugin({
-        template: "./src/template.html", // use this template to generate dist/html and inside include script "main.[contenthash].js"
-    })],
+    entry: "./src/index.js", // or { main: "./src/index.js", vendor:"./src/vendor.js", ..  } for multiple entry points
     module: {
         rules: [
-            {
-                test: /\.scss$/,
-                use: [
-                    "style-loader", // 3 - inject <style> in DOM
-                    "css-loader",   // 2 - css => js
-                    "sass-loader"   // 1 - scss => css
-                ]
-            },
             {
                 test: /\.html$/,
                 use: ["html-loader"]
