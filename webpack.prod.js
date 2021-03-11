@@ -7,8 +7,11 @@ const OptimizeCssWebpackPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin'); // present by default in node-modules
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+// const target = "web";  => see target attr below
+
 module.exports = merge(common, {
     mode: "production",
+    // target: "browserslist", => works with custom .browserslistrc file, made for babel and postcss loaders (vendor prefixes)
     output: {
         filename: "main.[contenthash].js",  // .[contenthash] = cache busting (generates new main.---.js at every change )
         path: path.resolve(__dirname, "dist")

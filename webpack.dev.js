@@ -18,7 +18,7 @@ module.exports = merge(common, {
     module: {
         rules: [
             {
-                test: /\.scss$/,
+                test: /\.(s[ac]|c)ss$/i,
                 use: [
                     "style-loader", // 3 - inject <style> in DOM (≠ prod where separate bundle css file with mini-css-extract-plugin)
                     "css-loader",   // 2 - css => js

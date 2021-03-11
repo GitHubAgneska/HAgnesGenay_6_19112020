@@ -30,6 +30,16 @@ module.exports = {
                         outputPath: "imgs"
                     }
                 }
+            },
+            {
+                test: /\.(woff|ttf|otf|eot|woff2)$/i,
+                use: { 
+                    loader: "file-loader",
+                    options: {
+                        name: "[name].[hash].[ext]",
+                        outputPath: "fonts"
+                    }
+                }   
             }
         ]
     }
