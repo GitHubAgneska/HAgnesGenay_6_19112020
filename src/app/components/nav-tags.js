@@ -29,8 +29,9 @@ export class NavTags extends HTMLElement {
 
         // link component to main stylesheet  ============> ! does not work in webpack
         const navstyle = document.createElement('link');
-        navstyle.setAttribute('rel', 'stylesheet');
+        // navstyle.setAttribute('rel', 'stylesheet');  //======> else nodejs bug 'type mismatch'
         navstyle.setAttribute('href', './css/style.css');
+        navstyle.setAttribute('type', 'text/css');
 
         // populate nav section with tags, list depending on context :
         // (home nav or photographer profile tags nav)

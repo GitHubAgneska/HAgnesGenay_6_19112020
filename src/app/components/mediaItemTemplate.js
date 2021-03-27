@@ -10,8 +10,9 @@
 
             // link component to main stylesheet  ============> does not work in webpack
             const stylePhoto = document.createElement('link');
-            stylePhoto.setAttribute('rel', 'stylesheet');
+            // stylePhoto.setAttribute('rel', 'stylesheet'); //======> else nodejs bug 'type mismatch'
             stylePhoto.setAttribute('href', './css/style.css');
+            stylePhoto.setAttribute('type', 'text/css');
 
             // create a shadow root
             const shadow4 = this.attachShadow({mode: 'open'});

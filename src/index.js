@@ -41,7 +41,7 @@ function initializeMainNav(tagslistMainNav) {
     // generate new navtag from navTags custom html element, with whole tags list as param
     var headerNav = new NavTags(tagslistMainNav);
     // attach component to parent
-    mainNavContainer.appendChild(headerNav);
+    window.onload = () => mainNavContainer.appendChild(headerNav);
 }
 
 // Call init main nav
@@ -73,7 +73,7 @@ function initializeApp(photographers, media) {
             photographer.price,
             photographer.bottomLikes,
             photographer.tags, photographer.tagsTemplate,
-            photographer.template = new PhotographerTemplateHome(photographer.id),
+            photographer.template = new PhotographerTemplateHome(photographer.name),
             photographer.photographerMedia = []
         );
         myphotographers.push(photographer);

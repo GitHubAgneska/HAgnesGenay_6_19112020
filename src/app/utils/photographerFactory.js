@@ -22,7 +22,7 @@ export const ArtistFactory = (properties) => {
     return { properties };
 } */
 
-
+import { Photographer } from '../utils/photographer-model';
 
 export function PhotographerFactory() {
     this.create = ( id, name, ...args) => {

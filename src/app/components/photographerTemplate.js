@@ -2,14 +2,15 @@
     // PHOTOGRAPHER CUSTOM HTML ELEMENT - HOME : how each photographer component is generated
     // ---------------------------------------------------------------------------------------
     export class PhotographerTemplateHome extends HTMLElement {
-        constructor() {
+        constructor(photographer) {
             super();
 
             // uses photographer model -------
             // link component to main stylesheet  ============> does not work in webpack
             const styleHome = document.createElement('link');
-            styleHome.setAttribute('rel', 'stylesheet');
+            // styleHome.setAttribute('rel', 'stylesheet'); //======> else nodejs bug 'type mismatch'
             styleHome.setAttribute('href', './css/style.css');
+            styleHome.setAttribute('type', 'text/css');
 
             // create a shadow root
             const shadow = this.attachShadow({mode: 'open'});
@@ -17,11 +18,14 @@
             // create photographer component main container div
             const photographerWrapperHome = document.createElement('div');
 
+             // set up which photogtapher is passed as param
+            this.attributes.currentPhotographer = photographer;
+
             // set photographer main container div attributes/properties
             photographerWrapperHome.setAttribute('class', 'photographer photographer--home');
             photographerWrapperHome.setAttribute('id', 'photographer-'+ photographer.name); // + name
             photographerWrapperHome.setAttribute('aria-label', photographer.name + ' presentation');
-
+            
 
             // create clickable photographer main presentation block (name+pic)
             const photographerMainBlock = photographerWrapperHome.appendChild(document.createElement('div'));
@@ -47,11 +51,11 @@
             `;
 
             // generate new tagslists custom element template (using Navtags custom html element)
-            const photographerTagsList = new NavTags();
+            // const photographerTagsList = new NavTags();
             // inject data into it ====> done as attribute setting IN Navtag class
 
             // attach navtags component to photographer profile
-            photographerWrapperHome.appendChild(photographerTagsList);
+            // photographerWrapperHome.appendChild(photographerTagsList);
 
             // Attach stylesheet to component
             shadow.appendChild(styleHome);
