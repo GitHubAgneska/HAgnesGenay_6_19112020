@@ -1,18 +1,16 @@
-import { Photographer } from './utils/photographer';
-import { PhotographerModel, PhotographerFactory } from './utils/photographerFactory';
-
+import { Photographer } from './components/photographerTemplate';
+import { NavTags } from './components/nav-tags';
 
 // Create an instance of factory that makes photographers
-var photographerFact = new PhotographerFactory();
+// var photographerFact = new PhotographerFactory();
 // var photog = photographerFact.createPhotographer(properties); 
 
+// const newNav = new NavTags();
 
 
 // HERE LIVES THE CODE THAT STARTS THE APP and WILL BE CALLED IN INDEX.JS
 // ------ ====== -------
-export function startInitHomePage(photographerFact){
-    photographerFact.createPhotographer("JOJO", "BLABLA"); 
-}
+/* //  */
 
 
 

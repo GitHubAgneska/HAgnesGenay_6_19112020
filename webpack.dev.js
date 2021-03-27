@@ -21,6 +21,7 @@ module.exports = merge(common, {
                 test: /\.(s[ac]|c)ss$/i,
                 use: [
                     "style-loader", // 3 - inject <style> in DOM (≠ prod where separate bundle css file with mini-css-extract-plugin)
+                    // { loader:"style-loader", options: { injectType: 'singletonStyleTag' }}, // test for issue of css inheritance by shadow dom elements
                     "css-loader",   // 2 - css => js
                     "postcss-loader", // 1B - 
                     "sass-loader"   // 1 - scss => css

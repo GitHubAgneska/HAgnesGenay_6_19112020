@@ -1,6 +1,6 @@
-import { PhotographerModel } from './photographer-model';
+// import { PhotographerModel } from './photographer-model';
 
-
+/* 
 // 1/ Define skeleton for factory
 export function PhotographerFactory() {}
 
@@ -20,8 +20,13 @@ PhotographerFactory.prototype.createPhotographer = function (properties) {
 // TESTS --- 
 export const ArtistFactory = (properties) => { 
     return { properties };
+} */
+
+
+
+export function PhotographerFactory() {
+    this.create = ( id, name, ...args) => {
+        return new Photographer(id, name, ...args);
+    }
 }
-
-
-
 
