@@ -6,6 +6,7 @@ import { NavTags } from './app/components/nav-tags';
 import { PhotographerFactory } from './app/utils/photographerFactory';
 import { Photographer } from './app/utils/photographer-model';
 import { PhotographerTemplateHome } from './app/components/photographerTemplate';
+import { PhotographerTemplatePage } from './app/components/photographerTemplatePage';
 
 import { MediaItemFactory } from './app/utils/mediaItem-factory';
 import { MediaItem } from './app/utils/mediaItem-model';
@@ -119,7 +120,7 @@ function setUpTemplates(myphotographers) {
     })
 }
 
-/// function used by 'navtags component' as an event listener on each navtag item
+// function used by 'navtags component' as an event listener on each navtag item
 export function updateHomePageView(navTag) {
     // store tag name for sorting
     var sortingTerm = navTag;
@@ -136,3 +137,28 @@ function filterPhotographers(myphotographers, sortingTerm){
         var filtered = myphotographers.filter(x => x.tags.includes(sortingTerm));
         setUpTemplates(filtered);
 }
+
+
+
+// --------------------------------------------------------------------------------------------------------
+// ON HOMEPAGE : when user clicks on a photographer profile, 
+// that triggers a new view : the photographer own page
+// --------------------------------------------------------------------------------------------------------
+export function initPhotographerPageView(e, photographerId) {
+
+    e.stopPropagation();
+    e.preventDefault();
+
+    console.log('id==',photographerId );
+
+    myphotographers.forEach(photog => {
+        if (photog.id === photographerId ) {
+            console.log('photog========', photog)
+            photog.template = new PhotographerTemplatePage(photog);
+        }
+    })
+
+
+
+}
+

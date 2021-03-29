@@ -2,7 +2,7 @@
 // PHOTOGRAPHER CUSTOM HTML ELEMENT - HOME : how each photographer component is generated
 // ---------------------------------------------------------------------------------------
 import { NavTags } from './nav-tags';
-    
+import { initPhotographerPageView } from '../../index';
 
 export class PhotographerTemplateHome extends HTMLElement {
         constructor(photog) {
@@ -43,7 +43,7 @@ export class PhotographerTemplateHome extends HTMLElement {
                 `;
 
             // add event listener on this block, that calls the photographer page with id as param
-            photographerMainBlock.addEventListener('click', function(e) { initPhotographerPageView(e, photographer.id); }, false); // ------ TO REVIEW : always same LAST ID of api IS PASSED
+            photographerMainBlock.addEventListener('click', function(e) { initPhotographerPageView(e, photographer.id); }, false);
             
             // create photographer infos block main presentation block
             const photographerInfosBlock = photographerWrapperHome.appendChild(document.createElement('div'));
@@ -75,5 +75,3 @@ export class PhotographerTemplateHome extends HTMLElement {
     // register custom element in the built-in CustomElementRegistry object
     customElements.define('photographer-component-home', PhotographerTemplateHome);
 
-    // ----------------------------------------------------
-    // ----------------------------------------------------
