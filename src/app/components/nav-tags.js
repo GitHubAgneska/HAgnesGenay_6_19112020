@@ -1,13 +1,13 @@
 
 
-const tagslistMainNav = [ 'portrait', 'art', 'fashion', 'architecture', 'travel', 'sport', 'animals', 'events'];  
-
+import { updateHomePageView } from '../../index';
 // ----------------------------------------------------
 // CUSTOM ELEMENT TEMPLATE FOR NAVTAGS
 // ----------------------------------------------------
 export class NavTags extends HTMLElement {
-    constructor() {
+    constructor(navtags) {
         super();
+
 
         const shadowRoot = this.attachShadow({mode:'open'});
 
@@ -16,15 +16,13 @@ export class NavTags extends HTMLElement {
         navTagsTemplate.setAttribute('class', 'header__nav tags-list home');
 
         // IF navTags component is generated to populate HOME MAIN NAV
-
-        
+        // param navtags = mainListNavtags
         // ELSE IF navTags component is generated to populate PHOTOGRAPHER TAGS LIST
-        // const navTags = this.attributes.newPhotographer[tags].value;
-        // const navTags = newPhotographer.tags;
-        const navTags = tagslistMainNav;
+        // navTags = photographer.tags;
+        let navTags = navtags;
 
-        // attach  attributes passed by context ----------------------------- * 
-        navTagsTemplate.setAttribute('navTags', navTags);
+        // attach data attributes passed in params ----------------------------- * 
+        navTagsTemplate.setAttribute('data', navTags);
 
 
         // link component to main stylesheet  ============> ! does not work in webpack
@@ -46,7 +44,6 @@ export class NavTags extends HTMLElement {
             // & passing name of tag as parameter (example : 'portrait')
             navTagItem.addEventListener('click', function() { updateHomePageView(navTags[i])}, false);
             
-
             var navTagItemContent = document.createTextNode('#' + navTags[i]);
             navTagItem.appendChild(navTagItemContent);
 
@@ -69,3 +66,5 @@ export class NavTags extends HTMLElement {
 }
 // register custom element in the built-in CustomElementRegistry object
 customElements.define('nav-tags-component', NavTags);
+
+

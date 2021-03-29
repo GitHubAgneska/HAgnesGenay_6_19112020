@@ -1,13 +1,11 @@
 
-const portraitAssetsPath = './app/assets/img/portraits/S/';
 
 export class Photographer {
-    constructor(id, name, tagline, portraitName, portraitSrc, url, city, country, price, bottomLikes, template, tagsTemplate, tags){
+    constructor(id, name, tagline, portrait, url, city, country, price, bottomLikes, template, tagsTemplate, tags){
         
         id = id;
         name = name;
-        portraitName = portraitName; //  = pic name
-        portraitSrc = portraitAssetsPath + portraitName;   // => img src="./assets/img/portraits/S/" + "portraitName"
+        portrait = portrait; //  = portrait name
         city = city;
         country = country;
         tagline = tagline;

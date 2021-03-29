@@ -1,11 +1,15 @@
-  // ---------------------------------------------------------------------------------------
-    // PHOTOGRAPHER CUSTOM HTML ELEMENT - HOME : how each photographer component is generated
-    // ---------------------------------------------------------------------------------------
-    export class PhotographerTemplateHome extends HTMLElement {
-        constructor(photographer) {
-            super();
+// ---------------------------------------------------------------------------------------
+// PHOTOGRAPHER CUSTOM HTML ELEMENT - HOME : how each photographer component is generated
+// ---------------------------------------------------------------------------------------
+import { NavTags } from './nav-tags';
+    
 
-            // uses photographer model -------
+export class PhotographerTemplateHome extends HTMLElement {
+        constructor(photog) {
+            super();
+            // retrieve photographer object from param
+            let photographer = photog;
+
             // link component to main stylesheet  ============> does not work in webpack
             const styleHome = document.createElement('link');
             // styleHome.setAttribute('rel', 'stylesheet'); //======> else nodejs bug 'type mismatch'
@@ -17,9 +21,10 @@
 
             // create photographer component main container div
             const photographerWrapperHome = document.createElement('div');
+            
+            // set up which photogtapher is passed as param
+            photographerWrapperHome.setAttribute('data', photographer);
 
-             // set up which photogtapher is passed as param
-            this.attributes.currentPhotographer = photographer;
 
             // set photographer main container div attributes/properties
             photographerWrapperHome.setAttribute('class', 'photographer photographer--home');
@@ -32,7 +37,7 @@
             photographerMainBlock.setAttribute('class', 'photographer__main-block');
             photographerMainBlock.innerHTML = `
                 <a aria-label="go to ${photographer.name} page">
-                    <img class="photographer__pic home" src="${photographer.portraitSrc}" alt="${photographer.name} presentation picture" id="${photographer.name}-pres-picture">
+                    <img class="photographer__pic home" src="./assets/img/portraits/S/${photographer.portrait}" alt="${photographer.name} presentation picture" id="${photographer.name}-pres-picture">
                     <h2 class="photographer__name home" id="${photographer.name}">${photographer.name}</h2>
                 </a>
                 `;
@@ -50,18 +55,21 @@
                         <h5 class="photographer__price home" id="${photographer.name}-price">${photographer.price}</h5>
             `;
 
-            // generate new tagslists custom element template (using Navtags custom html element)
-            // const photographerTagsList = new NavTags();
+                /// generate new tagslists custom element template (using Navtags custom html element)
+            const photographerTagsList = new NavTags(photographer.tags);
             // inject data into it ====> done as attribute setting IN Navtag class
 
             // attach navtags component to photographer profile
-            // photographerWrapperHome.appendChild(photographerTagsList);
+            photographerWrapperHome.appendChild(photographerTagsList);
 
             // Attach stylesheet to component
             shadow.appendChild(styleHome);
             // Attach the created elements to the shadow dom
             shadow.appendChild(photographerWrapperHome);
         }
+        // getters / setters for other components to use
+        set photographerObject(value) { this._photographerObject = value; }
+        get photographerObject() { this._photographerObject; }
     }
 
     // register custom element in the built-in CustomElementRegistry object

@@ -17,16 +17,19 @@
             // create a shadow root
             const shadow4 = this.attachShadow({mode: 'open'});
             
-            const galleryWrapperSection = document.querySelector('.gallery-wrapper');
+            const galleryWrapperSection = document.querySelector('#photos-list');
             
             // append content to UL
-            const mediaItem = document.createElement('div');
+            const photoItem = document.createElement('li');
+            photoItem.setAttribute('class', 'photo-item');
+
             mediaItem.innerHTML = `
 
-                <li class="photo-item" id="${media.mediaId}">
-                    <a aria-label="enlarge photo" href="">
-                        <img src="${media.imageSrc}" alt="${media.imageTitle}">
-                    </a>
+                    <div class="pic-wrapper">
+                        <a aria-label="enlarge photo" href="">
+                            <img src="./assets/img/${photographer.name}/S/${media.imageName}" alt="${media.imageTitle}">
+                        </a>
+                    </div>
                     <div class="photo-infos" aria-label="photo infos">
                         <h5 class="photo-title" id="photo-title">${media.imageTitle}</h5>
                         <h5 class="photo-price" id="photo-price">${media.price}</h5>
@@ -35,7 +38,6 @@
                             <img class="like-icon" src="./assets/icons/heart-icon.png" alt="heart icon">
                         </button>
                     </div>
-                </li>
             `;
         
         // Attach stylesheet to component

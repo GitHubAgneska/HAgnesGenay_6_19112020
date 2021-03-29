@@ -1,4 +1,4 @@
-// import { startInitHomePage } from './app/app';
+
 import "./main.scss";
 
 import { NavTags } from './app/components/nav-tags';
@@ -15,7 +15,7 @@ import { MediaItem } from './app/utils/mediaItem-model';
 const url = 'https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/Front-End+V2/P5+Javascript+%26+Accessibility/FishEyeDataFR.json';
 const tagslistMainNav = [ 'portrait', 'art', 'fashion', 'architecture', 'travel', 'sport', 'animals', 'events'];  
 const mediaAssetsPath = './app/assets/img/';
-const portraitAssetsPath = './app/assets/img/portraits/S/';
+const portraitAssetsPath = './assets/img/portraits/S/';
 
 
 
@@ -28,8 +28,8 @@ fetch(url)
     .then(json => {
         let photographers = json.photographers;
         let media = json.media;
-        initializeApp(photographers, media);
-        initializeMainNav(tagslistMainNav)
+        initializeData(photographers, media);
+        initializeMainNav(tagslistMainNav);
 });
 
 // -------------------------------------------------------------------------------
@@ -41,10 +41,10 @@ function initializeMainNav(tagslistMainNav) {
     // generate new navtag from navTags custom html element, with whole tags list as param
     var headerNav = new NavTags(tagslistMainNav);
     // attach component to parent
-    window.onload = () => mainNavContainer.appendChild(headerNav);
+    mainNavContainer.appendChild(headerNav);
 }
 
-// Call init main nav
+//  FYI : Call init main nav outside of fetch =
 // ( this method only works if page = loaded, otherwise, mainNavContainer = null
 // window.onload = () => initializeMainNav(tagslistMainNav);
 
@@ -55,7 +55,7 @@ function initializeMainNav(tagslistMainNav) {
 let myphotographers = [];
 let mymedias= [];
 
-function initializeApp(photographers, media) {
+function initializeData(photographers, media) {
 
     let photographerFactory = new PhotographerFactory();
     let mediaItemFactory = new MediaItemFactory();
@@ -66,22 +66,20 @@ function initializeApp(photographers, media) {
             photographer.id,
             photographer.name,
             photographer.tagline,
-            photographer.portraitName,
-            photographer.portraitSrc,
+            photographer.portrait,
             photographer.url,
             photographer.city, photographer.country,
             photographer.price,
             photographer.bottomLikes,
             photographer.tags, photographer.tagsTemplate,
-            photographer.template = new PhotographerTemplateHome(photographer.name),
-            photographer.photographerMedia = []
+            photographer.photographerMedia = [],
+            photographer.template,
         );
         myphotographers.push(photographer);
     });
-    // console.log('myphotographers=',myphotographers);
 
 
-    media.forEach(mediaItem => { 
+    media.forEach( mediaItem => { 
 
         mediaItemFactory.create(
             mediaItem.id,
@@ -94,15 +92,47 @@ function initializeApp(photographers, media) {
 
         mymedias.push(mediaItem);
     });
-    // console.log('mymedias==', mymedias);
 
-    myphotographers.forEach(photog => { 
+    // Once all photographers array data + media array data have been retrieved, 
+    // reconnect each photographer with its own media
+    myphotographers.forEach( photog => { 
         mymedias.forEach(med => { 
             if (photog.id === med.photographerId) {
-                photog.photographerMedia.push(med);
-            }
-        })
+                photog.photographerMedia.push(med); }})
     })
-    console.log('myphotographers=',myphotographers);
 
+    setUpTemplates(myphotographers);
+    return myphotographers; // get data out
+}
+
+
+// initialize photographers templates (param is either all photographers or a filtered by tag list)
+function setUpTemplates(myphotographers) {
+
+    myphotographers.forEach(photog => {
+        // generate html template block for homepage
+        photog.template = new PhotographerTemplateHome(photog);
+        // define where each generated photographer component will be rooted (= section #photographersList)
+        const photographerContainer = document.querySelector('#photographersList');
+        // attach each new created component to this section
+        photographerContainer.appendChild(photog.template);
+    })
+}
+
+/// function used by 'navtags component' as an event listener on each navtag item
+export function updateHomePageView(navTag) {
+    // store tag name for sorting
+    var sortingTerm = navTag;
+
+    // define homepage content
+    const photographersList = document.querySelector('.photographers');
+    // remove eveything that's displayed by default
+    while (photographersList.firstChild) {photographersList.removeChild(photographersList.firstChild)}
+
+    filterPhotographers(myphotographers, sortingTerm); 
+}
+
+function filterPhotographers(myphotographers, sortingTerm){ 
+        var filtered = myphotographers.filter(x => x.tags.includes(sortingTerm));
+        setUpTemplates(filtered);
 }

@@ -1,6 +1,8 @@
 
 const path = require("path");
 
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
 module.exports = {
     entry: "./src/index.js", // or { main: "./src/index.js", vendor:"./src/vendor.js", ..  } for multiple entry points
     // devtool: false, // more readable version of bundles = no effect atm (?)
@@ -30,6 +32,8 @@ module.exports = {
                 /* use: {
                     // type: 'asset/resource'
                     // loader: "file-loader",
+                    loader : MiniCssExtractPlugin.loader,
+                    options: { publicPath: ""}
                     options: {
                         name: "[name].[hash].[ext]",
                         outputPath: "imgs",

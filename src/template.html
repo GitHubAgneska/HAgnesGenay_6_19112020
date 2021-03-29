@@ -18,64 +18,33 @@
 
     <!-- Font awesome cdn -->
     <script src="https://kit.fontawesome.com/711ecd1ff8.js" crossorigin="anonymous"></script>
-    <!-- custom components -->
-    <!-- <script src="./app/utils/photographerFactory.js" type="text/javascript"></script>
-        <script src="./app/utils/photographer.js" type="text/javascript"></script> -->
 
-    <!-- <link rel="stylesheet" href="./main.scss" /> -->
+    <link src="./css/main.css" rel="stylesheet">
 </head>
 
 <body>
     <div class="header-wrapper">
-        <header class="header" role="banner">
+        <header class="header" role="banner" id="header">
             <div class="header__logo-wrapper">
                 <a href="#" aria-label="Fisheye Home page"><img src="./assets/logo/logo.png" alt="Fisheye logo"></a>
             </div>
-            <nav-tags-component></nav-tags-component>
-            <!-- <nav class="header__nav tags-list home" id="header-nav" aria-label="photographer categories" role="navigation">
-                <a href="" class="nav-tag" id="nav-tag">azds</a>
-            </nav> -->
         </header>
     </div>
-
-    <!-- TESTS -->
-
-    <!--  -->
 
     <main id="homepage-content" class="homepage-content">
         <div class="homepage-title">
             <h1>Nos photographes</h1>
         </div>
         <section class="photographers" id="photographersList" aria-label="photographers presentation list">
-            <photographer-component currentPhotographer=""></photographer-component>
+
         </section>
 
-        <!--  <div class="photographer photographer--home" id="photographer" aria-label="photographer presentation">
-                <div class="photographer__main-block">
-                    <a href="" aria-label="">
-                        <img class="photographer__pic home" src="assets/img/Photographers_ID_photos/S/EllieRoseWilkens_S.jpg" alt="" id="pres-picture">
-                        <h2 class="photographer__name home" id="name">name</h2>
-                    </a>
-                </div>
-                <div class="photographer__text-infos" aria-label="photographer infos">
-                    <h3 class="photographer__location home" id="location">location</h3>
-                    <h4 class="photographer__tagline home" id="tagline">tagline</h4>
-                    <h5 class="photographer__price home" id="price">price</h5>
-                    <div class="photographer__tags-list tags-list home" id="tags">
-                        <a href="" class="nav-tag" id="nav-tag">rerere</a>
-                        <a href="" class="nav-tag" id="nav-tag">rerere</a>
-                        <a href="" class="nav-tag" id="nav-tag">Ibvvv</a>
-                    </div>
-                </div>
-            </div> -->
         <div class="nav-help" id="nav-help">
             <a href="" aria-label="go to main content"><span>passer au contenu</span></a>
         </div>
     </main>
 
-    <!-- removed, following contenthash logic -->
-<!-- <script src="./app/app.js" type="text/javascript"></script>
-    <script src="../dist/main.js" type="text/javascript"></script> -->
 
 </body>
+
 </html>
