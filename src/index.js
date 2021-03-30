@@ -59,7 +59,7 @@ export function initPhotographerPageView(e, photographerId) {
     e.preventDefault();
 
     console.log('id==',photographerId );
-
+    // find photographer via passed id param
     myphotographers.forEach(photog => {
         if (photog.id === photographerId ) {
             console.log('photog========', photog)
@@ -71,29 +71,16 @@ export function initPhotographerPageView(e, photographerId) {
             // attach each new created components to this section
             photographerInfosContainer.appendChild(photog.template);
 
+            function getName() { return photog.name; }
+
             // set up media/gallery section for the photographer
             photog.photographerMedia.forEach( mediaItem => {
-                let myMediaItem = new MediaItem();
-                myMediaItem.mediaId = mediaItem.id;
-                myMediaItem.photograperId = photographerId; /* mediaItem.photograperId; */
-                myMediaItem.name = mediaItem.image;
-                myMediaItem.imageSrc = mediaAssetsPath + myMediaItem.name;
-                
-                myMediaItem.photographerName = photog.name; //necessary for url
-                // myMediaItem.localPath = localPathToMediaFolder + '/S/' + myMediaItem.imageName;
-
-                // myMediaItem.imageTitle = myMediaItem.imageName;
-                // myMediaItem.imageTitle = myMediaItem.extractImageTitle(myMediaItem.imageName);
-                myMediaItem.imageLikes = mediaItem.likes;
-                myMediaItem.date = mediaItem.date;
-                myMediaItem.price = mediaItem.price;
-                myMediaItem.imageTags = mediaItem.tags;
-
-                myMediaItem.template = new MediaItemTemplate(mediaItem);
-
+                console.log('mediaItem=', mediaItem);
+                mediaItem.photographerName = getName();
+                mediaItem.template = new MediaItemTemplate(mediaItem);
                 const galleryWrapperSection = document.querySelector('#gallery-collection');
                 // attach each photo item to gallery
-                galleryWrapperSection.appendChild(myMediaItem.template);
+                galleryWrapperSection.appendChild(mediaItem.template);
             })
         }
     })

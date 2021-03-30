@@ -5,38 +5,55 @@
 
     // how each photo of photographer gallery will be generated as a html template
     export class MediaItemTemplate extends HTMLElement {
-        constructor(mediaItemObject) {
+        constructor(mediaItem) {
             super();
 
-            let mediaItem = mediaItemObject;
+            // create a shadow root
+            const shadow4 = this.attachShadow({mode: 'open'});
+            
+            // append content to UL
+            const galleryItem = document.createElement('li');
+            galleryItem.setAttribute('class', 'photo-item');
 
+            let medium = mediaItem; 
+            console.log('MEDIA IN TEMPLATE==', mediaItem);
+            galleryItem.setAttribute('data', medium);
+            
             // link component to main stylesheet  ============> does not work in webpack
             const stylePhoto = document.createElement('link');
             // stylePhoto.setAttribute('rel', 'stylesheet'); //======> else nodejs bug 'type mismatch'
             stylePhoto.setAttribute('href', './css/style.css');
             stylePhoto.setAttribute('type', 'text/css');
 
-            // create a shadow root
-            const shadow4 = this.attachShadow({mode: 'open'});
-            
-            // const galleryWrapperSection = document.querySelector('#photos-list');
-            
-            // append content to UL
-            const galleryItem = document.createElement('li');
-            galleryItem.setAttribute('class', 'photo-item');
-            galleryItem.setAttribute('data', mediaItem);
+            const mediaWrapper = document.createElement('div');
+            mediaWrapper.setAttribute('class', 'pic-wrapper');
+            galleryItem.appendChild(mediaWrapper);
 
-            galleryItem.innerHTML = `
+            if ( medium.hasOwnProperty('image') ) {
+                mediaWrapper.innerHTML = 
+                    ` 
+                    <a aria-label="enlarge photo" href="">
+                        <img src="./assets/img/${medium.photographerName}/S/${medium.image}" alt="${medium.imageName}">
+                    </a>
+                    `
+            } else if ( medium.hasOwnProperty('video') ) {
+                mediaWrapper.innerHTML = 
+                `
+                <a aria-label="enlarge photo" href="">
+                    <video width="320" height="240" controls>
+                        <source src="./assets/img/${medium.photographerName}/${medium.video}" type="video/mp4">
+                </video> 
+                </a>
+                
+                `
+            }
 
-                    <div class="pic-wrapper">
-                        <a aria-label="enlarge photo" href="">
-                            <img src="./assets/img/${mediaItem.photographerName}/S/${mediaItem.imageName}" alt="${mediaItem.imageName}">
-                        </a>
-                    </div>
+            galleryItem.innerHTML =
+                `
                     <div class="photo-infos" aria-label="photo infos">
-                        <h5 class="photo-title" id="photo-title">${mediaItem.imageTitle}</h5>
-                        <h5 class="photo-price" id="photo-price">${mediaItem.price}</h5>
-                        <h5 class="photo-likes" id="photo-likes">${mediaItem.imageLikes}</h5>
+                        <h5 class="photo-title" id="photo-title">${medium.image}</h5>
+                        <h5 class="photo-price" id="photo-price">${medium.price}</h5>
+                        <h5 class="photo-likes" id="photo-likes">${medium.likes}</h5>
                         <button>
                             <img class="like-icon" src="./assets/icons/heart-icon.png" alt="heart icon">
                         </button>
@@ -53,5 +70,5 @@
         }
     }
     // register custom element in the built-in CustomElementRegistry object
-    customElements.define('photo-component', MediaItemTemplate);
+    customElements.define('media-item-component', MediaItemTemplate);
 
