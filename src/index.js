@@ -75,7 +75,7 @@ export function initPhotographerPageView(e, photographerId) {
 
             // set up media/gallery section for the photographer
             photog.photographerMedia.forEach( mediaItem => {
-                console.log('mediaItem=', mediaItem);
+                // console.log('mediaItem=', mediaItem);
                 mediaItem.photographerName = getName();
                 mediaItem.template = new MediaItemTemplate(mediaItem);
                 const galleryWrapperSection = document.querySelector('#gallery-collection');

@@ -3,7 +3,7 @@
     // CUSTOM ELEMENT TEMPLATE FOR IMAGES FROM GALLERY
     // ----------------------------------------------------
 
-    // how each photo of photographer gallery will be generated as a html template
+    // how each photo/video of photographer gallery will be generated as a html template
     export class MediaItemTemplate extends HTMLElement {
         constructor(mediaItem) {
             super();
@@ -32,19 +32,18 @@
             if ( medium.hasOwnProperty('image') ) {
                 mediaWrapper.innerHTML = 
                     ` 
-                    <a aria-label="enlarge photo" href="">
+                    <a aria-label="enlarge photo">
                         <img src="./assets/img/${medium.photographerName}/S/${medium.image}" alt="${medium.imageName}">
                     </a>
                     `
             } else if ( medium.hasOwnProperty('video') ) {
                 mediaWrapper.innerHTML = 
                 `
-                <a aria-label="enlarge photo" href="">
+                <a aria-label="enlarge photo">
                     <video width="320" height="240" controls>
                         <source src="./assets/img/${medium.photographerName}/${medium.video}" type="video/mp4">
-                </video> 
+                    </video> 
                 </a>
-                
                 `
             }
 
