@@ -14,7 +14,7 @@ const tagslistMainNav = [ 'portrait', 'art', 'fashion', 'architecture', 'travel'
 
 
 // MODULE PATTERN STRUCTURE
-export const homeModuleTest2 = (function() {
+export const homeModule = (function() {
 
     // private
     function initData() { 
@@ -27,7 +27,6 @@ export const homeModuleTest2 = (function() {
             initializeMainNav(tagslistMainNav);
         });
     }
-
     // -------------------------------------------------------------------------------
     // AT HOMEPAGE OPENING, THE MAIN NAVIGATION WITH TAGS IS GENERATED
     // -------------------------------------------------------------------------------
@@ -39,7 +38,6 @@ export const homeModuleTest2 = (function() {
         // attach component to parent
         mainNavContainer.appendChild(headerNav);
     }
-
     // -------------------------------------------------------------------------------
     // INIT PHOTOGRAPHERS LIST + ThEIR MEDIA
     // -------------------------------------------------------------------------------
@@ -78,10 +76,8 @@ export const homeModuleTest2 = (function() {
                 mediaItem.price,
                 mediaItem.tags
             );
-
             mymedias.push(mediaItem);
         });
-
         // Once all photographers array data + media array data have been retrieved, 
         // reconnect each photographer with its own media
         myphotographers.forEach( photog => { 
@@ -90,28 +86,29 @@ export const homeModuleTest2 = (function() {
                     photog.photographerMedia.push(med); }})
         })
 
-        setUpTemplates(myphotographers);
-        return myphotographers; // get data out
-
-        // initialize photographers templates (param is either all photographers or a filtered by tag list)
-        function setUpTemplates(myphotographers) {
-
-            myphotographers.forEach(photog => {
-                // generate html template block for homepage
-                photog.template = new PhotographerTemplateHome(photog);
-                // define where each generated photographer component will be rooted (= section #photographersList)
-                const photographerContainer = document.querySelector('#photographersList');
-                // attach each new created component to this section
-                photographerContainer.appendChild(photog.template);
-            })
-        }
+        setUpTemplates(myphotographers); 
     } // end of initializeData()
 
-    //public
+     // initialize photographers templates (param is either all photographers or a filtered by tag list)
+    function setUpTemplates(myphotographers) {
+        
+        myphotographers.forEach(photog => {
+            // generate html template block for homepage
+            photog.template = new PhotographerTemplateHome(photog);
+            // define where each generated photographer component will be rooted (= section #photographersList)
+            const photographerContainer = document.querySelector('#photographersList');
+            // attach each new created component to this section
+            photographerContainer.appendChild(photog.template);
+        })
+    }
+
+    function getPhotographers(){ return myphotographers};
+
+    // public (these methods can be used outside of this module)
     return {
         startHome: initData,
-        
-
+        getAllData: getPhotographers,
+        useSetUpTemplates: setUpTemplates
     }
 }());
 

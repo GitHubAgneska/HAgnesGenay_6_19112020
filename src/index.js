@@ -1,7 +1,7 @@
 
 import "./main.scss";
 
-import { homeModuleTest2 } from './app/modules/homeModule';
+import { homeModule } from './app/modules/homeModule';
 
 import { NavTags } from './app/components/nav-tags';
 
@@ -20,123 +20,13 @@ const mediaAssetsPath = './app/assets/img/';
 const portraitAssetsPath = './assets/img/portraits/S/';
 
 
-homeModuleTest2.startHome();
-
-/* export const HomeComponent =  {
-    
-run : () => {
-
-// -------------------------------------------------------------------------------
-// AT HOMEPAGE OPENING, FETCH RETRIEVES ALL DATA FROM API (PHOTOGRAPHERS DATA ARRAY ONLY) 
-// & triggers creation of photographers list
-// -------------------------------------------------------------------------------
-fetch(apiUrl)
-    .then(response => response.json())
-    .then(json => {
-        let photographers = json.photographers;
-        let media = json.media;
-        initializeData(photographers, media);
-        initializeMainNav(tagslistMainNav);
-});
+// START HOMEPAGE
+homeModule.startHome();
 
 
-// -------------------------------------------------------------------------------
-// AT HOMEPAGE OPENING, THE MAIN NAVIGATION WITH TAGS IS GENERATED
-// -------------------------------------------------------------------------------
-function initializeMainNav(tagslistMainNav) {
-    // define parent container (header)
-    const mainNavContainer = document.querySelector('#header');
-    // generate new navtag from navTags custom html element, with whole tags list as param
-    var headerNav = new NavTags(tagslistMainNav);
-    // attach component to parent
-    mainNavContainer.appendChild(headerNav);
-}
-
-//  FYI : Call init main nav outside of fetch =
-// ( this method only works if page = loaded, otherwise, mainNavContainer = null
-// window.onload = () => initializeMainNav(tagslistMainNav);
-
-
-// -------------------------------------------------------------------------------
-// INIT PHOTOGRAPHERS LIST + ThEIR MEDIA
-// -------------------------------------------------------------------------------
-let myphotographers = [];
-let mymedias= [];
-
-function initializeData(photographers, media) {
-
-    let photographerFactory = new PhotographerFactory();
-    let mediaItemFactory = new MediaItemFactory();
-
-    photographers.forEach( photographer => {
-
-        photographerFactory.create(
-            photographer.id,
-            photographer.name,
-            photographer.tagline,
-            photographer.portrait,
-            photographer.url,
-            photographer.city, photographer.country,
-            photographer.price,
-            photographer.bottomLikes,
-            photographer.tags, photographer.tagsTemplate,
-            photographer.photographerMedia = [],
-            photographer.template,
-        );
-        myphotographers.push(photographer);
-    });
-
-
-    media.forEach( mediaItem => { 
-
-        mediaItemFactory.create(
-            mediaItem.id,
-            mediaItem.photographerId,
-            mediaItem.likes,
-            mediaItem.date,
-            mediaItem.price,
-            mediaItem.tags
-        );
-
-        mymedias.push(mediaItem);
-    });
-
-    // Once all photographers array data + media array data have been retrieved, 
-    // reconnect each photographer with its own media
-    myphotographers.forEach( photog => { 
-        mymedias.forEach(med => { 
-            if (photog.id === med.photographerId) {
-                photog.photographerMedia.push(med); }})
-    })
-
-    setUpTemplates(myphotographers);
-    return myphotographers; // get data out
-}
-
-
-// initialize photographers templates (param is either all photographers or a filtered by tag list)
-function setUpTemplates(myphotographers) {
-
-    myphotographers.forEach(photog => {
-        // generate html template block for homepage
-        photog.template = new PhotographerTemplateHome(photog);
-        // define where each generated photographer component will be rooted (= section #photographersList)
-        const photographerContainer = document.querySelector('#photographersList');
-        // attach each new created component to this section
-        photographerContainer.appendChild(photog.template);
-    })
-}
-
-
-}, // end of run()
-
-// getPhotographers : () => {return myphotographers; } ==> NOPE
-
-} // end of component
-
- */
-
-// console.log('myphotoafter component==', HomeComponent.getPhotographers()); ==> NOPE
+// RETRIEVE ALL DATA fetched by homeModule
+let myphotographers = homeModule.getAllData();
+// console.log('HERE', myphotographers);
 
 
 // function used by 'navtags component' as an event listener on each navtag item
@@ -154,7 +44,7 @@ export function updateHomePageView(navTag) {
 
 function filterPhotographers(myphotographers, sortingTerm){ 
         var filtered = myphotographers.filter(x => x.tags.includes(sortingTerm));
-        setUpTemplates(filtered);
+        homeModule.useSetUpTemplates(filtered);
 }
 
 
@@ -173,6 +63,15 @@ export function initPhotographerPageView(e, photographerId) {
         if (photog.id === photographerId ) {
             console.log('photog========', photog)
             photog.template = new PhotographerTemplatePage(photog);
+            // generate new navtags html template and inject data
+            photog.tagsTemplate = new NavTags(photog.tags);
+        
+            // define where each generated photographer component will be rooted (= section #photographersList)
+            const photographerInfosContainer = document.querySelector('#photographer-content');
+            
+            // attach each new created components to this section
+            photographerInfosContainer.appendChild(photog.template);
+
         }
     })
 
@@ -180,85 +79,13 @@ export function initPhotographerPageView(e, photographerId) {
 
 
 
-const SortedComponent =  {
-    run : () => {
-        fetch(apiUrl)
-            .then(response => response.json())
-            .then(json => {
-                let photographers = json.photographers;
-                console.log('PHOTOG====', photographers);
-        });
-    }
-}
 
-
-    // REVEALING MODULE PATTERN EXAMPLE
-    export const moduleTest = (function() {
-        // private
-        let privateVar = 'in the depths of javascript';
-        function privateFunction() { console.log('i am' + privateVar); }
-        function publicRevealPrivateVar() {privateFunction(); }
-        // public
-        return {
-            saySomething: publicRevealPrivateVar
-        }
-    }());
-
-    moduleTest.saySomething();
-
-    // -----------------------------------------
-    
-    // MODULE PATTERN EXAMPLE
-    export const basketModule = (function() {
-
-        //private
-        let basket = [];
-        function doSomethingPrivate(){ console.log('i am a private function'); }
-
-        // public
-        return {
-            addItem: function(values){
-                basket.push(values);
-            },
-
-            getItemsCount: function() {
-                return basket.length;
-            },
-            exposePrivateMethod: doSomethingPrivate,
-
-            getTotal: function() { 
-                let itemCount = this.getItemsCount(),
-                total = 0;
-                while (itemCount--) { total += basket[itemCount].price; }
-                return total;
-            }
-        }
-    }());
-
-    basketModule.addItem({item: "bread", price: 4 });
-
-
-    export const homeModuleTest = (function() {
-
-        // private
-        let photogs = [];
-        function initData() { 
-            fetch(apiUrl)
-                .then(response => response.json())
-                .then(json => { photogs = json.photographers;console.log(photogs); });
-        }
-        //public
-        return {
-            exposeData: initData,
-        }
-    }());
-    // homeModuleTest.exposeData();
 
 
 
 // router
 const routes = [
-    { path: '/', component: HomeComponent2 },
+    { path: '/', component: homeModule },
     { path: '#/sorted', component: SortedComponent },  //ex: /home/portrait
 ]
 
@@ -278,3 +105,4 @@ const findComponentByPath = (path, routes) => routes.find(r => r.path.match(new 
 
 window.addEventListener('hashchange', router);
 window.addEventListener('load', router);
+
