@@ -1,6 +1,8 @@
 
 import "./main.scss";
 
+import { homeModuleTest2 } from './app/modules/homeModule';
+
 import { NavTags } from './app/components/nav-tags';
 
 import { PhotographerFactory } from './app/utils/photographerFactory';
@@ -11,20 +13,24 @@ import { PhotographerTemplatePage } from './app/components/photographerTemplateP
 import { MediaItemFactory } from './app/utils/mediaItem-factory';
 import { MediaItem } from './app/utils/mediaItem-model';
 
-
-//API url
-const url = 'https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/Front-End+V2/P5+Javascript+%26+Accessibility/FishEyeDataFR.json';
+//API apiUrl
+const apiUrl = 'https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/Front-End+V2/P5+Javascript+%26+Accessibility/FishEyeDataFR.json';
 const tagslistMainNav = [ 'portrait', 'art', 'fashion', 'architecture', 'travel', 'sport', 'animals', 'events'];  
 const mediaAssetsPath = './app/assets/img/';
 const portraitAssetsPath = './assets/img/portraits/S/';
 
 
+homeModuleTest2.startHome();
+
+/* export const HomeComponent =  {
+    
+run : () => {
 
 // -------------------------------------------------------------------------------
 // AT HOMEPAGE OPENING, FETCH RETRIEVES ALL DATA FROM API (PHOTOGRAPHERS DATA ARRAY ONLY) 
 // & triggers creation of photographers list
 // -------------------------------------------------------------------------------
-fetch(url)
+fetch(apiUrl)
     .then(response => response.json())
     .then(json => {
         let photographers = json.photographers;
@@ -32,6 +38,7 @@ fetch(url)
         initializeData(photographers, media);
         initializeMainNav(tagslistMainNav);
 });
+
 
 // -------------------------------------------------------------------------------
 // AT HOMEPAGE OPENING, THE MAIN NAVIGATION WITH TAGS IS GENERATED
@@ -120,6 +127,18 @@ function setUpTemplates(myphotographers) {
     })
 }
 
+
+}, // end of run()
+
+// getPhotographers : () => {return myphotographers; } ==> NOPE
+
+} // end of component
+
+ */
+
+// console.log('myphotoafter component==', HomeComponent.getPhotographers()); ==> NOPE
+
+
 // function used by 'navtags component' as an event listener on each navtag item
 export function updateHomePageView(navTag) {
     // store tag name for sorting
@@ -130,7 +149,7 @@ export function updateHomePageView(navTag) {
     // remove eveything that's displayed by default
     while (photographersList.firstChild) {photographersList.removeChild(photographersList.firstChild)}
 
-    filterPhotographers(myphotographers, sortingTerm); 
+    filterPhotographers(myphotographers, sortingTerm);
 }
 
 function filterPhotographers(myphotographers, sortingTerm){ 
@@ -139,10 +158,9 @@ function filterPhotographers(myphotographers, sortingTerm){
 }
 
 
-
 // --------------------------------------------------------------------------------------------------------
 // ON HOMEPAGE : when user clicks on a photographer profile, 
-// that triggers a new view : the photographer own page
+// that triggers a new view + new URL : the photographer own page
 // --------------------------------------------------------------------------------------------------------
 export function initPhotographerPageView(e, photographerId) {
 
@@ -158,7 +176,105 @@ export function initPhotographerPageView(e, photographerId) {
         }
     })
 
-
-
 }
 
+
+
+const SortedComponent =  {
+    run : () => {
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(json => {
+                let photographers = json.photographers;
+                console.log('PHOTOG====', photographers);
+        });
+    }
+}
+
+
+    // REVEALING MODULE PATTERN EXAMPLE
+    export const moduleTest = (function() {
+        // private
+        let privateVar = 'in the depths of javascript';
+        function privateFunction() { console.log('i am' + privateVar); }
+        function publicRevealPrivateVar() {privateFunction(); }
+        // public
+        return {
+            saySomething: publicRevealPrivateVar
+        }
+    }());
+
+    moduleTest.saySomething();
+
+    // -----------------------------------------
+    
+    // MODULE PATTERN EXAMPLE
+    export const basketModule = (function() {
+
+        //private
+        let basket = [];
+        function doSomethingPrivate(){ console.log('i am a private function'); }
+
+        // public
+        return {
+            addItem: function(values){
+                basket.push(values);
+            },
+
+            getItemsCount: function() {
+                return basket.length;
+            },
+            exposePrivateMethod: doSomethingPrivate,
+
+            getTotal: function() { 
+                let itemCount = this.getItemsCount(),
+                total = 0;
+                while (itemCount--) { total += basket[itemCount].price; }
+                return total;
+            }
+        }
+    }());
+
+    basketModule.addItem({item: "bread", price: 4 });
+
+
+    export const homeModuleTest = (function() {
+
+        // private
+        let photogs = [];
+        function initData() { 
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(json => { photogs = json.photographers;console.log(photogs); });
+        }
+        //public
+        return {
+            exposeData: initData,
+        }
+    }());
+    // homeModuleTest.exposeData();
+
+
+
+// router
+const routes = [
+    { path: '/', component: HomeComponent2 },
+    { path: '#/sorted', component: SortedComponent },  //ex: /home/portrait
+]
+
+
+const router = () => {
+    // Find the component based on the current path
+    const path = parseLocation(); console.log('LOCATION==', path);
+    // If there's no matching route, get the "Error" component
+    const { component = HomeComponent } = findComponentByPath(path, routes) || {};
+    // const { component = SortedComponent } = findComponentByPath(path, routes) || {};
+    // Render the component in the "app" placeholder
+    component.run();
+};
+
+const parseLocation = () => location.hash.slice(1).toLowerCase() || '/';
+const findComponentByPath = (path, routes) => routes.find(r => r.path.match(new RegExp(`^\\${path}$`))) || undefined;
+
+window.addEventListener('hashchange', router);
+window.addEventListener('load', router);
