@@ -12,6 +12,7 @@ import { PhotographerTemplatePage } from './app/components/photographerTemplateP
 
 import { MediaItemFactory } from './app/utils/mediaItem-factory';
 import { MediaItem } from './app/utils/mediaItem-model';
+import { MediaItemTemplate } from './app/components/mediaItemTemplate';
 
 //API apiUrl
 const apiUrl = 'https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/Front-End+V2/P5+Javascript+%26+Accessibility/FishEyeDataFR.json';
@@ -65,13 +66,35 @@ export function initPhotographerPageView(e, photographerId) {
             photog.template = new PhotographerTemplatePage(photog);
             // generate new navtags html template and inject data
             photog.tagsTemplate = new NavTags(photog.tags);
-        
             // define where each generated photographer component will be rooted (= section #photographersList)
             const photographerInfosContainer = document.querySelector('#photographer-content');
-            
             // attach each new created components to this section
             photographerInfosContainer.appendChild(photog.template);
 
+            // set up media/gallery section for the photographer
+            photog.photographerMedia.forEach( mediaItem => {
+                let myMediaItem = new MediaItem();
+                myMediaItem.mediaId = mediaItem.id;
+                myMediaItem.photograperId = photographerId; /* mediaItem.photograperId; */
+                myMediaItem.name = mediaItem.image;
+                myMediaItem.imageSrc = mediaAssetsPath + myMediaItem.name;
+                
+                myMediaItem.photographerName = photog.name; //necessary for url
+                // myMediaItem.localPath = localPathToMediaFolder + '/S/' + myMediaItem.imageName;
+
+                // myMediaItem.imageTitle = myMediaItem.imageName;
+                // myMediaItem.imageTitle = myMediaItem.extractImageTitle(myMediaItem.imageName);
+                myMediaItem.imageLikes = mediaItem.likes;
+                myMediaItem.date = mediaItem.date;
+                myMediaItem.price = mediaItem.price;
+                myMediaItem.imageTags = mediaItem.tags;
+
+                myMediaItem.template = new MediaItemTemplate(mediaItem);
+
+                const galleryWrapperSection = document.querySelector('#gallery-collection');
+                // attach each photo item to gallery
+                galleryWrapperSection.appendChild(myMediaItem.template);
+            })
         }
     })
 
