@@ -4,7 +4,7 @@
 import { NavTags } from './nav-tags';
 import { initPhotographerPageView } from '../../index';
 import { photographerPageModule } from '../modules/photographerPageModule';
-import { navigateTo } from '../../index';
+// import { navigateTo } from '../../index';
 
 export class PhotographerTemplateHome extends HTMLElement {
         constructor(photog) {
@@ -46,7 +46,7 @@ export class PhotographerTemplateHome extends HTMLElement {
             photographerMainBlock.addEventListener('click', function(e) { 
                 photographerPageModule.initPagePhotographer(e, photographer.id);
                 let url = '/photographer';
-                navigateTo(e, url);
+                // navigateTo(e, url);
             }, false);
             //photographerMainBlock.addEventListener('click', function(e) { initPhotographerPageView(e, photographer.id); }, false);
             

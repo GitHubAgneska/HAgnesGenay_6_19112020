@@ -6,6 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssWebpackPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin'); // present by default in node-modules
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 // const target = "web";  => see target attr below
 
@@ -32,7 +33,10 @@ module.exports = merge(common, {
     },
     plugins: [
         new MiniCssExtractPlugin({ filename: "[name].css"}), // [name].[contenthash].css = issue in custom element components to find href
-        new CleanWebpackPlugin()
+        new CleanWebpackPlugin(),
+        new CopyWebpackPlugin({ patterns: [
+                        { from: 'src/assets', to: 'assets/' }],
+        }),
     ],
     module: {
         rules: [

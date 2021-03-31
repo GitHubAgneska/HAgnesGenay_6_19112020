@@ -12,16 +12,18 @@ const portraitAssetsPath = './assets/img/portraits/S/';
 
 
 // START HOMEPAGE
-homeModule.startHome();
-
-
+homeModule.run();
+// window.DOMContentLoaded = () => homeModule.run();
+console.log('window.location.pathname==', window.location.pathname)
+/* 
 const routes = { 
     '/': homeModule,
     '/photographer': photographerPageModule
 }
 
 const rootDiv = document.getElementById('root');
-rootDiv.innerHTML = routes[window.location.pathname];
+rootDiv.innerHTML = routes[window.location.pathname].run();
+// rootDiv.innerHTML = routes[window.location.pathname];
 
 export const navigateTo = (pathname) => {
     window.history.pushState( {}, pathname, window.location.origin + pathname);
@@ -32,7 +34,7 @@ window.onpopstate = () => { rootDiv.innerHTML = routes[window.location.pathname]
 // Listen on hash change:
 window.addEventListener('hashchange', function(){console.log('route changed!')});
 // Listen on page load:
-window.addEventListener('load', function(){console.log('page loaded!')});
+window.addEventListener('load', function(){console.log('page loaded!')}); */
 
 
 
