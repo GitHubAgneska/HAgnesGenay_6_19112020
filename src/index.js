@@ -96,7 +96,7 @@ export function initPhotographerPageView(e, photographerId) {
 // router
 const routes = [
     { path: '/', component: homeModule },
-    { path: '#/sorted', component: SortedComponent },  //ex: /home/portrait
+    // { path: '#/sorted', component: SortedComponent },  //ex: /home/portrait
 ]
 
 
@@ -107,7 +107,7 @@ const router = () => {
     const { component = HomeComponent } = findComponentByPath(path, routes) || {};
     // const { component = SortedComponent } = findComponentByPath(path, routes) || {};
     // Render the component in the "app" placeholder
-    component.run();
+    // component.run();
 };
 
 const parseLocation = () => location.hash.slice(1).toLowerCase() || '/';

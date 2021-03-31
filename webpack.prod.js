@@ -31,16 +31,21 @@ module.exports = merge(common, {
         ]
     },
     plugins: [
-        new MiniCssExtractPlugin({ filename: "[name].[contenthash].css"}),
+        new MiniCssExtractPlugin({ filename: "[name].css"}), // [name].[contenthash].css = issue in custom element components to find href
         new CleanWebpackPlugin()
     ],
     module: {
         rules: [
             {
                 test: /\.scss$/,
+                // exclude: [/\.main.scss$/, /node_modules/],  // necessary ?
                 use: [
                     MiniCssExtractPlugin.loader, // 3 - extract css into files ( ≠ dev where css included in js bundle)
-                    "css-loader",   // 2 - css => js
+                    { loader: "css-loader",  // 2 - css => js
+                        options: { 
+                            url:true,
+                            // modules: {localIdentContext: path.resolve(__dirname, "src")}, -style injection tests
+                        } }, 
                     "sass-loader"   // 1 - scss => css
                 ]
             }

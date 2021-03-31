@@ -1,5 +1,4 @@
 
-
 import { updateHomePageView } from '../../index';
 // ----------------------------------------------------
 // CUSTOM ELEMENT TEMPLATE FOR NAVTAGS
@@ -7,7 +6,6 @@ import { updateHomePageView } from '../../index';
 export class NavTags extends HTMLElement {
     constructor(navtags) {
         super();
-
 
         const shadowRoot = this.attachShadow({mode:'open'});
 
@@ -24,11 +22,10 @@ export class NavTags extends HTMLElement {
         // attach data attributes passed in params ----------------------------- * 
         navTagsTemplate.setAttribute('data', navTags);
 
-
         // link component to main stylesheet  ============> ! does not work in webpack
         const navstyle = document.createElement('link');
-        // navstyle.setAttribute('rel', 'stylesheet');  //======> else nodejs bug 'type mismatch'
-        navstyle.setAttribute('href', './css/style.css');
+        navstyle.setAttribute('rel', 'stylesheet');
+        navstyle.setAttribute('href', './main.css');
         navstyle.setAttribute('type', 'text/css');
 
         // populate nav section with tags, list depending on context :

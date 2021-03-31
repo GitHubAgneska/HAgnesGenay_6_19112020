@@ -9,10 +9,11 @@ export class PhotographerTemplatePage extends HTMLElement {
 
         let photographer = photog;
 
-        // link component to main stylesheet  ============> does not work in webpack
+        // link component to main stylesheet
         const stylePage = document.createElement('link');
         stylePage.setAttribute('rel', 'stylesheet');
-        stylePage.setAttribute('href', './css/style.css');
+        stylePage.setAttribute('href', './main.scss');
+        stylePage.setAttribute('type', '.text/css');
 
         // create a shadow root
         const shadow2 = this.attachShadow({mode: 'open'});
@@ -27,7 +28,6 @@ export class PhotographerTemplatePage extends HTMLElement {
         photographerWrapperPage.setAttribute('class', 'photographer photographer--page');
         photographerWrapperPage.setAttribute('id', 'photographer-'+ photographer.name); // + name
         photographerWrapperPage.setAttribute('aria-label', photographer.name + ' presentation');
-
 
 
         // create photographer main presentation block (top infos + bottom likes / price)
@@ -67,7 +67,6 @@ export class PhotographerTemplatePage extends HTMLElement {
         // Attach the created elements to the shadow dom
         shadow2.appendChild(photographerWrapperPage);
         shadow2.appendChild(galleryWrapper);
-
         }
     }
     // register custom element in the built-in CustomElementRegistry object

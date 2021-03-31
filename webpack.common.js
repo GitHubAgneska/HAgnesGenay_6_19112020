@@ -29,17 +29,18 @@ module.exports = {
                 // type: "asset/inline"  ==> will output ALL imgs inline into bundled js instead of in separate file (useful if only SMALL IMGS in project e.g)
                 // type: "asset" ==>  WP will determine the above automatically for some of the imgs only (customizable img size)
                 type: 'asset/resource'
-                /* use: {
-                    // type: 'asset/resource'
-                    // loader: "file-loader",
-                    loader : MiniCssExtractPlugin.loader,
-                    options: { publicPath: ""}
-                    options: {
-                        name: "[name].[hash].[ext]",
-                        outputPath: "imgs",
-                        publicPath: ""
-                    }
-                } */
+                //use: {
+                    // type: 'asset/resource',
+                    //loader: "file-loader",
+                    // loader : MiniCssExtractPlugin.loader,
+                    // : { publicPath: ""}
+                    //options: {
+                        // publicPath: "",
+                        //name: "[name].[hash].[ext]",
+                        //outputPath: "imgs",
+                        // publicPath: ""
+                    //}
+                //}
             },
             {
                 test: /\.(woff|ttf|otf|eot|woff2)$/i,

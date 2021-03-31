@@ -10,28 +10,26 @@ export class PhotographerTemplateHome extends HTMLElement {
             // retrieve photographer object from param
             let photographer = photog;
 
-            // link component to main stylesheet  ============> does not work in webpack
-            const styleHome = document.createElement('link');
-            // styleHome.setAttribute('rel', 'stylesheet'); //======> else nodejs bug 'type mismatch'
-            styleHome.setAttribute('href', './css/style.css');
-            styleHome.setAttribute('type', 'text/css');
-
             // create a shadow root
             const shadow = this.attachShadow({mode: 'open'});
-
+            
             // create photographer component main container div
             const photographerWrapperHome = document.createElement('div');
+
+            // link component to main stylesheet (beware of content hash exported href in webpack)
+            const styleHome = document.createElement('link');
+            styleHome.setAttribute('rel', 'stylesheet');
+            styleHome.setAttribute('href', './main.css');
+            styleHome.setAttribute('type', 'text/css');
             
             // set up which photogtapher is passed as param
             photographerWrapperHome.setAttribute('data', photographer);
-
 
             // set photographer main container div attributes/properties
             photographerWrapperHome.setAttribute('class', 'photographer photographer--home');
             photographerWrapperHome.setAttribute('id', 'photographer-'+ photographer.name); // + name
             photographerWrapperHome.setAttribute('aria-label', photographer.name + ' presentation');
             
-
             // create clickable photographer main presentation block (name+pic)
             const photographerMainBlock = photographerWrapperHome.appendChild(document.createElement('div'));
             photographerMainBlock.setAttribute('class', 'photographer__main-block');
@@ -55,7 +53,7 @@ export class PhotographerTemplateHome extends HTMLElement {
                         <h5 class="photographer__price home" id="${photographer.name}-price">${photographer.price}</h5>
             `;
 
-                /// generate new tagslists custom element template (using Navtags custom html element)
+            // generate new tagslists custom element template (using Navtags custom html element)
             const photographerTagsList = new NavTags(photographer.tags);
             // inject data into it ====> done as attribute setting IN Navtag class
 
@@ -64,12 +62,10 @@ export class PhotographerTemplateHome extends HTMLElement {
 
             // Attach stylesheet to component
             shadow.appendChild(styleHome);
+
             // Attach the created elements to the shadow dom
             shadow.appendChild(photographerWrapperHome);
         }
-        // getters / setters for other components to use
-        set photographerObject(value) { this._photographerObject = value; }
-        get photographerObject() { this._photographerObject; }
     }
 
     // register custom element in the built-in CustomElementRegistry object

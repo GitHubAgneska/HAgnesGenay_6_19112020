@@ -4,10 +4,10 @@ export class DropdownTemplate extends HTMLElement {
     constructor() {
         super();
 
-        // link component to main stylesheet  ============> does not work in webpack
+        // link component to main stylesheet
         const dropdownStyle = document.createElement('link');
         dropdownStyle.setAttribute('type', 'text/css');
-        dropdownStyle.setAttribute('href', './css/style.css');
+        dropdownStyle.setAttribute('href', './main.css');
 
         // create a shadow root
         const shadow3 = this.attachShadow({mode: 'open'});
@@ -34,7 +34,6 @@ export class DropdownTemplate extends HTMLElement {
                 </li>
             </ul>
         </nav>
-        
         `;
 
         // Attach stylesheet to component

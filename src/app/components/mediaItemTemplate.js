@@ -19,10 +19,10 @@
             console.log('MEDIA IN TEMPLATE==', mediaItem);
             galleryItem.setAttribute('data', medium);
             
-            // link component to main stylesheet  ============> does not work in webpack
+            // link component to main stylesheet
             const stylePhoto = document.createElement('link');
-            // stylePhoto.setAttribute('rel', 'stylesheet'); //======> else nodejs bug 'type mismatch'
-            stylePhoto.setAttribute('href', './css/style.css');
+            stylePhoto.setAttribute('rel', 'stylesheet');
+            stylePhoto.setAttribute('href', './main.css');
             stylePhoto.setAttribute('type', 'text/css');
 
             const mediaWrapper = document.createElement('div');
@@ -46,7 +46,6 @@
                 </a>
                 `
             }
-
             galleryItem.innerHTML =
                 `
                     <div class="photo-infos" aria-label="photo infos">
@@ -65,7 +64,6 @@
         shadow4.appendChild(galleryItem);
         // attach each photo item to gallery
         // galleryWrapperSection.appendChild(galleryItem);
-        
         }
     }
     // register custom element in the built-in CustomElementRegistry object
