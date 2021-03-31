@@ -1,5 +1,6 @@
 
-import { updateHomePageView } from '../../index';
+import { homeModule } from '../modules/homeModule'; // to use its functions
+
 // ----------------------------------------------------
 // CUSTOM ELEMENT TEMPLATE FOR NAVTAGS
 // ----------------------------------------------------
@@ -39,7 +40,7 @@ export class NavTags extends HTMLElement {
             // ADD to <a> tag :
             // event listener click => will call updateView function,
             // & passing name of tag as parameter (example : 'portrait')
-            navTagItem.addEventListener('click', function() { updateHomePageView(navTags[i])}, false);
+            navTagItem.addEventListener('click', function() { homeModule.updateSortedHome(navTags[i])}, false);
             
             var navTagItemContent = document.createTextNode('#' + navTags[i]);
             navTagItem.appendChild(navTagItemContent);

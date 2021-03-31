@@ -23,54 +23,63 @@
 </head>
 
 <body>
-    <nav>
-        <a href="/">Home</a> -
-        <a href="#/sorted">Page 1</a> -
-    </nav>
-    <div id="homepage">
-        <div class="header-wrapper">
-            <header class="header" role="banner" id="header">
-                <div class="header__logo-wrapper">
-                    <a href="#" aria-label="Fisheye Home page"><img src="./assets/logo/logo.png" alt="Fisheye logo"></a>
+<!--     <nav>
+        <a href="/">Home</a>
+        <a href="#/photographer">go</a>
+    </nav> -->
+
+    <div id="root">
+
+        <div id="homepage">
+            <div class="header-wrapper">
+                <header class="header" role="banner" id="header">
+                    <div class="header__logo-wrapper">
+                        <a href="/" aria-label="Fisheye Home page"><img src="./assets/logo/logo.png" alt="Fisheye logo"></a>
+                    </div>
+                </header>
+            </div>
+    
+            <main id="homepage-content" class="homepage-content">
+                <div class="homepage-title">
+                    <h1>Nos photographes</h1>
                 </div>
-            </header>
+                <section class="photographers" id="photographersList" aria-label="photographers presentation list">
+    
+                </section>
+    
+                <div class="nav-help" id="nav-help">
+                    <a href="" aria-label="go to main content"><span>passer au contenu</span></a>
+                </div>
+            </main>
         </div>
 
-        <main id="homepage-content" class="homepage-content">
-            <div class="homepage-title">
-                <h1>Nos photographes</h1>
+
+        <!-- TEMPORARY UNTIL ROUTER = SET UP -->
+        <!-- ---------------------------------- -->
+        <!-- PHOTOGRAPHER PAGE -->
+        <!-- ---------------------------------- -->
+
+        <div id="photographerPage">
+            <div id="photographer-content" class="photographer-content-wrapper">
+        
+                <ul class="gallery" id="gallery-collection" aria-label="photo gallery">
+                </ul>
             </div>
-            <section class="photographers" id="photographersList" aria-label="photographers presentation list">
-
-            </section>
-
-            <div class="nav-help" id="nav-help">
-                <a href="" aria-label="go to main content"><span>passer au contenu</span></a>
+        
+            <!-- ---------------------------------- -->
+            <!-- LIGHTBOX ( photographer slideshow) -->
+            <!-- ---------------------------------- -->
+            <div class="lightbox__main-wrapper">
+                <section class="carousel" id="carousel" aria-label="photographer gallery pictures">
+                </section>
             </div>
-        </main>
+        </div>
+        
     </div>
 
 
-    <!-- TEMPORARY UNTIL ROUTER = SET UP -->
-    <!-- ---------------------------------- -->
-    <!-- PHOTOGRAPHER PAGE -->
-    <!-- ---------------------------------- -->
-    <div id="photographer-content" class="photographer-content-wrapper">
-
-        <ul class="gallery" id="gallery-collection" aria-label="photo gallery">
-        </ul>
-    </div>
-
-    <!-- ---------------------------------- -->
-    <!-- LIGHTBOX ( photographer slideshow) -->
-    <!-- ---------------------------------- -->
-    <div class="lightbox__main-wrapper">
-        <section class="carousel" id="carousel" aria-label="photographer gallery pictures">
-        </section>
-    </div>
 
 
-    
 </body>
 
 </html>

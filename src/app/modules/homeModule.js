@@ -102,13 +102,35 @@ export const homeModule = (function() {
         })
     }
 
+
+    // function used by 'navtags component' as an event listener on each navtag item
+    function updateHomePageView(navTag) {
+        // store tag name for sorting
+        var sortingTerm = navTag;
+
+        // define homepage content
+        const photographersList = document.querySelector('.photographers');
+        // remove eveything that's displayed by default
+        while (photographersList.firstChild) {photographersList.removeChild(photographersList.firstChild)}
+
+        filterPhotographers(myphotographers, sortingTerm);
+    }
+
+    function filterPhotographers(myphotographers, sortingTerm){ 
+            var filtered = myphotographers.filter(x => x.tags.includes(sortingTerm));
+            setUpTemplates(filtered);
+           // homeModule.useSetUpTemplates(filtered);
+    }
+
     function getPhotographers(){ return myphotographers};
 
     // public (these methods can be used outside of this module)
     return {
         startHome: initData,
         getAllData: getPhotographers,
-        useSetUpTemplates: setUpTemplates
+        useSetUpTemplates: setUpTemplates,
+        updateSortedHome: updateHomePageView,
+        run: initData// for router
     }
 }());
 

@@ -3,6 +3,8 @@
 // ---------------------------------------------------------------------------------------
 import { NavTags } from './nav-tags';
 import { initPhotographerPageView } from '../../index';
+import { photographerPageModule } from '../modules/photographerPageModule';
+import { navigateTo } from '../../index';
 
 export class PhotographerTemplateHome extends HTMLElement {
         constructor(photog) {
@@ -41,7 +43,12 @@ export class PhotographerTemplateHome extends HTMLElement {
                 `;
 
             // add event listener on this block, that calls the photographer page with id as param
-            photographerMainBlock.addEventListener('click', function(e) { initPhotographerPageView(e, photographer.id); }, false);
+            photographerMainBlock.addEventListener('click', function(e) { 
+                photographerPageModule.initPagePhotographer(e, photographer.id);
+                let url = '/photographer';
+                navigateTo(e, url);
+            }, false);
+            //photographerMainBlock.addEventListener('click', function(e) { initPhotographerPageView(e, photographer.id); }, false);
             
             // create photographer infos block main presentation block
             const photographerInfosBlock = photographerWrapperHome.appendChild(document.createElement('div'));

@@ -2,17 +2,7 @@
 import "./main.scss";
 
 import { homeModule } from './app/modules/homeModule';
-
-import { NavTags } from './app/components/nav-tags';
-
-import { PhotographerFactory } from './app/utils/photographerFactory';
-import { Photographer } from './app/utils/photographer-model';
-import { PhotographerTemplateHome } from './app/components/photographerTemplate';
-import { PhotographerTemplatePage } from './app/components/photographerTemplatePage';
-
-import { MediaItemFactory } from './app/utils/mediaItem-factory';
-import { MediaItem } from './app/utils/mediaItem-model';
-import { MediaItemTemplate } from './app/components/mediaItemTemplate';
+import { photographerPageModule } from './app/modules/photographerPageModule';
 
 //API apiUrl
 const apiUrl = 'https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/Front-End+V2/P5+Javascript+%26+Accessibility/FishEyeDataFR.json';
@@ -25,94 +15,72 @@ const portraitAssetsPath = './assets/img/portraits/S/';
 homeModule.startHome();
 
 
-// RETRIEVE ALL DATA fetched by homeModule
-let myphotographers = homeModule.getAllData();
-// console.log('HERE', myphotographers);
-
-
-// function used by 'navtags component' as an event listener on each navtag item
-export function updateHomePageView(navTag) {
-    // store tag name for sorting
-    var sortingTerm = navTag;
-
-    // define homepage content
-    const photographersList = document.querySelector('.photographers');
-    // remove eveything that's displayed by default
-    while (photographersList.firstChild) {photographersList.removeChild(photographersList.firstChild)}
-
-    filterPhotographers(myphotographers, sortingTerm);
+const routes = { 
+    '/': homeModule,
+    '/photographer': photographerPageModule
 }
 
-function filterPhotographers(myphotographers, sortingTerm){ 
-        var filtered = myphotographers.filter(x => x.tags.includes(sortingTerm));
-        homeModule.useSetUpTemplates(filtered);
+const rootDiv = document.getElementById('root');
+rootDiv.innerHTML = routes[window.location.pathname];
+
+export const navigateTo = (pathname) => {
+    window.history.pushState( {}, pathname, window.location.origin + pathname);
+    rootDiv.innerHTML = routes[pathname];
+}
+window.onpopstate = () => { rootDiv.innerHTML = routes[window.location.pathname]};
+
+// Listen on hash change:
+window.addEventListener('hashchange', function(){console.log('route changed!')});
+// Listen on page load:
+window.addEventListener('load', function(){console.log('page loaded!')});
+
+
+
+// store routes
+/* var routes = {};
+
+// route registering function
+function route (path, templateId, controller) {
+    routes[path] = { templateId: templateId, controller: controller };
 }
 
+route('/', 'homepage', function () { homeModule.run(); });
+route('/home', 'homepage', function () { homeModule.run(); });
+route('/photographer', 'photographerPage', function () { photographerPageModule.run(); });
 
-// --------------------------------------------------------------------------------------------------------
-// ON HOMEPAGE : when user clicks on a photographer profile, 
-// that triggers a new view + new URL : the photographer own page
-// --------------------------------------------------------------------------------------------------------
-export function initPhotographerPageView(e, photographerId) {
+var el = null;
 
-    e.stopPropagation();
-    e.preventDefault();
-
-    console.log('id==',photographerId );
-    // find photographer via passed id param
-    myphotographers.forEach(photog => {
-        if (photog.id === photographerId ) {
-            console.log('photog========', photog)
-            photog.template = new PhotographerTemplatePage(photog);
-            // generate new navtags html template and inject data
-            photog.tagsTemplate = new NavTags(photog.tags);
-            // define where each generated photographer component will be rooted (= section #photographersList)
-            const photographerInfosContainer = document.querySelector('#photographer-content');
-            // attach each new created components to this section
-            photographerInfosContainer.appendChild(photog.template);
-
-            function getName() { return photog.name; }
-
-            // set up media/gallery section for the photographer
-            photog.photographerMedia.forEach( mediaItem => {
-                // console.log('mediaItem=', mediaItem);
-                mediaItem.photographerName = getName();
-                mediaItem.template = new MediaItemTemplate(mediaItem);
-                const galleryWrapperSection = document.querySelector('#gallery-collection');
-                // attach each photo item to gallery
-                galleryWrapperSection.appendChild(mediaItem.template);
-            })
-        }
-    })
-
+function router () {
+    // load container view element
+    el = el || document.getElementById('root');
+    // Current route url (getting rid of '#' in hash as well):
+    var url = location.hash.slice(1) || '/';
+    // Get route by url:
+    var route = routes[url];
+    // Do we have both a view and a route?
+    if (el && route.controller) {
+        // Render route template
+        el.innerHTML = ;
+    }
 }
+// Listen on hash change:
+window.addEventListener('hashchange', router);
+// Listen on page load:
+window.addEventListener('load', router); */
 
-
-
-
-
-
-
-// router
-const routes = [
-    { path: '/', component: homeModule },
-    // { path: '#/sorted', component: SortedComponent },  //ex: /home/portrait
-]
-
-
+/* 
 const router = () => {
     // Find the component based on the current path
     const path = parseLocation(); console.log('LOCATION==', path);
     // If there's no matching route, get the "Error" component
-    const { component = HomeComponent } = findComponentByPath(path, routes) || {};
-    // const { component = SortedComponent } = findComponentByPath(path, routes) || {};
+    // const { component = HomeComponent } = findComponentByPath(path, routes) || {};
     // Render the component in the "app" placeholder
-    // component.run();
+    document.getElementById('app').innerHTML = component.run();
+
 };
 
 const parseLocation = () => location.hash.slice(1).toLowerCase() || '/';
 const findComponentByPath = (path, routes) => routes.find(r => r.path.match(new RegExp(`^\\${path}$`))) || undefined;
 
-window.addEventListener('hashchange', router);
-window.addEventListener('load', router);
 
+ */

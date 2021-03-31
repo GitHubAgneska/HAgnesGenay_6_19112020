@@ -9,18 +9,18 @@ export class PhotographerTemplatePage extends HTMLElement {
 
         let photographer = photog;
 
-        // link component to main stylesheet
-        const stylePage = document.createElement('link');
-        stylePage.setAttribute('rel', 'stylesheet');
-        stylePage.setAttribute('href', './main.scss');
-        stylePage.setAttribute('type', '.text/css');
-
         // create a shadow root
         const shadow2 = this.attachShadow({mode: 'open'});
-
         // INFOS BLOCK
         // const photographerWrapperPageinfos = document.createElement('section');
         const photographerWrapperPage = document.createElement('div'); // test
+        
+        // link component to main stylesheet
+        const stylePage = document.createElement('link');
+        stylePage.setAttribute('rel', 'stylesheet');
+        stylePage.setAttribute('href', './main.css');
+        stylePage.setAttribute('type', '.text/css');
+        
         // set up which photogtapher is passed as param
         photographerWrapperPage.setAttribute('data', photographer);
 
@@ -65,8 +65,8 @@ export class PhotographerTemplatePage extends HTMLElement {
         // Attach stylesheet to component
         shadow2.appendChild(stylePage);
         // Attach the created elements to the shadow dom
-        shadow2.appendChild(photographerWrapperPage);
         shadow2.appendChild(galleryWrapper);
+        shadow2.appendChild(photographerWrapperPage);
         }
     }
     // register custom element in the built-in CustomElementRegistry object
