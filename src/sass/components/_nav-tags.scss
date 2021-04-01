@@ -28,8 +28,10 @@
         }
     }
     &.page{ 
+        justify-content: unset; // photographer page: taglist = left aligned 
         .nav-tag {
-            font-size: 1.125em;
+            @include min-600px {font-size: 1.125em;} // = 18px
+            @include max-600px { font-size: 0.8125em;} // = 13px
         }
     }
 }
