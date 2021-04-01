@@ -1,0 +1,67 @@
+// body {margin : 0 !important; } //----- to review : see _photographer-page.scss
+
+.lightbox__main-wrapper {
+    width: 100vw; height: 100vh;
+    background-color: lightblue;}
+
+        .carousel.with-slidenav { padding-bottom: 2em;} // leave space at bottom for aria infos
+        .carousel.active {position: relative;}
+        .carousel {
+            border: 5px solid violet;
+            width:1050px;height:900px; 
+            margin:auto; padding-top:10%;
+            position: relative;
+            // overflow: hidden;    
+        }
+        .carousel ul {margin: 0;padding: 0;}
+
+        // first ul : images display 
+        // .slide / = li elements
+        // ---------------------------------------
+        .slide {height: 100%;background-size: cover;overflow: hidden; position: absolute;}
+
+        .active .slide {
+            border: 2px solid red;
+            position: relative;
+            //position: absolute;
+            top: 0;
+            display:block !important;
+            transition: left .6s ease-out;
+            z-index: 200;
+            // visibility: hidden;
+        }  
+
+        .active .prev.slide {left: -100%; border: 2px solid yellow; }
+        .active .current.slide {visibility: visible;left: 0; border:2px solid blue;}
+        .active .next.slide {left: 100%; border:2px solid orange;}
+
+
+        // = second ul
+        // ---------------------------------------
+        .controls { 
+            width:100%; // of carousel
+            position: absolute;
+            z-index: 5;
+            top: 45%;
+            @include flex(row, nowrap);
+            justify-content: space-between;
+            button { 
+                color: $red-main;
+                background-color: lightblue;
+                font-size:2em;
+            }
+            .btn-prev { left: -5px; }
+            .btn-next { right: 5px; }
+        }
+
+         // ---------------------------------------
+        // third ul for accessibility additional infos/commands : 
+        // start/pause carousel / pictures indexes to navigate manually
+        // and check current active pic 
+        .slidenav { 
+            width:100%;position: absolute; bottom:0;
+            border: 2px solid yellow;
+            @include flex(row, nowrap);
+            // overflow: hidden;
+            
+        }
