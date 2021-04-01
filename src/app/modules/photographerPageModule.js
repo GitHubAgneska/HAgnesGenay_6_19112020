@@ -38,7 +38,6 @@ export const photographerPageModule = (function() {
                 photographerGalleryBlock.setAttribute('id', 'gallery-section-'+ photog.name);
                 photographerGalleryBlock.setAttribute('aria-label', photog.name + ' gallery collection');
 
-
                 // set up media/gallery content for the photographer
                 photog.photographerMedia.forEach( mediaItem => {
                     // console.log('mediaItem=', mediaItem);

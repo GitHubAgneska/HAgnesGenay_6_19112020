@@ -1,0 +1,19 @@
+/* =============================================== */
+/* MAIN BUTTON  */
+/* =============================================== */
+
+.main-btn {
+    height: 70px;
+    width: 170px;
+    color: $white; font-weight:700;
+    // font-size:1.125em; // =18px
+    @include max-600px {font-size:1em; }// =16px
+    @include min-600px {font-size:1.2em;} // 
+    background-color: $red-main;
+    text-transform: capitalize;
+    @include border-radius(3px);
+    &--contact { //specific to contact btn - see _photographer-infos.scss
+        margin-left: 50px;
+        @include max-600px {height: 35px; }
+    }
+}

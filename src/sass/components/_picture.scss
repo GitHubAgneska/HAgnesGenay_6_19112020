@@ -1,12 +1,11 @@
 /* =============================================== */
 /* GALLERY + PICTURES RULES  */
 /* =============================================== */
-.gallery {
+.gallery-wrapper {
     width: 100%;
     @include flex(row, wrap); // elements always unfold as a row
 
     media-item-component {
-
         margin: 1em auto;
         overflow: hidden;
         display:flex;

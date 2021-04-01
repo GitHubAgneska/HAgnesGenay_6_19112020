@@ -81,7 +81,6 @@ export const homeModule = (function() {
                 if (photog.id === med.photographerId) {
                     photog.photographerMedia.push(med); }})
         })
-
         setUpTemplates(myphotographers); 
     } // end of initializeData()
 

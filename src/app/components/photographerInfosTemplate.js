@@ -32,6 +32,7 @@ export class PhotographerInfosTemplate extends HTMLElement {
                 <img class="photographer__pic page" src="./assets/img/portraits/S/${photographer.portrait}" alt="${photographer.name} presentation picture" id="${photographer.name}-pres-picture">
                 <div class="photographer__text-infos">
                     <h1 class="photographer__name page" id="${photographer.name}">${photographer.name}</h1>
+                    <button class="main-btn main-btn--contact">contactez-moi</button>
                     <h2 class="photographer__location page" id="${photographer.city}">${photographer.city}, ${photographer.country}</h2>
                     <h3 class="photographer__tagline page" id="${photographer.name}-tagline">${photographer.tagline}</h3>
                 </div>
