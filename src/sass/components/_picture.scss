@@ -1,18 +1,16 @@
 /* =============================================== */
 /* GALLERY + PICTURES RULES  */
 /* =============================================== */
-
-
 .gallery {
     background-color: lightseagreen;
     width: 100%;
     @include max-1200px {@include flex(row, wrap);}
-    @include min-1200px {@include flex(column, wrap); 
-    }
+    @include min-1200px {@include flex(column, wrap);}
 
     media-item-component {
 
         border: 5px solid orange;
+        margin: 1em auto;
         overflow: hidden;
         display:flex;
         @include max-992px { 
@@ -24,51 +22,52 @@
             height: 350px;
             max-width: 350px; // limits expansion when item = 30% width - to keep proportions on big screens 
         }
-
         min-width: 335px; // limits shrinking when item = 30% width
-
-            
-            .mediaItem {
-    
-                .pic-wrapper {
-                    border: 7px solid green;
-                    @include border-radius(5px);
-                    
-                    @include max-992px { height:170px; }
-                    @include min-992px { height:300px; }
-    
-                    overflow: hidden;
-    
-                    img {
-                        // width: 100%; height:100%;
-                        height:auto;
-                        display: block;
-                        // max-height:100%;
-                        min-height: 100%; min-width: 100%;
-                    }
-                    .mediaItem-infos {
-                        @include flex(row, nowrap); // photo infos = in a row
-                    align-items: center; // text = vertically centered
-                    justify-content: space-between;
-    
-                    @include max-992px { height:40px; }// ======================= to review ( useless if using text default margins?
-                    @include min-992px { height:50px; }// ======================= to review ( useless if using text default margins?
-                    @include min-1200px { font-size: 1.25em; }
-                    
-                    .mediaItem-title { flex-basis: 60%;} // title takes most width
-                    color: $red-main;
-                    
-                    .mediaItem-likes, .mediaItem-price { font-weight: 500; }
-                    .mediaItem-likes *{ display: inline;}
-                    @include max-1200px {
-                        .mediaItem-title,
-                        .mediaItem-likes { font-size: 0.875em; }
-                        .mediaItem-price { font-size: 0.75em; }
-                    }
-                    }
-                }
-    
-            }
-            
-        }
+    }
 }
+
+.mediaItem {
+    width:100%;
+    .pic-wrapper {
+            border: 7px solid green;
+            @include border-radius(5px);
+            @include max-992px { height:170px; }
+            @include min-992px { height:300px; }
+
+            overflow: hidden;
+
+            img {
+                height:auto;
+                display: block;
+                min-height: 100%; min-width: 100%;
+            }
+        }
+    .mediaItem-infos {
+        @include flex(row, nowrap); // photo infos = in a row
+        align-items: center; // text = vertically centered
+        justify-content: space-between;
+        color: $red-main;
+
+        @include max-992px { height:40px; }// ======================= to review ( useless if using text default margins?
+        @include min-992px { height:50px; }// ======================= to review ( useless if using text default margins?
+        @include min-1200px { font-size: 1.25em; }
+        
+        .mediaItem-title { width: 70%;} // title takes most width
+        .mediaItem-likes, .mediaItem-price { font-weight: 500; }
+        .mediaItem-likes{
+            @include flex(row, nowrap); // elements = in a row
+            height: 100%;
+            justify-content: end;
+            align-items: center;
+            h5 {margin-right: 5px;}
+            .heart-icon {
+                width: 15px;}
+        }
+        @include max-1200px {
+            .mediaItem-title,
+            .mediaItem-likes { font-size: 0.875em; }
+            .mediaItem-price { font-size: 0.75em; }
+        }
+    }
+}
+

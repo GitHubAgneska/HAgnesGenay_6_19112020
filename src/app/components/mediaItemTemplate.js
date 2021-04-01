@@ -58,25 +58,26 @@
             mediaInfosWrapper.innerHTML =
                 `
                     <h5 class="mediaItem-title" id="mediaItem-title">${medium.image}</h5>
-                    <h5 class="mediaItem-price" id="mediaItem-price">${medium.price}</h5>
-                    <h5 class="mediaItem-likes" id="mediaItem-likes">${medium.likes}</h5>
-                    <button>
-                        <img class="like-icon" src="./assets/icons/heart-icon.png" alt="heart icon">
-                    </button>
+                    <h5 class="mediaItem-price" id="mediaItem-price">${medium.price}€</h5>
+                    <div class="mediaItem-likes">
+                        <h5 id="mediaItem-likes">${medium.likes}</h5>
+                        <img class="heart-icon" src="./assets/icons/heart-icon.png">
+                    </div>
                 `;
         
+            // attach image/video wrapper to media item wrapper in first position
+            galleryItem.insertAdjacentElement('afterbegin',mediaWrapper);
+            galleryItem.appendChild(mediaInfosWrapper);
+            galleryItem.appendChild(mediaItemStyle);
 
-        // attach image/video wrapper to media item wrapper in first position
-        galleryItem.insertAdjacentElement('afterbegin',mediaWrapper);
-        galleryItem.appendChild(mediaInfosWrapper);
+            // Attach stylesheet to component
+            shadow4.appendChild(mediaItemStyle);
+            // Attach the created elements to the shadow dom
+            shadow4.appendChild(galleryItem);
 
-        // Attach stylesheet to component
-        shadow4.appendChild(mediaItemStyle);
-        // Attach the created elements to the shadow dom
-        shadow4.appendChild(galleryItem);
-        // attach each photo item to gallery
-        // galleryWrapperSection.appendChild(galleryItem);
-        }
+            // attach each photo item to gallery => happens in photographer module
+            // galleryWrapperSection.appendChild(galleryItem);
+            }
     }
     // register custom element in the built-in CustomElementRegistry object
     customElements.define('media-item-component', MediaItemTemplate);
