@@ -1,30 +1,11 @@
 
 import { homeModule } from './homeModule';
-
-import { NavTags } from '../../app/components/nav-tags';
-
-import { PhotographerFactory } from '../../app/utils/photographerFactory';
-import { Photographer } from '../../app/utils/photographer-model';
-import { PhotographerTemplateHome } from '../../app/components/photographerTemplate';
-import { PhotographerTemplatePage } from '../../app/components/photographerTemplatePage';
-
-import { MediaItemFactory } from '../../app/utils/mediaItem-factory';
-import { MediaItem } from '../../app/utils/mediaItem-model';
+import { PhotographerInfosTemplate } from '../components/photographerInfosTemplate';
 import { MediaItemTemplate } from '../../app/components/mediaItemTemplate';
-
-//API apiUrl
-const apiUrl = 'https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/Front-End+V2/P5+Javascript+%26+Accessibility/FishEyeDataFR.json';
-const tagslistMainNav = [ 'portrait', 'art', 'fashion', 'architecture', 'travel', 'sport', 'animals', 'events'];  
-const mediaAssetsPath = './app/assets/img/';
-const portraitAssetsPath = './assets/img/portraits/S/';
-
-
-
-
+import { DropdownTemplate } from '../components/dropdown-template';
 
 // MODULE PATTERN STRUCTURE
 export const photographerPageModule = (function() {
-
 
     //private 
     function initPhotographerPageView(e, photographerId) {
@@ -39,35 +20,43 @@ export const photographerPageModule = (function() {
                 // console.log('photog========', photog)
                 
                 // generate new profile template
-                photog.template = new PhotographerTemplatePage(photog);
+                photog.template = new PhotographerInfosTemplate(photog); // = INFOS SECTION
 
-                // define where each generated photographer component will be rooted (= section #photographersList)
-                const photographerInfosContainer = document.querySelector('#photographer-content');
+                // define where each generated photographer component will be rooted (= main (#photographersList))
+                const main = document.querySelector('#photographer-content');
                 // attach each new created photographer profile to this section
-                photographerInfosContainer.appendChild(photog.template);
+                main.appendChild(photog.template);
     
+                let dropdown = new DropdownTemplate();
+                main.appendChild(dropdown);
+
+                // GALLERY BLOCK ======================================================================
+                // create container SECTION for GALLERY
+                const photographerGalleryBlock = document.createElement('section');
+                // set GALLERY SECTION container +  attributes/properties
+                photographerGalleryBlock.setAttribute('class', 'gallery-wrapper');
+                photographerGalleryBlock.setAttribute('id', 'gallery-section-'+ photog.name);
+                photographerGalleryBlock.setAttribute('aria-label', photog.name + ' gallery collection');
+
+
+                // set up media/gallery content for the photographer
+                photog.photographerMedia.forEach( mediaItem => {
+                    // console.log('mediaItem=', mediaItem);
+                    mediaItem.photographerName = getName();
+                    mediaItem.template = new MediaItemTemplate(mediaItem);
+                    // attach each photo item to gallery
+                    photographerGalleryBlock.appendChild(mediaItem.template);
+                })
+
+                main.appendChild(photographerGalleryBlock);
+
                 function getName() { return photog.name; }
-    
-                function setUpGallery(photog) {
-                    // set up media/gallery section for the photographer
-                    photog.photographerMedia.forEach( mediaItem => {
-                        // console.log('mediaItem=', mediaItem);
-                        mediaItem.photographerName = getName();
-                        mediaItem.template = new MediaItemTemplate(mediaItem);
-                        //const galleryWrapperSection = document.querySelector('#gallery-collection');
-                        // attach each photo item to gallery
-                        // galleryWrapperSection.appendChild(mediaItem.template);
-                    })
-                }
             }
         })
-    }// end of initPhotographerPageView
-
+    }
     //public 
     return {
         initPagePhotographer: initPhotographerPageView,
         run: initPhotographerPageView // for router
     }
-
-
 }());
