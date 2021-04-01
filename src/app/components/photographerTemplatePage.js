@@ -6,33 +6,33 @@ import { NavTags } from './nav-tags';
 export class PhotographerTemplatePage extends HTMLElement {
     constructor(photog) {
         super();
-
+        // retrieve photographer object from param
         let photographer = photog;
 
         // create a shadow root
         const shadow2 = this.attachShadow({mode: 'open'});
-        // INFOS BLOCK
-        // const photographerWrapperPageinfos = document.createElement('section');
-        const photographerWrapperPage = document.createElement('div'); // test
-        
+
+        const photographerWrapperPage = document.createElement('section');
         // link component to main stylesheet
         const stylePage = document.createElement('link');
         stylePage.setAttribute('rel', 'stylesheet');
         stylePage.setAttribute('href', './main.css');
-        stylePage.setAttribute('type', '.text/css');
+        stylePage.setAttribute('type', 'text/css');
         
         // set up which photogtapher is passed as param
         photographerWrapperPage.setAttribute('data', photographer);
+        
 
-        // set main SECTION container +  attributes/properties
-        photographerWrapperPage.setAttribute('class', 'photographer photographer--page');
-        photographerWrapperPage.setAttribute('id', 'photographer-'+ photographer.name); // + name
-        photographerWrapperPage.setAttribute('aria-label', photographer.name + ' presentation');
-
-
+        // INFOS BLOCK ======================================================================
+        
         // create photographer main presentation block (top infos + bottom likes / price)
-        photographerWrapperPage.innerHTML = `
-            <img class="photographer__pic page" src="" alt="${photographer.name} presentation picture" id="${photographer.name}-pres-picture">
+        const photographerPageInfos = document.createElement('div');
+        photographerPageInfos.setAttribute('class', 'photographer photographer--page');
+        photographerPageInfos.setAttribute('id', 'photographer-'+ photographer.name); // + name
+        photographerPageInfos.setAttribute('aria-label', photographer.name + ' presentation');
+
+        photographerPageInfos.innerHTML = `
+            <img class="photographer__pic page" src="./assets/img/portraits/S/${photographer.portrait}" alt="${photographer.name} presentation picture" id="${photographer.name}-pres-picture">
             <div class="photographer__text-infos">
                 <h1 class="photographer__name page" id="${photographer.name}">${photographer.name}</h1>
                 <h2 class="photographer__location page" id="${photographer.city}">${photographer.city}, ${photographer.country}</h2>
@@ -45,27 +45,32 @@ export class PhotographerTemplatePage extends HTMLElement {
                 <h4 class="photographer__price" id="${photographer.price}">${photographer.price}</h4>
             </div>
         `;
-
+        // generate new tagslists custom element template (using Navtags custom html element)
         const photographerTagsList2 = new NavTags(photographer.tags);
-        photographerWrapperPage.appendChild(photographerTagsList2);
+        
+        photographerPageInfos.appendChild(photographerTagsList2); // =====> TO REVIEW : NOT where it should be
 
-        // GALLERY BLOCK
+        // attach infos block to photographerWrapperPage
+        photographerWrapperPage.insertAdjacentElement("afterbegin",photographerPageInfos);
+
+
+        // GALLERY BLOCK ======================================================================
         // create component container SECTION for GALLERY
-        const galleryWrapper = document.createElement('section');
+        const galleryWrapper = document.createElement('div');
         // set GALLERY SECTION container +  attributes/properties
         galleryWrapper.setAttribute('class', 'gallery-wrapper');
         galleryWrapper.setAttribute('id', 'gallery-section-'+ photographer.name);
         galleryWrapper.setAttribute('aria-label', photographer.name + ' gallery collection');
 
 
-        //  HERE: APPEND PHOTO-LIST LI ELEMENTS (GALLERY = list of imgs) / 
-        // call to initiate photographer media + templates
-        // fetchMedia(newPhotographer.id, newPhotographer.name);
+        // attach gallery block to photographerWrapperPage in last position
+        photographerWrapperPage.insertAdjacentElement("beforeend", galleryWrapper);
+
+        //  HERE: APPEND PHOTO-LIST LI ELEMENTS (GALLERY = list of imgs)
     
         // Attach stylesheet to component
         shadow2.appendChild(stylePage);
         // Attach the created elements to the shadow dom
-        shadow2.appendChild(galleryWrapper);
         shadow2.appendChild(photographerWrapperPage);
         }
     }

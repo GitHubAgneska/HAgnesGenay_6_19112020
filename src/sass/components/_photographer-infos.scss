@@ -14,7 +14,6 @@
         @include min-600px { height: 400px; min-width:350px;} */
     }
     &--page{ 
-        width:100%;
         @include flex(row-reverse, nowrap);
         justify-content: space-between; 
         // align-items: center;
@@ -75,5 +74,7 @@
             }
         }
     }
-
+}
+.photographer-content-wrapper {
+    position: relative;  // for bottom infos abs pos
 }

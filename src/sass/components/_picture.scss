@@ -2,14 +2,11 @@
 /* GALLERY + PICTURES RULES  */
 /* =============================================== */
 .gallery {
-    background-color: lightseagreen;
     width: 100%;
-    @include max-1200px {@include flex(row, wrap);}
-    @include min-1200px {@include flex(column, wrap);}
+    @include flex(row, wrap); // elements always unfold as a row
 
     media-item-component {
 
-        border: 5px solid orange;
         margin: 1em auto;
         overflow: hidden;
         display:flex;
@@ -29,19 +26,17 @@
 .mediaItem {
     width:100%;
     .pic-wrapper {
-            border: 7px solid green;
-            @include border-radius(5px);
-            @include max-992px { height:170px; }
-            @include min-992px { height:300px; }
+        @include border-radius(5px);
+        @include max-992px { height:170px; }
+        @include min-992px { height:300px; }
+        overflow: hidden;
 
-            overflow: hidden;
-
-            img {
-                height:auto;
-                display: block;
-                min-height: 100%; min-width: 100%;
-            }
+        img, video source {
+            height:auto;
+            display: block;
+            min-height: 100%; min-width: 100%;
         }
+    }
     .mediaItem-infos {
         @include flex(row, nowrap); // photo infos = in a row
         align-items: center; // text = vertically centered
@@ -52,16 +47,16 @@
         @include min-992px { height:50px; }// ======================= to review ( useless if using text default margins?
         @include min-1200px { font-size: 1.25em; }
         
-        .mediaItem-title { width: 70%;} // title takes most width
+        .mediaItem-title { max-width: 70%; overflow:hidden;} // title takes most width
         .mediaItem-likes, .mediaItem-price { font-weight: 500; }
         .mediaItem-likes{
             @include flex(row, nowrap); // elements = in a row
             height: 100%;
             justify-content: end;
             align-items: center;
+
             h5 {margin-right: 5px;}
-            .heart-icon {
-                width: 15px;}
+            .heart-icon { width: 15px;}
         }
         @include max-1200px {
             .mediaItem-title,

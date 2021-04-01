@@ -36,26 +36,29 @@ export const photographerPageModule = (function() {
         // find photographer via passed id param
         myphotographers.forEach(photog => {
             if (photog.id === photographerId ) {
-                console.log('photog========', photog)
+                // console.log('photog========', photog)
+                
+                // generate new profile template
                 photog.template = new PhotographerTemplatePage(photog);
-                // generate new navtags html template and inject data
-                photog.tagsTemplate = new NavTags(photog.tags);
+
                 // define where each generated photographer component will be rooted (= section #photographersList)
                 const photographerInfosContainer = document.querySelector('#photographer-content');
-                // attach each new created components to this section
+                // attach each new created photographer profile to this section
                 photographerInfosContainer.appendChild(photog.template);
     
                 function getName() { return photog.name; }
     
-                // set up media/gallery section for the photographer
-                photog.photographerMedia.forEach( mediaItem => {
-                    // console.log('mediaItem=', mediaItem);
-                    mediaItem.photographerName = getName();
-                    mediaItem.template = new MediaItemTemplate(mediaItem);
-                    const galleryWrapperSection = document.querySelector('#gallery-collection');
-                    // attach each photo item to gallery
-                    galleryWrapperSection.appendChild(mediaItem.template);
-                })
+                function setUpGallery(photog) {
+                    // set up media/gallery section for the photographer
+                    photog.photographerMedia.forEach( mediaItem => {
+                        // console.log('mediaItem=', mediaItem);
+                        mediaItem.photographerName = getName();
+                        mediaItem.template = new MediaItemTemplate(mediaItem);
+                        //const galleryWrapperSection = document.querySelector('#gallery-collection');
+                        // attach each photo item to gallery
+                        // galleryWrapperSection.appendChild(mediaItem.template);
+                    })
+                }
             }
         })
     }// end of initPhotographerPageView

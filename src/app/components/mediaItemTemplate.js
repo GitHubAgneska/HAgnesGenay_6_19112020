@@ -43,7 +43,7 @@
                 mediaWrapper.innerHTML = 
                 `
                 <a aria-label="enlarge photo">
-                    <video width="320" height="240" controls>
+                    <video controls>
                         <source src="./assets/img/${medium.photographerName}/${medium.video}" type="video/mp4">
                     </video> 
                 </a>
@@ -57,7 +57,7 @@
 
             mediaInfosWrapper.innerHTML =
                 `
-                    <h5 class="mediaItem-title" id="mediaItem-title">${medium.image}</h5>
+                    <h5 class="mediaItem-title" id="mediaItem-title">${medium.image || medium.video}</h5>
                     <h5 class="mediaItem-price" id="mediaItem-price">${medium.price}€</h5>
                     <div class="mediaItem-likes">
                         <h5 id="mediaItem-likes">${medium.likes}</h5>

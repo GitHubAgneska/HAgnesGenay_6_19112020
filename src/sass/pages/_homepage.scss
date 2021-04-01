@@ -32,7 +32,8 @@ body {
     photographer-component-home {  // custom element that contains '.photographer' class
         @include max-600px { width:100%;}
         @include min-600px { height: 400px; width:350px;}
-    }    
+    }  
+    photographer-component-page {width:100%;}  
 }
 
 
