@@ -1,5 +1,6 @@
 
 @use "sass:map";
+
 /* ======================================== */
 /* MIXINS */
 /* ======================================== */
@@ -32,6 +33,20 @@ $breakpoints: (xs-mobile: 375px, mobile: 600px, tablet: 768px, laptop: 992px, de
 /* == from 600  */
 @mixin min-600px {
     @media screen and (min-width: map-get($breakpoints, mobile )) {
+        @content;
+        @include transition(all, 1s, ease-in-out);
+    }
+}
+/* == up to 992  */
+@mixin max-992px {
+    @media screen and (max-width: map-get($breakpoints, laptop )) {
+        @content;
+        @include transition(all, 1s, ease-in-out);
+    }
+}
+/* == from 992  */
+@mixin min-992px {
+    @media screen and (min-width: map-get($breakpoints, laptop )) {
         @content;
         @include transition(all, 1s, ease-in-out);
     }
@@ -119,8 +134,38 @@ $breakpoints: (xs-mobile: 375px, mobile: 600px, tablet: 768px, laptop: 992px, de
     -o-transition: $elements $duration $type;
 }
 
+/* ======================================== */
+/* COMMON ELEMENTS */
+/* ======================================== */
+@mixin icon-base {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+@mixin icon-size( $size: 1.3em ) { 
+    font-size: $size;
+}
 
 /* ======================================== */
-/* COLORS */
+/* ACCESSIBILITY */
+/* ======================================== */
+// The common approach used to hide information visually but keep them available to screen reader 
+// and other assistive technology users is to use CSS that will keep the information technically 
+// visible but practically hidden
+
+@mixin visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+
+/* ======================================== */
+/* COLORS ( exceptions, otherwise = in _variables.scss )*/
 /* ======================================== */
 

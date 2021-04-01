@@ -13,21 +13,24 @@
             
             // append content to UL
             const galleryItem = document.createElement('li');
-            galleryItem.setAttribute('class', 'photo-item');
+            galleryItem.setAttribute('class', 'mediaItem');
 
             let medium = mediaItem; 
-            console.log('MEDIA IN TEMPLATE==', mediaItem);
+            // console.log('MEDIA IN TEMPLATE==', mediaItem);
             galleryItem.setAttribute('data', medium);
             
             // link component to main stylesheet
-            const stylePhoto = document.createElement('link');
-            stylePhoto.setAttribute('rel', 'stylesheet');
-            stylePhoto.setAttribute('href', './main.css');
-            stylePhoto.setAttribute('type', 'text/css');
+            const mediaItemStyle = document.createElement('link');
+            mediaItemStyle.setAttribute('rel', 'stylesheet');
+            mediaItemStyle.setAttribute('href', './main.css');
+            mediaItemStyle.setAttribute('type', 'text/css');
+            // galleryItem.appendChild(mediaItemStyle);
 
+
+            // PHOTO WRAPPER
             const mediaWrapper = document.createElement('div');
             mediaWrapper.setAttribute('class', 'pic-wrapper');
-            galleryItem.appendChild(mediaWrapper);
+            
 
             if ( medium.hasOwnProperty('image') ) {
                 mediaWrapper.innerHTML = 
@@ -46,20 +49,29 @@
                 </a>
                 `
             }
-            galleryItem.innerHTML =
+
+             // PHOTO INFOS WRAPPER
+            const mediaInfosWrapper = document.createElement('div');
+            mediaInfosWrapper.setAttribute('class', 'mediaItem-infos');
+            mediaInfosWrapper.setAttribute('aria-label', 'media item infos');
+
+            mediaInfosWrapper.innerHTML =
                 `
-                    <div class="photo-infos" aria-label="photo infos">
-                        <h5 class="photo-title" id="photo-title">${medium.image}</h5>
-                        <h5 class="photo-price" id="photo-price">${medium.price}</h5>
-                        <h5 class="photo-likes" id="photo-likes">${medium.likes}</h5>
-                        <button>
-                            <img class="like-icon" src="./assets/icons/heart-icon.png" alt="heart icon">
-                        </button>
-                    </div>
-            `;
+                    <h5 class="mediaItem-title" id="mediaItem-title">${medium.image}</h5>
+                    <h5 class="mediaItem-price" id="mediaItem-price">${medium.price}</h5>
+                    <h5 class="mediaItem-likes" id="mediaItem-likes">${medium.likes}</h5>
+                    <button>
+                        <img class="like-icon" src="./assets/icons/heart-icon.png" alt="heart icon">
+                    </button>
+                `;
         
+
+        // attach image/video wrapper to media item wrapper in first position
+        galleryItem.insertAdjacentElement('afterbegin',mediaWrapper);
+        galleryItem.appendChild(mediaInfosWrapper);
+
         // Attach stylesheet to component
-        shadow4.appendChild(stylePhoto);
+        shadow4.appendChild(mediaItemStyle);
         // Attach the created elements to the shadow dom
         shadow4.appendChild(galleryItem);
         // attach each photo item to gallery
