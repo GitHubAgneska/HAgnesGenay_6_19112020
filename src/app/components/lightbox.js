@@ -1,8 +1,8 @@
 
-// code chunk adapted from:   https://www.w3.org/WAI/tutorials/carousels/full-code/
+// code chunk adapted from:   https://www.w3.org/WAI/tutorials/lightboxs/full-code/
 // Focusin/out event polyfill (for Firefox) by nuxodin
 // Source: https://gist.github.com/nuxodin/9250e56a3ce6c0446efa
-// Carousel Prototype Eric Eggert for W3C
+// lightbox Prototype Eric Eggert for W3C
 
 
 !function () {
@@ -39,52 +39,39 @@
 }();
 
 
-/* ---- MOCK DATA ---  */
-const slidesImages = [ 
-    {"name": 1, "url": "../assets/img/Photographers_ID_photos/S/EllieRoseWilkens_S.jpg" },
-    {"name": 2, "url":  "../assets/img/Photographers_ID_photos/S/MarcelNikolic_S.jpg"},
-    {"name": 3, "url": "../assets/img/Photographers_ID_photos/S/MimiKeel_S.jpg"}
-]
-/* ------------- */
 
 
 
-
-var myCarousel = (function () {
+export const Lightbox = (function () {
 
     "use strict"; // code should be executed in "strict mode"- you can not, for example, use undeclared variables
 
     // Initial variables
-    var carousel, index, slidenav, slides, settings, timer, setFocus, animationSuspended, announceItem, _this;
+    var lightbox, index, slidenav, slides, settings, timer, setFocus, animationSuspended, announceItem, _this;
+    var currentImg; var currentGallery;
 
-    // Helper function: Iterates over an array of elements
-    function forEachElement(elements, fn) {
-        for (var i = 0; i < elements.length; i++) 
-            fn(elements[i], i);
-    }
+    //HELPER FUNCTIONS
+            // Helper function: Remove Class ---------------> ( used to update class 'current/active'  of viewed picture ) 
+            function removeClass(el, className) {
+                if (el.classList) { el.classList.remove(className);
+                } else { 
+                    el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+                }
+            }
+            // Helper function: Test if element has a specific class -----> ( used to update class 'current/active'  of viewed picture )
+            function hasClass(el, className) {
+                if (el.classList) {
+                    return el.classList.contains(className);
+                } else {
+                    return new RegExp('(^| )' + className + '( |$)', 'gi').test(el.className);
+                }
+            }
 
-    // Helper function: Remove Class ---------------> ( used to update class 'current/active'  of viewed picture ) 
-    function removeClass(el, className) {
-        if (el.classList) { el.classList.remove(className);
-        } else { 
-            el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
-        }
-    }
-
-    // Helper function: Test if element has a specific class -----> ( used to update class 'current/active'  of viewed picture )
-    function hasClass(el, className) {
-        if (el.classList) {
-            return el.classList.contains(className);
-        } else {
-            return new RegExp('(^| )' + className + '( |$)', 'gi').test(el.className);
-        }
-    }
-
-    // Initialization for the carousel ----------------------------------------
+    // Initialization for the lightbox ----------------------------------------
     // Argument: set = an object of settings
     // Possible settings:
     // -----------------
-    // - id <string> ID of the carousel wrapper element (required).
+    // - id <string> ID of the lightbox wrapper element (required).
     // - slidenav <bool> If true, a list of slides is shown.
     // - animate <bool> If true, the slides can be animated.
     // - startAnimated <bool> If true, the animation begins immediately.
@@ -92,17 +79,38 @@ var myCarousel = (function () {
 
     function init(set) { // Make settings available to all functions
         settings = set;
+        currentImg = settings.currentImg ;
+        currentGallery = settings.currentGallery ;
 
-        // Select the element and the individual slides
-        carousel = document.getElementById(settings.id);
-        carousel.className = 'active carousel';
+        // generate LIGHTBOX WRAPPER ========================================
+        const lightboxWrapper = document.createElement('div');
+        lightboxWrapper.setAttribute('class', 'lightbox__main-wrapper');
+
+        // lightbox style
+        const lightboxStyle = document.createElement('link');
+        lightboxStyle.setAttribute('href', './main.css');
+        lightboxStyle.setAttribute('rel', 'stylesheet');
+        lightboxStyle.setAttribute('type', 'text/css');
+
+        
+        // generate LIGHTBOX  ========================================
+        const lightbox = document.createElement('div');
+        lightbox.setAttribute('id', 'lightbox');
+        lightbox.setAttribute('class', 'active lightbox with-slidenav');
+        
+        // attach lightbox to its main wrapper
+        lightboxWrapper.appendChild(lightbox);
+        
+        // append lightbox main wrapper to body
+        document.body.appendChild(lightboxWrapper);
+
 
         // HERE : generate first ul, injecting data from json as bg images into li elements
         // --------------------------------------------------------------------------------
         var firstUl = document.createElement('ul');
 
         // for each image of gallery, generate a li element with bg img + class .slide
-        slidesImages.forEach(pic => {
+        currentGallery.forEach(pic => {
             var liItem = document.createElement('li');
             liItem.className = 'slide';
             var url = pic.url;
@@ -110,38 +118,33 @@ var myCarousel = (function () {
             firstUl.appendChild(liItem); // attach li element to ul
         });
 
-        carousel.appendChild(firstUl);
-        slides = carousel.querySelectorAll('.slide');
+        lightbox.appendChild(firstUl);
+        slides = lightbox.querySelectorAll('.slide');
 
 
-        // CONTROLS -------------------------------------------------------------------
-        // Create unordered list for controls previous and next btns
+        // CONTROLS : second ul -------------------------------------------------------------------
         var ctrls = document.createElement('ul');
         ctrls.className = 'controls';
         ctrls.innerHTML = 
-            `<li>`
-            + `<button type="button" class="btn-prev"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>`
-            + `</li>` 
-            + `<li>` 
-            + `<button type="button" class="btn-next"><i class="fa fa-chevron-right" aria-hidden="true"></button>` 
-            + `</li>`;
+            `<li>
+                <button type="button" class="btn-prev"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+            </li> 
+            <li>
+                <button type="button" class="btn-next"><i class="fa fa-chevron-right" aria-hidden="true"></button>
+            </li>
+            `;
         
         // attach click events to btns
         ctrls.querySelector('.btn-prev').addEventListener('click', function () { prevSlide(true); });
         ctrls.querySelector('.btn-next').addEventListener('click', function () { nextSlide(true); });
-        carousel.appendChild(ctrls);
+        lightbox.appendChild(ctrls);
         // ---------------------------------------------------------------------------------
 
 
-        // GENERATE UL ELEMENTS for accessibility  ---------------------------------------------------------------------------
-        
-        // third ul for accessibility additional infos/commands : 
-        // start/pause carousel / pictures indexes to navigate manually
-        // and check current active pic 
+        // GENERATE UL ELEMENTS for accessibility : third ul --------------------------------------------------------------------------- 
+        // start/pause lightbox / pictures indexes to navigate manually + check current active pic 
+        if (settings.slidenav || settings.animate) {   // If lightbox 'animated' or 'slide navigation' = requested in settings
 
-        // If the carousel= animated or a slide navigation = requested in the settings
-
-        if (settings.slidenav || settings.animate) {  
             // another unordered list that contains those elements is added.
             slidenav = document.createElement('ul'); // settings.slidenav = true : 'list of slides is shown.'
             slidenav.className = 'slidenav';
@@ -188,8 +191,8 @@ var myCarousel = (function () {
                 }
             }, true);
 
-            carousel.className = 'active carousel with-slidenav';
-            carousel.appendChild(slidenav);
+            lightbox.className = 'active lightbox with-slidenav';
+            lightbox.appendChild(slidenav);
         }
 
         // Add a live region to announce the slide number when using the previous/next buttons ----- use?
@@ -197,10 +200,10 @@ var myCarousel = (function () {
         liveregion.setAttribute('aria-live', 'polite');
         liveregion.setAttribute('aria-atomic', 'true');
         liveregion.setAttribute('class', 'liveregion visuallyhidden');
-        carousel.appendChild(liveregion);
+        lightbox.appendChild(liveregion);
 
         
-        slides = carousel.querySelectorAll('.slide'); // necessary to redefine --- ?
+        slides = lightbox.querySelectorAll('.slide'); // necessary to redefine --- ?
         // After the slide transitioned, remove the in-transition class, 
         // if focus should be set, set the tabindex attribute to -1 and focus the slide.
         slides[0].parentNode.addEventListener('transitionend', function (event) {
@@ -216,25 +219,25 @@ var myCarousel = (function () {
         });
 
         // MOUSE / FOCUS  EVENTS --------------------------------------------------------------------------
-        // When the mouse enters the carousel, suspend the animation.
-        carousel.addEventListener('mouseenter', suspendAnimation);
+        // When the mouse enters the lightbox, suspend the animation.
+        lightbox.addEventListener('mouseenter', suspendAnimation);
 
-        // When the mouse leaves the carousel, and the animation is suspended, start the animation.
-        carousel.addEventListener('mouseleave', function (event) {
+        // When the mouse leaves the lightbox, and the animation is suspended, start the animation.
+        lightbox.addEventListener('mouseleave', function (event) {
             if (animationSuspended) {
                 startAnimation();
             }
         });
 
-        // When the focus enters the carousel, suspend the animation
-        carousel.addEventListener('focusin', function (event) {
+        // When the focus enters the lightbox, suspend the animation
+        lightbox.addEventListener('focusin', function (event) {
             if (! hasClass(event.target, 'slide')) {
                 suspendAnimation();
             }
         });
 
-        // When the focus leaves the carousel, and the animation is suspended, start the animation
-        carousel.addEventListener('focusout', function (event) {
+        // When the focus leaves the lightbox, and the animation is suspended, start the animation
+        lightbox.addEventListener('focusout', function (event) {
             if (! hasClass(event.target, 'slide') && animationSuspended) {
                 startAnimation();
             }
@@ -255,7 +258,7 @@ var myCarousel = (function () {
     // SET SLIDE TO CURRENT SLIDE -----------------------------------------------------
     function setSlides(new_current, setFocusHere, transition, announceItemHere) {
         // Focus, transition and announce Item are optional parameters.
-        // focus denotes if the focus should be set after the carousel advanced to slide number new_current.
+        // focus denotes if the focus should be set after the lightbox advanced to slide number new_current.
         // transition denotes if the transition is going into the next or previous direction.
         // If announceItem is set to true, the live region’s text is changed (and announced)
         // Here defaults are set:
@@ -294,7 +297,7 @@ var myCarousel = (function () {
 
         // Update the text in the live region which is then announced by screen readers.
         if (announceItem) {
-            carousel.querySelector('.liveregion').textContent = 'Item ' + (
+            lightbox.querySelector('.liveregion').textContent = 'Item ' + (
                 new_current + 1
             ) + ' of ' + slides.length;
         }
@@ -302,7 +305,7 @@ var myCarousel = (function () {
 
         // BTNS UPDATE : Update the buttons in the slider navigation to match the currently displayed item ------------
         if (settings.slidenav) {  // --------- (slidenav true = display list of slides)
-            var buttons = carousel.querySelectorAll('.slidenav button[data-slide]');
+            var buttons = lightbox.querySelectorAll('.slidenav button[data-slide]');
             for (var j = buttons.length - 1; j >= 0; j--) {
                 buttons[j].className = '';
                 buttons[j].innerHTML = `<span class="visuallyhidden">PLACEHOLDER</span> ` + ( j + 1 );
@@ -331,7 +334,7 @@ var myCarousel = (function () {
         // If we advance to the next slide, the previous needs to be visible to the user, so the third parameter is 'prev', not next.
         setSlides(new_current, false, 'prev', announceItem);
 
-        // If carousel = animated, go to next slide after 5s
+        // If lightbox = animated, go to next slide after 5s
         if (settings.animate) { timer = setTimeout(nextSlide, 5000); }
     }
 
@@ -354,7 +357,7 @@ var myCarousel = (function () {
         clearTimeout(timer);
         settings.animate = false;
         animationSuspended = false; // -------------------------- true?
-        _this = carousel.querySelector('[data-action]');
+        _this = lightbox.querySelector('[data-action]');
         _this.innerHTML = `<span class="visuallyhidden">Start Animation </span>▶`;
         _this.setAttribute('data-action', 'start');
     }
@@ -364,7 +367,7 @@ var myCarousel = (function () {
         settings.animate = true;
         animationSuspended = false;
         timer = setTimeout(nextSlide, 5000);
-        _this = carousel.querySelector('[data-action]');
+        _this = lightbox.querySelector('[data-action]');
         _this.innerHTML = `<span class="visuallyhidden">Stop Animation </span>￭`;
         _this.setAttribute('data-action', 'stop');
     }
@@ -390,16 +393,12 @@ var myCarousel = (function () {
 });
 
 
-window.onload = () => {
-    alert('carousel initialize');
-    var carousel = new myCarousel();
-    carousel.init({id: 'carousel', slidenav: true, animate: true, startAnimated: true});
-}
+
 
 
 // FINAL HTML RESULT SHOULD LOOK LIKE SO:
 
-/* <div id="c" class="active carousel with-slidenav">
+/* <div id="c" class="active lightbox with-slidenav">
 
     <ul>
         <li class="current slide"  style="background-image: url('../../img/ex-teddy2-aedbb01f.jpg');"></li>

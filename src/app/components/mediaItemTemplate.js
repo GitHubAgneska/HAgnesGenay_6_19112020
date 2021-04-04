@@ -3,6 +3,8 @@
     // CUSTOM ELEMENT TEMPLATE FOR IMAGES FROM GALLERY
     // ----------------------------------------------------
 
+import { photographerPageModule } from "../modules/photographerPageModule";
+
     // how each photo/video of photographer gallery will be generated as a html template
     export class MediaItemTemplate extends HTMLElement {
         constructor(mediaItem) {
@@ -49,6 +51,11 @@
                 </a>
                 `
             }
+
+            /* mediaWrapper.addEventListener('click', function() {
+                photographerPageModule.callLightboxInit(medium.id, medium.photographerId)
+                }, false);  ====>  HOSTED  BY PHOTOGRAPHER MODULE */ 
+
 
              // PHOTO INFOS WRAPPER
             const mediaInfosWrapper = document.createElement('div');

@@ -15,6 +15,11 @@ const portraitAssetsPath = './assets/img/portraits/S/';
 homeModule.run();
 // window.DOMContentLoaded = () => homeModule.run();
 console.log('window.location.pathname==', window.location.pathname)
+
+
+
+
+
 /* 
 const routes = { 
     '/': homeModule,
