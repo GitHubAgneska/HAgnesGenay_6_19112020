@@ -5,7 +5,7 @@
 // lightbox Prototype Eric Eggert for W3C
 
 
-!function () {
+!function () {   // syntax = short-hand or alternative of self-invoking anonymous function 
     var w = window,
         d = w.document;
 
@@ -51,6 +51,12 @@ export const Lightbox = (function () {
     var currentImg; var currentGallery;
 
     //HELPER FUNCTIONS
+
+            // Helper function: Iterates over an array of elements
+            function forEachElement(elements, fn) {
+                for (var i = 0; i < elements.length; i++) 
+                    fn(elements[i], i);
+            }
             // Helper function: Remove Class ---------------> ( used to update class 'current/active'  of viewed picture ) 
             function removeClass(el, className) {
                 if (el.classList) { el.classList.remove(className);
@@ -113,8 +119,8 @@ export const Lightbox = (function () {
         currentGallery.forEach(pic => {
             var liItem = document.createElement('li');
             liItem.className = 'slide';
-            var url = pic.url;
-            liItem.setAttribute('style', 'background-image:url(' + url + ')');
+
+            liItem.setAttribute('style', 'background-image:url("./assets/img/' + pic.photographerName + 'S'+ (pic.image || pic.video) + '")' );
             firstUl.appendChild(liItem); // attach li element to ul
         });
 
