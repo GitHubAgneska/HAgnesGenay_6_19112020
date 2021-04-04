@@ -90,7 +90,7 @@ export const Lightbox = (function () {
 
         // generate LIGHTBOX WRAPPER ========================================
         const lightboxWrapper = document.createElement('div');
-        lightboxWrapper.setAttribute('class', 'lightbox__main-wrapper');
+        lightboxWrapper.setAttribute('class', 'lightbox-main-wrapper');
 
         // lightbox style
         const lightboxStyle = document.createElement('link');
@@ -114,13 +114,14 @@ export const Lightbox = (function () {
         // HERE : generate first ul, injecting data from json as bg images into li elements
         // --------------------------------------------------------------------------------
         var firstUl = document.createElement('ul');
+        firstUl.setAttribute('class', 'lightbox-images');
 
         // for each image of gallery, generate a li element with bg img + class .slide
         currentGallery.forEach(pic => {
             var liItem = document.createElement('li');
             liItem.className = 'slide';
 
-            liItem.setAttribute('style', 'background-image:url("./assets/img/' + pic.photographerName + 'S'+ (pic.image || pic.video) + '")' );
+            liItem.setAttribute('style', 'background-image:url("./assets/img/' + pic.photographerName + '/S/'+ (pic.image || pic.video) + '")' );
             firstUl.appendChild(liItem); // attach li element to ul
         });
 
@@ -341,7 +342,7 @@ export const Lightbox = (function () {
         setSlides(new_current, false, 'prev', announceItem);
 
         // If lightbox = animated, go to next slide after 5s
-        if (settings.animate) { timer = setTimeout(nextSlide, 5000); }
+        if (settings.animate) { timer = setTimeout(nextSlide, 3000); }
     }
 
     // GO BACK TO PREVIOUS ----------------------------------------------------------------------------
@@ -372,7 +373,7 @@ export const Lightbox = (function () {
     function startAnimation() {
         settings.animate = true;
         animationSuspended = false;
-        timer = setTimeout(nextSlide, 5000);
+        timer = setTimeout(nextSlide, 3000);
         _this = lightbox.querySelector('[data-action]');
         _this.innerHTML = `<span class="visuallyhidden">Stop Animation </span>￭`;
         _this.setAttribute('data-action', 'stop');
@@ -404,9 +405,9 @@ export const Lightbox = (function () {
 
 // FINAL HTML RESULT SHOULD LOOK LIKE SO:
 
-/* <div id="c" class="active lightbox with-slidenav">
+/* <div id="lightbox" class="active lightbox with-slidenav">
 
-    <ul>
+    <ul class="lightbox-images">
         <li class="current slide"  style="background-image: url('../../img/ex-teddy2-aedbb01f.jpg');"></li>
         <li class="next slide" tabindex="-1" aria-hidden="true"><img></li>
         <li class="prev slide" tabindex="-1" aria-hidden="true"><img></li>

@@ -17,9 +17,6 @@ homeModule.run();
 console.log('window.location.pathname==', window.location.pathname)
 
 
-
-
-
 /* 
 const routes = { 
     '/': homeModule,
