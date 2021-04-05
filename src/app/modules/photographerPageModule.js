@@ -4,6 +4,7 @@ import { PhotographerInfosTemplate } from '../components/photographerInfosTempla
 import { MediaItemTemplate } from '../../app/components/mediaItemTemplate';
 import { DropdownTemplate } from '../components/dropdown-template';
 import { Lightbox } from '../components/lightbox';
+import { ModalContact } from '../components/modal-contact';
 
 // MODULE PATTERN STRUCTURE
 export const photographerPageModule = (function() {
@@ -16,7 +17,7 @@ export const photographerPageModule = (function() {
         // e.stopPropagation();
         // e.preventDefault();
         const photogId = photographerId;
-        const myphotographers = getAllData();
+        const myphotographers = getAllData();  // instead : retrieve photographer object as param
 
         // find photographer via passed id param
         myphotographers.forEach(photog => {
@@ -81,7 +82,9 @@ export const photographerPageModule = (function() {
     function openContactForm(currentPhotographer) {
         var photog = currentPhotographer;
         console.log('NAME=====', currentPhotographer);
-
+        var contactModal = new ModalContact(currentPhotographer);
+        var root = document.querySelector('#photographer-content');  //  TEMPORARY : IMPLEMENT DESTRUCT PREVIOUS VIEW UTIL FUNCTION
+        root.appendChild(contactModal);
     }
 
     //public 
