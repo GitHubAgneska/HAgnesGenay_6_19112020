@@ -1,0 +1,31 @@
+
+// =========================================
+/* MODAL CONTACT - CONFIRM BOXES */
+// =========================================
+
+.confirmation-message-wrapper {
+    height:80vh;
+    margin-left:35px; margin-right: 35px;
+    display: none; /* default before user clicks 'submit' */
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    h1 {font-family: "DMSans-regular", Arial, sans-serif;
+        font-size: 3rem; color: $white; }
+}
+.confirBox-cancelModal {
+    // display:none;/* default */
+    position:absolute;
+    top:0;
+    z-index:5;
+    height:200px;
+    @include max-600px { width:80%; }
+    margin:10%;
+    background-color: $white;
+    flex-flow: column nowrap;
+    @include border-radius(25px);
+    // @include box-shadow;
+    h2 { text-align: center; }
+    h2, .btns-wrapper {width:80%; margin:auto; }          
+}

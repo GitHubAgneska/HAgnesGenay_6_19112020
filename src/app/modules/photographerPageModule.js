@@ -5,6 +5,7 @@ import { MediaItemTemplate } from '../../app/components/mediaItemTemplate';
 import { DropdownTemplate } from '../components/dropdown-template';
 import { Lightbox } from '../components/lightbox';
 import { ModalContact } from '../components/modal-contact';
+import { ConfirmBox } from '../components/confirm-box';
 
 // MODULE PATTERN STRUCTURE
 export const photographerPageModule = (function() {
@@ -85,11 +86,28 @@ export const photographerPageModule = (function() {
         var root = document.querySelector('#photographer-content');  //  TEMPORARY : IMPLEMENT 'DESTRUCT PREVIOUS VIEW' UTIL FUNCTION
         root.appendChild(contactModal);
     }
+    function closeModal(event, mainModalWrapper, inputsTouched) {
+        // event.target = mainModalWrapper;
+
+        // check inputs touched => confirmation box
+        if (inputsTouched) { 
+            var confirmBox = new ConfirmBox();
+            mainModalWrapper.appendChild(confirmBox);
+        } else { // untouched => destruct view
+            mainModalWrapper.style.display='none'; //test OK
+        }
+    }
+    function checkInputsTouched(){
+    }
+    function sendForm(){
+
+    }
 
     //public 
     return {
         initPagePhotographer: initPhotographerPageView,
         openContactForm: openContactForm,
+        closeModal: closeModal,
         run: initPhotographerPageView, // for router
     }
 }());

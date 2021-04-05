@@ -7,6 +7,8 @@ export class ModalContact extends HTMLElement {
     constructor(photog){
         super();
 
+        let inputsTouched = false;
+
         // create a shadow root
         const shadow = this.attachShadow({mode: 'open'});
     
@@ -82,6 +84,22 @@ export class ModalContact extends HTMLElement {
 
             </div>
         `;
+
+    
+        // add event listener on form to check if touched
+        modalInnerWrapper.addEventListener('input', function(event) {
+            event.stopPropagation();
+            inputsTouched = true;
+            console.log('Some fields have been touched!');
+        });
+
+        // add event on contact btn to call modal contact
+        const cancelModalBtn = modalInnerWrapper.querySelector('#cancelModalBtn');
+        cancelModalBtn.addEventListener('click', function(event){ photographerPageModule.closeModal(event, mainModalWrapper, inputsTouched) }, false);
+
+
+
+
         // attach modal inner content to modal main wrapper
         mainModalWrapper.appendChild(modalInnerWrapper);
 
@@ -90,7 +108,7 @@ export class ModalContact extends HTMLElement {
         shadow.appendChild(modalStyle);
         // Attach the created elements to the shadow dom
         shadow.appendChild(mainModalWrapper);
-        
+
     }
 }
 
