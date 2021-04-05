@@ -79,7 +79,7 @@ export class ModalContact extends HTMLElement {
                         <input type="textarea" name="message" id="message" aria-labelledby="txtareaLabel">
                     </div>
 
-                    <input type="submit" class="main-btn" value="envoyer" role="button">
+                    <input id="submitBtn" type="submit" class="main-btn" value="envoyer" role="button">
                 </form>
 
             </div>
@@ -97,6 +97,14 @@ export class ModalContact extends HTMLElement {
         const cancelModalBtn = modalInnerWrapper.querySelector('#cancelModalBtn');
         cancelModalBtn.addEventListener('click', function(event){ photographerPageModule.closeModal(event, mainModalWrapper, inputsTouched) }, false);
 
+
+        // retrieve all inputs from form
+        const formInputs = modalInnerWrapper.querySelector('#contact-form').elements;  // = object
+
+
+        // add event listener on submit input btn, to send all data input to parent module
+        const submitBtn = modalInnerWrapper.querySelector('#submitBtn');
+        submitBtn.addEventListener('click', function(event){ photographerPageModule.submitForm(photog.id, formInputs)});
 
 
 

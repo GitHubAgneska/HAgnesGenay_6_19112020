@@ -6,6 +6,7 @@ import { DropdownTemplate } from '../components/dropdown-template';
 import { Lightbox } from '../components/lightbox';
 import { ModalContact } from '../components/modal-contact';
 import { ConfirmBox } from '../components/confirm-box';
+import { validateFormInputs } from '../utils/validateFormInputs';
 
 // MODULE PATTERN STRUCTURE
 export const photographerPageModule = (function() {
@@ -87,20 +88,42 @@ export const photographerPageModule = (function() {
         root.appendChild(contactModal);
     }
     function closeModal(event, mainModalWrapper, inputsTouched) {
-        // event.target = mainModalWrapper;
-
         // check inputs touched => confirmation box
         if (inputsTouched) { 
-            var confirmBox = new ConfirmBox();
+            var confirmBox = new ConfirmBox('cancelModal');
             mainModalWrapper.appendChild(confirmBox);
+            
         } else { // untouched => destruct view
             mainModalWrapper.style.display='none'; //test OK
         }
     }
-    function checkInputsTouched(){
-    }
-    function sendForm(){
 
+    function submitForm(photog, inputElements) {
+
+        let isFormValid = validateFormInputs(inputElements);
+        // If the form did not validate, prevent it being submitted
+        if (! isFormValid) { // isFormValid = false
+            // event.preventDefault(); // Prevent the form being submitted;
+            return;
+        } else {
+        // create new requestContact object for photographer
+        // ( = making object out of each of input value )
+        for ( let i = 0 ; i < inputElements.length; i++ ) {
+            console.log('input[i] ==',inputs[i] );
+            console.log('input[i].value==',inputs[i].value );
+            var newInputObject = new Object();
+            /* each field name becomes object key */
+            newInputObject.fieldName = inputs[i].name;
+            /* each text input value becomes object value */
+            newInputObject.value = inputs[i].value;
+            newContactRequest.push(newInputObject);
+        }
+        console.log('newContactRequest==', newContactRequest);
+        // push new object to contactRequests array 
+        photog.contactRequests.push(newContactRequest);
+        // display submitted confirmation message + terminate
+        const confirmMessage = new ConfirmBox('closeModalAfterSubmitOk');
+        } 
     }
 
     //public 
@@ -108,6 +131,7 @@ export const photographerPageModule = (function() {
         initPagePhotographer: initPhotographerPageView,
         openContactForm: openContactForm,
         closeModal: closeModal,
+        submitForm:submitForm,
         run: initPhotographerPageView, // for router
     }
 }());
