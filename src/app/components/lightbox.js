@@ -5,7 +5,7 @@
 // lightbox Prototype Eric Eggert for W3C
 
 
-!function () {   // syntax = short-hand or alternative of self-invoking anonymous function 
+!function () {   // syntax = short-hand or alternative of self-invoking anonymous function IIFE
     var w = window,
         d = w.document;
 
@@ -48,10 +48,9 @@ export const Lightbox = (function () {
 
     // Initial variables
     var lightbox, index, slidenav, slides, settings, timer, setFocus, animationSuspended, announceItem, _this;
-    var currentImg; var currentGallery;
+    var currentImgId; var currentImg; var currentGallery;
 
     //HELPER FUNCTIONS
-
             // Helper function: Iterates over an array of elements
             function forEachElement(elements, fn) {
                 for (var i = 0; i < elements.length; i++) 
@@ -85,7 +84,8 @@ export const Lightbox = (function () {
 
     function init(set) { // Make settings available to all functions
         settings = set;
-        currentImg = settings.currentImg ;
+        currentImgId = settings.currentImgId
+        currentImg = settings.currentImg ; // = mediaItem object
         currentGallery = settings.currentGallery ;
 
         // generate LIGHTBOX WRAPPER ========================================
@@ -161,28 +161,26 @@ export const Lightbox = (function () {
                 forEachElement(slides, function (el, i) {  // for each li element created with bg image
                     var li = document.createElement('li');
                     if (settings.startAnimated) {
-                        li.innerHTML = '<button data-action="stop"><span class="visuallyhidden">Stop Animation </span>￭</button>';
+                        li.innerHTML = '<button data-action="stop"><span class="visuallyHidden">Stop Animation </span>￭</button>';
                     } else {
-                        li.innerHTML = '<button data-action="start"><span class="visuallyhidden">Start Animation </span>▶</button>';
+                        li.innerHTML = '<button data-action="start"><span class="visuallyHidden">Start Animation </span>▶</button>';
                     }
                     slidenav.appendChild(li);
-                    }
-                )}
-
+                });
+            }
             if (settings.slidenav) { // settings.slidenav = true : list of slides is shown.
 
                 forEachElement(slides, function (el, i) {  // for each li element created with bg image
                     var li = document.createElement('li');
                     var klass = (i === 0) ? 'class="current" ' : '';
-                    var kurrent = (i === 0) ? ' <span class="visuallyhidden">(Current Item)</span>' : '';
+                    var kurrent = (i === 0) ? ' <span class="visuallyHidden">(Current Item)</span>' : '';
 
                     li.innerHTML = // ----------------------- list should only display picture name/title
-                        `<button ` + klass + `data-slide="` + i + `"><span class="visuallyhidden">PLACEHOLDER</span>` + ( i + 1 ) + kurrent + `</button>`;
+                        `<button ` + klass + `data-slide="` + i + `"><span class="visuallyHidden">${currentImg.image || currentImg.video}</span>` + ( i + 1 ) + kurrent + `</button>`;
 
                     slidenav.appendChild(li);
                 });
             }
-
             // STOP & START btns CLICK EVENT LISTENERS -----------------------------------------------------------
             slidenav.addEventListener('click', function (event) {
                 var button = event.target;
@@ -201,12 +199,11 @@ export const Lightbox = (function () {
             lightbox.className = 'active lightbox with-slidenav';
             lightbox.appendChild(slidenav);
         }
-
         // Add a live region to announce the slide number when using the previous/next buttons ----- use?
         var liveregion = document.createElement('div');
         liveregion.setAttribute('aria-live', 'polite');
         liveregion.setAttribute('aria-atomic', 'true');
-        liveregion.setAttribute('class', 'liveregion visuallyhidden');
+        liveregion.setAttribute('class', 'liveregion visuallyHidden');
         lightbox.appendChild(liveregion);
 
         
@@ -249,31 +246,32 @@ export const Lightbox = (function () {
                 startAnimation();
             }
         });
-
         // --------------------------------------------------------------------------
 
-        // Set the index (=current slide) to 0 – the first slide
+        // Set the index (=current slide) to 0 : whatever img is clicked, its index is then 0 (start)
         index = 0;
-        setSlides(index);
+        setSlides(index, lightbox, slides);
 
         // AUTO ANIM ----------------------------------------------------------------
-        if (settings.startAnimated) {
-            timer = setTimeout(nextSlide, 5000);
-        }
-    }
+        if (settings.startAnimated) { timer = setTimeout(nextSlide, 3000);}
+        
+    } // end of init()
 
     // SET SLIDE TO CURRENT SLIDE -----------------------------------------------------
-    function setSlides(new_current, setFocusHere, transition, announceItemHere) {
+    function setSlides(lightbox,slides, new_current, setFocusHere, transition, announceItemHere) {
         // Focus, transition and announce Item are optional parameters.
         // focus denotes if the focus should be set after the lightbox advanced to slide number new_current.
         // transition denotes if the transition is going into the next or previous direction.
         // If announceItem is set to true, the live region’s text is changed (and announced)
-        // Here defaults are set:
 
+        // Here defaults are set:
         setFocus = typeof setFocusHere !== 'undefined' ? setFocusHere : false;
         transition = typeof transition !== 'undefined' ? transition : 'none';
         announceItem = typeof announceItemHere !== 'undefined' ? announceItemHere : false;
-
+        
+        lightbox = document.querySelector('#lightbox');
+        slides = lightbox.querySelectorAll('.slide'); // necessary to redefine --- ?
+        //currentImgId = currentImgId;
         new_current = parseFloat(new_current);
 
         var length = slides.length;
@@ -304,9 +302,7 @@ export const Lightbox = (function () {
 
         // Update the text in the live region which is then announced by screen readers.
         if (announceItem) {
-            lightbox.querySelector('.liveregion').textContent = 'Item ' + (
-                new_current + 1
-            ) + ' of ' + slides.length;
+            lightbox.querySelector('.liveregion').textContent = 'Item ' + ( new_current + 1 ) + ' of ' + slides.length;
         }
 
 
@@ -315,12 +311,12 @@ export const Lightbox = (function () {
             var buttons = lightbox.querySelectorAll('.slidenav button[data-slide]');
             for (var j = buttons.length - 1; j >= 0; j--) {
                 buttons[j].className = '';
-                buttons[j].innerHTML = `<span class="visuallyhidden">PLACEHOLDER</span> ` + ( j + 1 );
+                buttons[j].innerHTML = `<span class="visuallyHidden">PLACEHOLDER</span> ` + ( j + 1 );
             }
             buttons[new_current].className = "current";
-            buttons[new_current].innerHTML = `<span class="visuallyhidden">PLACEHOLDER</span> ` 
+            buttons[new_current].innerHTML = `<span class="visuallyHidden">PLACEHOLDER</span> ` 
             + ( new_current + 1 ) 
-            + ` <span class="visuallyhidden">(Current Item)</span>`;
+            + ` <span class="visuallyHidden">(Current Item)</span>`;
         }
 
         // global index = new current value
@@ -365,7 +361,7 @@ export const Lightbox = (function () {
         settings.animate = false;
         animationSuspended = false; // -------------------------- true?
         _this = lightbox.querySelector('[data-action]');
-        _this.innerHTML = `<span class="visuallyhidden">Start Animation </span>▶`;
+        _this.innerHTML = `<span class="visuallyHidden">Start Animation </span>▶`;
         _this.setAttribute('data-action', 'start');
     }
 
@@ -375,7 +371,7 @@ export const Lightbox = (function () {
         animationSuspended = false;
         timer = setTimeout(nextSlide, 3000);
         _this = lightbox.querySelector('[data-action]');
-        _this.innerHTML = `<span class="visuallyhidden">Stop Animation </span>￭`;
+        _this.innerHTML = `<span class="visuallyHidden">Stop Animation </span>￭`;
         _this.setAttribute('data-action', 'stop');
     }
 
@@ -421,22 +417,22 @@ export const Lightbox = (function () {
     <ul class="slidenav">
         <li>
             <button data-action="start">
-                <span class="visuallyhidden">Start Animation </span>▶</button>
+                <span class="visuallyHidden">Start Animation </span>▶</button>
         </li>
         <li>
             <button class="current" data-slide="0">
-                <span class="visuallyhidden">PIC NAME</span> 1 <span class="visuallyhidden">(Current Item)</span>
+                <span class="visuallyHidden">PIC NAME</span> 1 <span class="visuallyHidden">(Current Item)</span>
             </button>
         </li>
         <li>
             <button data-slide="1" class="">
-                <span class="visuallyhidden">PIC NAME</span> 2</button></li>
+                <span class="visuallyHidden">PIC NAME</span> 2</button></li>
         <li>
-            <button data-slide="2" class=""><span class="visuallyhidden">PIC NAME</span> 3</button>
+            <button data-slide="2" class=""><span class="visuallyHidden">PIC NAME</span> 3</button>
         </li>
     </ul>
 
-    <div aria-live="polite" aria-atomic="true" class="liveregion visuallyhidden"></div>
+    <div aria-live="polite" aria-atomic="true" class="liveregion visuallyHidden"></div>
     
 </div> */
 

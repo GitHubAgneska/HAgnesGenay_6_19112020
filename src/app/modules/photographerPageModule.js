@@ -54,8 +54,10 @@ export const photographerPageModule = (function() {
                     mediaItem.template = new MediaItemTemplate(mediaItem);
 
                     // add event listener to open lightbox
-                    mediaItem.template.addEventListener('click', function() {
-                        openLightbox(mediaItem.id, getPhotographerMedia())
+                    mediaItem.template.addEventListener('click', function(event) {
+                        mediaItem.id = event.target;
+                        
+                        openLightbox(mediaItem.id, mediaItem, getPhotographerMedia()) // pass mediaItem ID + mediaItem Object + media array to lightbox
                     }, false);
 
                     // attach each photo item to gallery
@@ -69,14 +71,14 @@ export const photographerPageModule = (function() {
         })
     }
 
-    function openLightbox (currentImg, currentGallery) {
-        
+    function openLightbox (currentImgId, currentImg, currentGallery) {
+        var currentImgId = currentImgId;
         var currentImg = currentImg;
         var currentGallery = currentGallery;
 
         console.log('currentImg==', currentImg,'currentGallery==', currentGallery );
         var lightbox = new Lightbox();
-        lightbox.init({currentImg, currentGallery, slidenav: true, animate: true, startAnimated: true});
+        lightbox.init({currentImgId:currentImgId, currentImg:currentImg, currentGallery:currentGallery, slidenav: true, animate: true, startAnimated: true});
     }
 
     //public 

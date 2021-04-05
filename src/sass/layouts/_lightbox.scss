@@ -4,37 +4,37 @@
     width: 100vw; height: 100vh;position: absolute;
     background-color: lightblue;
     z-index:5;
-}
-    
+
     .lightbox {
         border: 5px solid violet;
-        width:1050px;height:900px; 
+        width:800px;height:600px; 
         margin:auto;
         position: relative;
         
+        ul {margin: 0;padding: 0;} 
+
+        .lightbox.with-slidenav { padding-bottom: 2em;} // leave space at bottom for aria infos
+        .lightbox.active {position: relative;}
     }
-    .lightbox ul {margin: 0;padding: 0;} 
-
-    .lightbox.with-slidenav { padding-bottom: 2em;} // leave space at bottom for aria infos
-    .lightbox.active {position: relative;}
-
-        // first ul : images display 
-        // .slide / = li elements
-        // ---------------------------------------
-        .lightbox-images li {height: 100%;width:100%; }
-        .slide {height: 100%;background-size: cover;overflow: hidden; position: absolute;}
-
-        .active .slide {
-            border: 2px solid red;
-            top: 0;
-            display:block !important;
-            transition: left .6s ease-out;
-            z-index: 6;
-        }  
-
-        .active .prev.slide {left: -100%; border: 2px solid yellow; }
-        .active .current.slide {visibility: visible;left: 0; border:2px solid blue;}
-        .active .next.slide {left: 100%; border:2px solid orange;}
+    // first ul : images display 
+    // .slide / = li elements
+    // ---------------------------------------
+    .lightbox-images li {height: 100%;width:100%; }
+    .slide {height: 100%;background-size: cover;overflow: hidden; position: absolute;}
+    
+    .active .slide {
+        border: 2px solid red;
+        top: 0;
+        display:block !important;
+        transition: left .6s ease-out;
+        z-index: 6;
+    }  
+    
+    .active .prev.slide {left: -100%; border: 2px solid yellow; }
+    .active .current.slide {visibility: visible;left: 0; border:2px solid blue;}
+    .active .next.slide {left: 100%; border:2px solid orange;}
+}
+    
 
 
         // = second ul
