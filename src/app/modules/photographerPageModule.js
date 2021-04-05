@@ -98,9 +98,9 @@ export const photographerPageModule = (function() {
         }
     }
 
-    function submitForm(photog, inputElements) {
+    function submitForm(photog, modalInnerWrapper,inputElements) {
 
-        let isFormValid = validateFormInputs(inputElements);
+        let isFormValid = validateFormInputs(modalInnerWrapper,inputElements);
         // If the form did not validate, prevent it being submitted
         if (! isFormValid) { // isFormValid = false
             // event.preventDefault(); // Prevent the form being submitted;
