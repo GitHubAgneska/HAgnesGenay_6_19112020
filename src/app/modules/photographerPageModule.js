@@ -13,19 +13,16 @@ export const photographerPageModule = (function() {
     function getAllData() { return homeModule.getAllData(); }
 
     function initPhotographerPageView(e, photographerId) {
-
         // e.stopPropagation();
         // e.preventDefault();
         const photogId = photographerId;
-        console.log('id==',photogId );
-        
         const myphotographers = getAllData();
-        console.log('MY PHOTOGS==', myphotographers);
 
         // find photographer via passed id param
         myphotographers.forEach(photog => {
             if (photog.id === photogId ) {
                 
+                // INFOS BLOCK ======================================================================
                 // generate new profile template
                 photog.template = new PhotographerInfosTemplate(photog); // = INFOS SECTION
 
@@ -56,7 +53,6 @@ export const photographerPageModule = (function() {
                     // add event listener to open lightbox
                     mediaItem.template.addEventListener('click', function(event) {
                         mediaItem.id = event.target;
-                        
                         openLightbox(mediaItem.id, mediaItem, getPhotographerMedia()) // pass mediaItem ID + mediaItem Object + media array to lightbox
                     }, false);
 
@@ -65,13 +61,13 @@ export const photographerPageModule = (function() {
                 })
 
                 main.appendChild(photographerGalleryBlock);
-
-                function getName() { return photog.name; } // necessary for imgs urls
+                function getName() { return photog.name; } // necessary for gallery imgs urls
             }
         })
-    }
+    } // ( end of init() )
 
-    function openLightbox (currentImgId, currentImg, currentGallery) {
+    // LIGHTBOX ======================================================================
+    function openLightbox (currentImgId, currentImg, currentGallery) { 
         var currentImgId = currentImgId;
         var currentImg = currentImg;
         var currentGallery = currentGallery;
@@ -81,9 +77,17 @@ export const photographerPageModule = (function() {
         lightbox.init({currentImgId:currentImgId, currentImg:currentImg, currentGallery:currentGallery, slidenav: true, animate: true, startAnimated: true});
     }
 
+    // CONTACT MODAL FORM  ===========================================================
+    function openContactForm(currentPhotographer) {
+        var photog = currentPhotographer;
+        console.log('NAME=====', currentPhotographer);
+
+    }
+
     //public 
     return {
         initPagePhotographer: initPhotographerPageView,
+        openContactForm: openContactForm,
         run: initPhotographerPageView, // for router
     }
 }());
