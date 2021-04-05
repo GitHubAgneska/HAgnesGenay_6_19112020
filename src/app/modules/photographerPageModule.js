@@ -80,10 +80,9 @@ export const photographerPageModule = (function() {
 
     // CONTACT MODAL FORM  ===========================================================
     function openContactForm(currentPhotographer) {
-        var photog = currentPhotographer;
-        console.log('NAME=====', currentPhotographer);
+        var currentPhotographer = currentPhotographer;
         var contactModal = new ModalContact(currentPhotographer);
-        var root = document.querySelector('#photographer-content');  //  TEMPORARY : IMPLEMENT DESTRUCT PREVIOUS VIEW UTIL FUNCTION
+        var root = document.querySelector('#photographer-content');  //  TEMPORARY : IMPLEMENT 'DESTRUCT PREVIOUS VIEW' UTIL FUNCTION
         root.appendChild(contactModal);
     }
 
