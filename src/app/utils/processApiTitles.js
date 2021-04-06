@@ -7,23 +7,40 @@
 //                              ==> title = 'Wedding Gazebo' 
 
 
-export function processTitle(name) {
+// make sure extensions are correctly formatted ( otherwise won't be displayed as src)
+// add underscore if missing before uppercase
 
-    // make sure extensions are correctly formatted ( otherwise won't be displayed as src)
-    // add underscore if missing before uppercase
+export function processTitle(mediaItemName, mediaItemTag) {
 
-    
-    // return correct mediaItem name
+    console.log(mediaItemName)
 
     // remove tagName
+    var tagToremove = mediaItemTag;
+    tagToremoveLength = tagToremove.length + 1; // +1 for underscore
+    mediaItemNameProcessed = mediaItemName.slice(tagToremoveLength);
+    console.log(mediaItemNameProcessed)
 
-    // replace underscore with space
+    var extensionStartIndex;
 
-    // add space before Uppercase if needed
+    mediaItemNameProcessed = mediaItemNameProcessed.split('');
+    console.log(mediaItemNameProcessed)
 
+    for (var i = 1; i < mediaItemNameProcessed.length; i++) {
 
-    // remove extensions to display img/video titles
-    // return processed mediaItem title
+        if (mediaItemNameProcessed[i].toUpperCase()) {
 
-
+            if ( mediaItemNameProcessed[i - 1] === '_' ) {
+                mediaItemNameProcessed[i - 1] = ' ';
+            } 
+            /* else { // if char before uppercase is a letter
+                mediaItemNameProcessed[i] = ' ' + mediaItemNameProcessed[i]; // add space before uppercase
+                console.log('mediaItemNameProcessed[i]=', mediaItemNameProcessed[i]);
+            } */
+        }
+        // remove extensions to display img/video titles
+        if (mediaItemNameProcessed[i] == '.') { extensionStartIndex = i; }
+    }
+    mediaItemNameProcessed = mediaItemNameProcessed.join('').slice(0, extensionStartIndex);
+    console.log(mediaItemNameProcessed);
+    return mediaItemNameProcessed;
 }
