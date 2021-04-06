@@ -86,7 +86,7 @@ export const photographerPageModule = (function() {
 
                 // SORTING MEDIA ITEMS ====================================================
                 // copy media array ( as 'sort()' will be destructive )
-                mediaSortedByTitle = JSON.parse(JSON.stringify(allMediaOfPhotog));  // ======== ! NOT mediaSortedByDate = [...allMediaOfPhotog]; shallow copy
+                mediaSortedByTitle = JSON.parse(JSON.stringify(allMediaOfPhotog));  // ======== ! NOT mediaSortedByDate = [...allMediaOfPhotog] = shallow copy
                 mediaSortedByTitle.sort( (a, b) => { a.title.localeCompare(b.title)});
                 console.log('mediaSortedByTitleAfter ===== ', mediaSortedByTitle);
 

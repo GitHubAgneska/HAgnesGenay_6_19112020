@@ -74,9 +74,6 @@ export const Lightbox = (function () {
 
     // Initialization for the lightbox ----------------------------------------
     // Argument: set = an object of settings
-    // Possible settings:
-    // -----------------
-    // - id <string> ID of the lightbox wrapper element (required).
     // - slidenav <bool> If true, a list of slides is shown.
     // - animate <bool> If true, the slides can be animated.
     // - startAnimated <bool> If true, the animation begins immediately.
@@ -86,7 +83,9 @@ export const Lightbox = (function () {
         settings = set;
         currentImgId = settings.currentImgId
         currentImg = settings.currentImg ; // = mediaItem object
-        currentGallery = settings.currentGallery ;
+        currentGallery = settings.currentGallery;
+
+
 
         // generate LIGHTBOX WRAPPER ========================================
         const lightboxWrapper = document.createElement('div');
@@ -100,15 +99,19 @@ export const Lightbox = (function () {
 
         
         // generate LIGHTBOX  ========================================
-        const lightbox = document.createElement('div');
-        lightbox.setAttribute('id', 'lightbox');
-        lightbox.setAttribute('class', 'active lightbox with-slidenav');
+        const lightboxElement = document.createElement('div');
+        lightboxElement.setAttribute('id', 'lightbox');
+        lightboxElement.setAttribute('class', 'active lightbox with-slidenav');
         
         // attach lightbox to its main wrapper
-        lightboxWrapper.appendChild(lightbox);
+        lightboxWrapper.appendChild(lightboxElement);
         
         // append lightbox main wrapper to body
         document.body.appendChild(lightboxWrapper);
+
+
+        // from here, definition of 'lightbox':
+        const lightbox = lightboxWrapper.querySelector("#lightbox");
 
 
         // HERE : generate first ul, injecting data from json as bg images into li elements
@@ -125,7 +128,8 @@ export const Lightbox = (function () {
             firstUl.appendChild(liItem); // attach li element to ul
         });
 
-        lightbox.appendChild(firstUl);
+        lightboxElement.appendChild(firstUl);
+
         slides = lightbox.querySelectorAll('.slide');
 
 
@@ -144,7 +148,7 @@ export const Lightbox = (function () {
         // attach click events to btns
         ctrls.querySelector('.btn-prev').addEventListener('click', function () { prevSlide(true); });
         ctrls.querySelector('.btn-next').addEventListener('click', function () { nextSlide(true); });
-        lightbox.appendChild(ctrls);
+        lightboxElement.appendChild(ctrls);
         // ---------------------------------------------------------------------------------
 
 
@@ -197,7 +201,7 @@ export const Lightbox = (function () {
             }, true);
 
             lightbox.className = 'active lightbox with-slidenav';
-            lightbox.appendChild(slidenav);
+            lightboxElement.appendChild(slidenav);
         }
         // Add a live region to announce the slide number when using the previous/next buttons ----- use?
         var liveregion = document.createElement('div');
@@ -207,7 +211,7 @@ export const Lightbox = (function () {
         lightbox.appendChild(liveregion);
 
         
-        slides = lightbox.querySelectorAll('.slide'); // necessary to redefine --- ?
+        // slides = lightbox.querySelectorAll('.slide'); // necessary to redefine --- ?
         // After the slide transitioned, remove the in-transition class, 
         // if focus should be set, set the tabindex attribute to -1 and focus the slide.
         slides[0].parentNode.addEventListener('transitionend', function (event) {
@@ -258,7 +262,7 @@ export const Lightbox = (function () {
     } // end of init()
 
     // SET SLIDE TO CURRENT SLIDE -----------------------------------------------------
-    function setSlides(lightbox,slides, new_current, setFocusHere, transition, announceItemHere) {
+    function setSlides(new_current, lightbox, setFocusHere, transition, announceItemHere) {
         // Focus, transition and announce Item are optional parameters.
         // focus denotes if the focus should be set after the lightbox advanced to slide number new_current.
         // transition denotes if the transition is going into the next or previous direction.
@@ -269,8 +273,8 @@ export const Lightbox = (function () {
         transition = typeof transition !== 'undefined' ? transition : 'none';
         announceItem = typeof announceItemHere !== 'undefined' ? announceItemHere : false;
         
-        lightbox = document.querySelector('#lightbox');
-        slides = lightbox.querySelectorAll('.slide'); // necessary to redefine --- ?
+        lightbox = document.querySelector("#lightbox");
+        console.log('SLIDES====', slides); 
         //currentImgId = currentImgId;
         new_current = parseFloat(new_current);
 
@@ -280,15 +284,11 @@ export const Lightbox = (function () {
 
         // If next slide number = length,  next slide = first one of the slides
         // If  previous slide number < 0,  previous slide = last of the slides
-        if (new_next === length) { 
-            new_next = 0;
-            } else if (new_prev < 0) { new_prev = length - 1; }
+        if (new_next === length) { new_next = 0; } else if (new_prev < 0) { new_prev = length - 1; }
 
 
-        // RESET SLIDES CLASS ----------------
-        for (var i = slides.length - 1; i >= 0; i--) {
-            slides[i].className = "slide";
-        }
+        // RESET SLIDES CLASS --------------------------------------------------------------------------------------------
+        for (var i = slides.length - 1; i >= 0; i--) { slides[i].className = "slide"; }
 
         // CLASSES UPDATE : Add classes to the previous, next and current slide ------------------------------------------
         slides[new_next].className = 'next slide' + ( (transition == 'next') ? ' in-transition' : '' );
@@ -318,17 +318,15 @@ export const Lightbox = (function () {
             + ( new_current + 1 ) 
             + ` <span class="visuallyHidden">(Current Item)</span>`;
         }
-
         // global index = new current value
         index = new_current;
-
-    } // ( end of setSlides function )
+    } 
+    // ( end of setSlides function )
 
 
     // GO TO NEXT SLIDE -----------------------------------------------------------------------------
     function nextSlide(announceItem) {
         announceItem = typeof announceItem !== 'undefined' ? announceItem : false;
-
         var length = slides.length,
             new_current = index + 1;
 
@@ -344,7 +342,6 @@ export const Lightbox = (function () {
     // GO BACK TO PREVIOUS ----------------------------------------------------------------------------
     function prevSlide(announceItem) {
         announceItem = typeof announceItem !== 'undefined' ? announceItem : false;
-
         var length = slides.length,
             new_current = index - 1;
 
@@ -356,7 +353,8 @@ export const Lightbox = (function () {
     }
 
     // STOP ANIM ----------------------------------------------------------------------------------------
-    function stopAnimation() {
+    function stopAnimation(lightbox) {
+        lightbox = document.querySelector("#lightbox");
         clearTimeout(timer);
         settings.animate = false;
         animationSuspended = false; // -------------------------- true?
@@ -366,7 +364,8 @@ export const Lightbox = (function () {
     }
 
     // START ANIM ----------------------------------------------------------------------------------------
-    function startAnimation() {
+    function startAnimation(lightbox) {
+        lightbox = document.querySelector("#lightbox");
         settings.animate = true;
         animationSuspended = false;
         timer = setTimeout(nextSlide, 3000);
