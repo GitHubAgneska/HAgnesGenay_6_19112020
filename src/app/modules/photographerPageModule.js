@@ -51,11 +51,16 @@ export const photographerPageModule = (function() {
 
                 // set up media/gallery content for the photographer
                 photog.photographerMedia.forEach( mediaItem => {
-                    // console.log('mediaItem=', mediaItem);
+
+                    // correct manually a few api typos preventing mediaItem to be displayed
+                    if ( mediaItem.id === 9275938 ) { mediaItem.image = 'Event_WeddingGazebo.jpg'; }
+                    if ( mediaItem.id === 95234343 ) { mediaItem.image = 'Animals_Rainbow.jpg'; }
+                    if ( mediaItem.id === 725639493 ) { mediaItem.image = 'Event_ProductPitch.jpg'; }
+
                     mediaItem.photographerName = getName(); // necessary for imgs urls
                     // use method to format images names to be displayed
                     let title =  processTitle(mediaItem.image, mediaItem.tags[0]) 
-                            || processTitle(mediaItem.video, mediaItem.tags[0]);
+                                || processTitle(mediaItem.video, mediaItem.tags[0]);
 
                     mediaItem.title = title;
                     mediaItem.template = new MediaItemTemplate(mediaItem);

@@ -1,14 +1,9 @@
 /* ============================================== */
-/* PROCESS API NAME TYPOS TO DISPLAY CORRECT DATA */
+/* PROCESS API MEDIA ITEM NAMES TO DISPLAY TITLES */
 /* ============================================== */
 
 // ex: api incoming image (name) = 'Event_WeddingGazebojpg' 
-//                              ==> src = 'Event_Wedding_Gazebo.jpg' 
-//                              ==> title = 'Wedding Gazebo' 
-
-
-// make sure extensions are correctly formatted ( otherwise won't be displayed as src)
-// add underscore if missing before uppercase
+//                                  ==> title = 'Wedding Gazebo' 
 
 export function processTitle(mediaItemName, mediaItemTag) {
 
