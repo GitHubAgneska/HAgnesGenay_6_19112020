@@ -23,6 +23,11 @@ export const photographerPageModule = (function() {
         const photogId = photographerId;
         const myphotographers = getAllData();  // instead : retrieve photographer object as param
 
+        let allMediaOfPhotog = [];
+        let mediaSortedByTitle = [];
+        let mediaSortedByDate = [];
+        let mediaSortedByPop = [];
+
         // find photographer via passed id param
         myphotographers.forEach(photog => {
             if (photog.id === photogId ) {
@@ -49,6 +54,8 @@ export const photographerPageModule = (function() {
 
                 function getPhotographerMedia() { return photog.photographerMedia }; // used by lightbox methods when called from mediaItem
 
+
+                // EACH PIC OF GALLERY BLOCK ======================================================================
                 // set up media/gallery content for the photographer
                 photog.photographerMedia.forEach( mediaItem => {
 
@@ -63,6 +70,7 @@ export const photographerPageModule = (function() {
                                 || processTitle(mediaItem.video, mediaItem.tags[0]);
 
                     mediaItem.title = title;
+                    
                     mediaItem.template = new MediaItemTemplate(mediaItem);
 
                     // add event listener to open lightbox
@@ -71,9 +79,32 @@ export const photographerPageModule = (function() {
                         openLightbox(mediaItem.id, mediaItem, getPhotographerMedia()) // pass mediaItem ID + mediaItem Object + media array to lightbox
                     }, false);
 
+                    // for sorting method : retrieve each created mediaItem object into an array
+                    allMediaOfPhotog.push(mediaItem);
+
+                    // without any sorting:
                     // attach each photo item to gallery
-                    photographerGalleryBlock.appendChild(mediaItem.template);
+                    //photographerGalleryBlock.appendChild(mediaItem.template);
                 })
+
+                console.log('allMediaOfPhotog===', allMediaOfPhotog);
+
+                // SORTING MEDIA ITEMS ====================================================
+                // copy media array ( as 'sort()' will be destructive )
+                mediaSortedByTitle = JSON.parse(JSON.stringify(allMediaOfPhotog));  // ======== ! NOT mediaSortedByDate = [...allMediaOfPhotog]; shallow copy
+                mediaSortedByTitle.sort( (a, b) => { a.title.localeCompare(b.title)});
+                console.log('mediaSortedByTitleAfter ===== ', mediaSortedByTitle);
+
+                mediaSortedByDate = JSON.parse(JSON.stringify(allMediaOfPhotog));
+                mediaSortedByDate.sort((a, b) => parseFloat(a.date) - parseFloat(b.date));
+                console.log('mediaSortedBydate after ===== ', mediaSortedByDate);
+                
+                mediaSortedByPop = JSON.parse(JSON.stringify(allMediaOfPhotog));
+                mediaSortedByPop.sort( (a, b) => { a.likes - b.likes });
+                console.log('mediaSortedByPOP after ===== ', mediaSortedByPop);
+
+                mediaSortedByTitle.forEach(x => { photographerGalleryBlock.appendChild(x.template)});
+
 
                 main.appendChild(photographerGalleryBlock);
                 function getName() { return photog.name; } // necessary for gallery imgs urls
