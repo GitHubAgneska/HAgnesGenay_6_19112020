@@ -71,13 +71,8 @@ export const photographerPageModule = (function() {
 
                     mediaItem.title = title;
                     
-                    mediaItem.template = new MediaItemTemplate(mediaItem);
-
-                    // add event listener to open lightbox
-                    mediaItem.template.addEventListener('click', function(event) {
-                        mediaItem.id = event.target;
-                        openLightbox(mediaItem.id, mediaItem, getPhotographerMedia()) // pass mediaItem ID + mediaItem Object + media array to lightbox
-                    }, false);
+                    const currentGallery = getPhotographerMedia(); // pass it through mediaItem template so it can pass it back to 'openLightbox()' below --- ...
+                    mediaItem.template = new MediaItemTemplate(mediaItem, currentGallery);
 
                     // for sorting method : retrieve each created mediaItem object into an array
                     allMediaOfPhotog.push(mediaItem);
@@ -103,7 +98,8 @@ export const photographerPageModule = (function() {
                 mediaSortedByPop.sort( (a, b) => { a.likes - b.likes });
                 console.log('mediaSortedByPOP after ===== ', mediaSortedByPop);
 
-                mediaSortedByTitle.forEach(x => { photographerGalleryBlock.appendChild(x.template)});
+                allMediaOfPhotog.forEach(x => { photographerGalleryBlock.appendChild(x.template)});
+                // mediaSortedByTitle.forEach(x => { photographerGalleryBlock.appendChild(x.template)});
 
 
                 main.appendChild(photographerGalleryBlock);
@@ -113,6 +109,7 @@ export const photographerPageModule = (function() {
     } // ( end of init() )
 
     // LIGHTBOX ======================================================================
+
     function openLightbox (currentImgId, currentImg, currentGallery) { 
         var currentImgId = currentImgId;
         var currentImg = currentImg;
@@ -179,6 +176,7 @@ export const photographerPageModule = (function() {
         openContactForm: openContactForm,
         closeModal: closeModal,
         submitForm:submitForm,
+        openLightbox: openLightbox,
         run: initPhotographerPageView, // for router
     }
 }());

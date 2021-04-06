@@ -7,7 +7,7 @@ import { photographerPageModule } from "../modules/photographerPageModule";
 
     // how each photo/video of photographer gallery will be generated as a html template
     export class MediaItemTemplate extends HTMLElement {
-        constructor(mediaItem) {
+        constructor(mediaItem, currentGallery) {
             super();
 
             // create a shadow root
@@ -52,9 +52,12 @@ import { photographerPageModule } from "../modules/photographerPageModule";
                 `
             }
 
-            /* mediaWrapper.addEventListener('click', function() {
-                photographerPageModule.callLightboxInit(medium.id, medium.photographerId)
-                }, false);  ====>  HOSTED  BY PHOTOGRAPHER MODULE */ 
+            // add event listener to OPEN LIGHTBOX
+            mediaWrapper.addEventListener('click', function(event) {
+                // mediaItem.id = event.target;
+                photographerPageModule.openLightbox(medium.id, medium, currentGallery)
+                // photographerPageModule.openLightbox(medium.id, medium, getPhotographerMedia()) // pass mediaItem ID + mediaItem Object + media array to lightbox
+            }, false);
 
 
              // PHOTO INFOS WRAPPER
@@ -67,11 +70,21 @@ import { photographerPageModule } from "../modules/photographerPageModule";
                     <h5 class="mediaItem-title" id="mediaItem-title">${medium.title}</h5>
                     <h5 class="mediaItem-price" id="mediaItem-price">${medium.price}€</h5>
                     <div class="mediaItem-likes">
-                        <h5 id="mediaItem-likes">${medium.likes}</h5>
-                        <img class="heart-icon" src="./assets/icons/heart-icon.png">
+                        <h5 id="mediaItem-likes-count" data="likes">${medium.likes}</h5>
+                        <img id="mediaItem-likes-icon" class="heart-icon" src="./assets/icons/heart-icon.png">
                     </div>
                 `;
-        
+            
+            // increment LIKES
+            let likes = medium.likes; // default value
+            const likesCount = mediaInfosWrapper.querySelector('#mediaItem-likes-count');
+            const heartLikes = mediaInfosWrapper.querySelector('#mediaItem-likes-icon');
+            heartLikes.addEventListener('click', function(event) {
+                likes += 1;
+                likesCount.innerHTML=`${likes} `;
+            });
+
+            
             // attach image/video wrapper to media item wrapper in first position
             galleryItem.insertAdjacentElement('afterbegin',mediaWrapper);
             galleryItem.appendChild(mediaInfosWrapper);
