@@ -98,31 +98,35 @@ export const photographerPageModule = (function() {
         }
     }
 
-    function submitForm(photog, modalInnerWrapper,inputElements) {
+    function submitForm(event, photog, modalInnerWrapper,inputElements) {
+        let newContactRequest = [];
+        var photog = photog;
+        // var photogCurrentContactRequests = photog.contactRequests;
+        //console.log('photogCurrentContactRequests=', photogCurrentContactRequests);
 
-        let isFormValid = validateFormInputs(modalInnerWrapper,inputElements);
-        // If the form did not validate, prevent it being submitted
-        if (! isFormValid) { // isFormValid = false
-            // event.preventDefault(); // Prevent the form being submitted;
+        let isFormValid = () => { return validateFormInputs(modalInnerWrapper,inputElements); }
+        if ( !isFormValid ) {
+            event.preventDefault(); // Prevent the form being submitted;
             return;
         } else {
-        // create new requestContact object for photographer
-        // ( = making object out of each of input value )
-        for ( let i = 0 ; i < inputElements.length; i++ ) {
-            console.log('input[i] ==',inputs[i] );
-            console.log('input[i].value==',inputs[i].value );
-            var newInputObject = new Object();
-            /* each field name becomes object key */
-            newInputObject.fieldName = inputs[i].name;
-            /* each text input value becomes object value */
-            newInputObject.value = inputs[i].value;
-            newContactRequest.push(newInputObject);
-        }
-        console.log('newContactRequest==', newContactRequest);
-        // push new object to contactRequests array 
-        photog.contactRequests.push(newContactRequest);
-        // display submitted confirmation message + terminate
-        const confirmMessage = new ConfirmBox('closeModalAfterSubmitOk');
+            // create new requestContact object for photographer
+            // ( = making object out of each of input value )
+            for ( let i = 0 ; i < inputElements.length; i++ ) {
+
+                var newInputObject = new Object();
+                /* each field name becomes object key */
+                newInputObject.fieldName = inputElements[i].name;
+                /* each text input value becomes object value */
+                newInputObject.value = inputElements[i].value;
+                newContactRequest.push(newInputObject);
+            }
+            console.log('newcontact=', newContactRequest);
+            // push new object to contactRequests array 
+            // photogCurrentContactRequests.push(newContactRequest);
+            // display submitted confirmation message + terminate
+            const confirmMessage = new ConfirmBox('closeModalAfterSubmitOk');
+            const form = modalInnerWrapper.firstChild;
+            modalInnerWrapper.replaceChild(confirmMessage, form);
         } 
     }
 
