@@ -4,7 +4,6 @@ import { PhotographerFactory } from '../../app/utils/photographerFactory';
 import { PhotographerTemplateHome } from '../../app/components/photographerTemplate';
 import { MediaItemFactory } from '../../app/utils/mediaItem-factory';
 
-
 const apiUrl = 'https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/Front-End+V2/P5+Javascript+%26+Accessibility/FishEyeDataFR.json';
 const tagslistMainNav = [ 'portrait', 'art', 'fashion', 'architecture', 'travel', 'sport', 'animals', 'events'];  
 

@@ -7,6 +7,8 @@ import { Lightbox } from '../components/lightbox';
 import { ModalContact } from '../components/modal-contact';
 import { ConfirmBox } from '../components/confirm-box';
 import { validateFormInputs } from '../utils/validateFormInputs';
+import { processTitle } from '../../app/utils/processApiTitles';
+
 
 // MODULE PATTERN STRUCTURE
 export const photographerPageModule = (function() {
@@ -51,6 +53,11 @@ export const photographerPageModule = (function() {
                 photog.photographerMedia.forEach( mediaItem => {
                     // console.log('mediaItem=', mediaItem);
                     mediaItem.photographerName = getName(); // necessary for imgs urls
+                    // use method to format images names to be displayed
+                    let title =  processTitle(mediaItem.image, mediaItem.tags[0]) 
+                            || processTitle(mediaItem.video, mediaItem.tags[0]);
+
+                    mediaItem.title = title;
                     mediaItem.template = new MediaItemTemplate(mediaItem);
 
                     // add event listener to open lightbox

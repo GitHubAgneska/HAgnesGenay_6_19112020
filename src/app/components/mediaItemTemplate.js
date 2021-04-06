@@ -64,7 +64,7 @@ import { photographerPageModule } from "../modules/photographerPageModule";
 
             mediaInfosWrapper.innerHTML =
                 `
-                    <h5 class="mediaItem-title" id="mediaItem-title">${medium.image || medium.video}</h5>
+                    <h5 class="mediaItem-title" id="mediaItem-title">${medium.title}</h5>
                     <h5 class="mediaItem-price" id="mediaItem-price">${medium.price}€</h5>
                     <div class="mediaItem-likes">
                         <h5 id="mediaItem-likes">${medium.likes}</h5>
