@@ -15,10 +15,19 @@ h1 {
 /* ===  HOMEPAGE -  MAIN SECTIONS === */
 /* =============================================== */
 
-body {
-   // background-color: lightyellow;
-    @include max-1200px { margin: 0 20px; }
-    @include min-1200px { margin: 0 35px; }
+body  {
+    // main contains homepage view
+    .homepage-content {
+       // background-color: lightyellow;
+        @include max-1200px { margin: 0 20px; }
+        @include min-1200px { margin: 0 35px; }
+    }
+    // main contains photographerpage view
+    .photographer-content-wrapper {
+
+    }
+
+
 }
 
 /* home photographers list presentation */
@@ -51,4 +60,15 @@ body {
         font-size: 1em; // 16px
         font-weight: 700;
     }
+}
+
+/* PHOTOGRAPHER PAGE VIEW */
+.photographer-content-wrapper {
+    position: relative;  // for modal contact + lightbox positioning
+
+    modal-contact-component {
+        position: absolute;
+        top: 0;
+    }
+
 }

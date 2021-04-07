@@ -69,7 +69,7 @@ export const homeModule = (function() {
                 photographer.url,
                 photographer.city, photographer.country,
                 photographer.price,
-                photographer.bottomLikes,
+                photographer.bottomLikes = 9918,
                 photographer.tags, photographer.tagsTemplate,
                 photographer.photographerMedia = [],
                 photographer.template,

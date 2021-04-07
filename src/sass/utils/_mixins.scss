@@ -164,6 +164,15 @@ $breakpoints: (xs-mobile: 375px, mobile: 600px, tablet: 768px, laptop: 992px, de
     width: 1px;
 }
 
+/* ======================================== */
+/* EFFECTS */
+/* ======================================== */
+
+@mixin box-shadow($color: $dark) { 
+    box-shadow: 0px 12px 10px $color;
+    // @include transition(.5s);
+}
+
 
 /* ======================================== */
 /* COLORS ( exceptions, otherwise = in _variables.scss )*/

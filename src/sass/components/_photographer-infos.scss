@@ -52,7 +52,8 @@
     
     /* likes and price  */
     &__bottom-infos  {
-        @include max-1200px {display: none;} // only visible from 1200px
+        
+        @include max-600px {display: none;} // only visible from 1200px
         @include min-1200px {
             position: fixed;
             bottom: 0; right:0;
@@ -64,10 +65,17 @@
             height:70px; width: 375px;
             border-top-right-radius:5px;
             border-top-left-radius:5px;
-            .photographer__likes * { display: inline;} // keeps number+icon on the same line
-            .photographer__likes, 
+            .photographer__likes {  
+                @include flex(row, nowrap); // elements = in a row
+                height: 100%;
+                justify-content: start;
+                align-items: center;
+                h4 {margin-right: 5px;}
+                img.heart-icon { width: 15px;}
+            }
+            .photographer__likes h4, 
             .photographer__price {
-                color:$dark;
+                color:black;
                 font-size: 1.25em;
                 font-weight: 500;
                 margin:5%;

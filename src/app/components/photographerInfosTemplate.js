@@ -51,8 +51,11 @@ export class PhotographerInfosTemplate extends HTMLElement {
         block2.innerHTML =
             `
                 <div class="photographer__bottom-infos" id="bottom-infos">
-                    <h4 class="photographer__likes" id="${photographer.bottomLikes}">${photographer.bottomLikes}</h4>
-                    <h4 class="photographer__price" id="${photographer.price}">${photographer.price}</h4>
+                    <div class="photographer__likes" id="${photographer.bottomLikes}">
+                        <h4>${photographer.bottomLikes}</h4>
+                        <img id="photographer-likes-icon" class="heart-icon" src="./assets/icons/heart-icon.png">
+                    </div>
+                    <h4 class="photographer__price" id="photographer-price">${photographer.price}€/jour</h4>
                 </div>
             `;
         photographerInfosBlock.insertAdjacentElement('beforeend', block2);

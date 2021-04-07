@@ -10,9 +10,8 @@ export class ModalContact extends HTMLElement {
         let inputsTouched = false;
 
         // create a shadow root
-        const shadow = this.attachShadow({mode: 'open'});
+        // const shadow = this.attachShadow({mode: 'open'});
     
-        
         // MODAL MAIN WRAPPER ======================================================================
         // create modal main wrapper
         const mainModalWrapper = document.createElement('div');
@@ -85,7 +84,6 @@ export class ModalContact extends HTMLElement {
             </div>
         `;
 
-    
         // add event listener on form to check if touched
         modalInnerWrapper.addEventListener('input', function(event) {
             event.stopPropagation();
@@ -97,26 +95,20 @@ export class ModalContact extends HTMLElement {
         const cancelModalBtn = modalInnerWrapper.querySelector('#cancelModalBtn');
         cancelModalBtn.addEventListener('click', function(event){ photographerPageModule.closeModal(event, mainModalWrapper, inputsTouched) }, false);
 
-
         // retrieve all inputs from form
         const formInputs = modalInnerWrapper.querySelector('#contact-form').elements;  // = object
-
 
         // add event listener on submit input btn, to send all data input to parent module
         const submitBtn = modalInnerWrapper.querySelector('#submitBtn');
         submitBtn.addEventListener('click', function(event){ photographerPageModule.submitForm(event, photog.id, modalInnerWrapper,formInputs)});
 
-
-
         // attach modal inner content to modal main wrapper
         mainModalWrapper.appendChild(modalInnerWrapper);
 
-
         // Attach stylesheet to component
-        shadow.appendChild(modalStyle);
+        this.appendChild(modalStyle);
         // Attach the created elements to the shadow dom
-        shadow.appendChild(mainModalWrapper);
-
+        this.appendChild(mainModalWrapper);
     }
 }
 

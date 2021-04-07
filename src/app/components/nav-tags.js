@@ -1,5 +1,5 @@
 
-import { homeModule } from '../modules/homeModule'; // to use its functions
+import { homeModule } from '../modules/homeModule';
 
 // ----------------------------------------------------
 // CUSTOM ELEMENT TEMPLATE FOR NAVTAGS
@@ -12,16 +12,18 @@ export class NavTags extends HTMLElement {
 
         // create nav section
         const navTagsTemplate = document.createElement('nav');
-        navTagsTemplate.setAttribute('class', 'header__nav tags-list home');
+       // navTagsTemplate.setAttribute('class', 'header__nav tags-list home');
 
         // IF navTags component is generated to populate HOME MAIN NAV
         // param navtags = mainListNavtags
         // ELSE IF navTags component is generated to populate PHOTOGRAPHER TAGS LIST
         // navTags = photographer.tags;
-        let navTags = navtags;
+        let navTags = navtags; console.log('PARAM=====', navTags);
 
         // attach data attributes passed in params ----------------------------- * 
         navTagsTemplate.setAttribute('data', navTags);
+
+        navTagsTemplate.setAttribute('class', 'header__nav tags-list home');
 
         // link component to main stylesheet  ============> ! does not work in webpack
         const navstyle = document.createElement('link');
