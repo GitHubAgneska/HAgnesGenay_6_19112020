@@ -1,7 +1,7 @@
-import {MediaItem } from '../utils/mediaItem-model';
+import { MediaItem } from '../utils/mediaItem-model';
 
 export function MediaItemFactory() {
-    this.create = ( id, photograperId, ...args) => {
-        return new MediaItem(id, photograperId, ...args);
+    this.create = ( id, photographerId, ...args) => {
+        return new MediaItem(id, photographerId, ...args);
     }
 }

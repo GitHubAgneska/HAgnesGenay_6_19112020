@@ -16,29 +16,29 @@ import { destroyView } from '../../app/utils/destroyView';
 // MODULE PATTERN STRUCTURE
 export const photographerPageModule = (function() {
 
+    // private part of module
 
-    // -------------------------------------------------------------------------------
-    // CREATE BASE HTML CONTEXT TO HOST ALL FOLLOWING ELEMENTS
-    // -------------------------------------------------------------------------------
-
-    // where any 'main' content will be hosted
-    const root = document.querySelector('#root');
-    // destroy previous view
-    // destroyView(root);
-    const header = new HeaderBaseTemplate();
-    const photogPage = new PagePhotogTemplateBase();
-    root.appendChild(photogPage);
-    root.appendChild(header);
-
-    // private 
     // RETRIEVE ALL PHOTOGRAPHERS [] from homeModule
     function getAllData() { return homeModule.getAllData(); }
 
     function initPhotographerPageView(e, photographerId) {
-        // e.stopPropagation();
+        // -------------------------------------------------------------------------------
+        // CREATE BASE HTML CONTEXT TO HOST ALL FOLLOWING ELEMENTS
+        // -------------------------------------------------------------------------------
+        // where any 'main' content will be hosted
+        const root = document.querySelector('#root');
+        // destroy previous view ------------------------- SHOULD VERY PROBABLY BE ELSEWHERE OUTSIDE FROM THIS MODULE
+        destroyView(root);
+        const header = new HeaderBaseTemplate();
+        root.appendChild(header);
+        const photogPage = new PagePhotogTemplateBase();
+        root.appendChild(photogPage);
+
+
+        // e.stopPropagation();  ------------------------- = event calling this method, from clicking homepage photog profile
         // e.preventDefault();
         const photogId = photographerId;
-        const myphotographers = getAllData();  // instead : retrieve photographer object as param
+        const myphotographers = getAllData();  //  ------------------------- instead : retrieve photographer object as param
 
         let allMediaOfPhotog = [];
         let mediaSortedByTitle = [];
@@ -103,7 +103,7 @@ export const photographerPageModule = (function() {
 
                 // SORTING MEDIA ITEMS ====================================================
                 // copy media array ( as 'sort()' will be destructive )
-                mediaSortedByTitle = JSON.parse(JSON.stringify(allMediaOfPhotog));  // ======== ! NOT mediaSortedByDate = [...allMediaOfPhotog] = shallow copy
+                mediaSortedByTitle = JSON.parse(JSON.stringify(allMediaOfPhotog));  // ======== ! NOT mediaSortedByDate = [...allMediaOfPhotog] <= shallow copy
                 mediaSortedByTitle.sort( (a, b) => { a.title.localeCompare(b.title)});
                 console.log('mediaSortedByTitleAfter ===== ', mediaSortedByTitle);
 
@@ -189,7 +189,7 @@ export const photographerPageModule = (function() {
         } 
     }
 
-    //public 
+    //public part of module
     return {
         initPagePhotographer: initPhotographerPageView,
         openContactForm: openContactForm,

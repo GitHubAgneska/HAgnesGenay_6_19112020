@@ -1,7 +1,7 @@
 export class MediaItem {
-    constructor(id, photograperId, tags, image, video, likes, date, price, title) {
+    constructor(id, photographerId, tags, image, video, likes, date, price, title) {
         id = id;
-        photograperId = photograperId;
+        photographerId = photographerId;
         tags = tags;
         likes = likes;
         date = date;

@@ -12,20 +12,19 @@ const tagslistMainNav = [ 'portrait', 'art', 'fashion', 'architecture', 'travel'
 // MODULE PATTERN STRUCTURE
 export const homeModule = (function() {
 
+    // private part of module
+
     // -------------------------------------------------------------------------------
     // CREATE BASE HTML CONTEXT TO HOST ALL FOLLOWING ELEMENTS
     // -------------------------------------------------------------------------------
-
     // const pageType = 'homepage';
-    // where any 'main' content will be hosted
+    // where 'main' content will be hosted
     const root = document.querySelector('#root');
     const header = new HeaderBaseTemplate();
+    root.appendChild(header);
     const homepage = new homePageTemplate();
     root.appendChild(homepage);
-    root.appendChild(header);
 
-
-    // private
     function initData() { 
         fetch(apiUrl)
         .then(response => response.json())
@@ -48,6 +47,7 @@ export const homeModule = (function() {
         // attach component to parent
         mainNavContainer.appendChild(headerNav);
     }
+
     // -------------------------------------------------------------------------------
     // INIT PHOTOGRAPHERS LIST + ThEIR MEDIA
     // -------------------------------------------------------------------------------
@@ -73,6 +73,7 @@ export const homeModule = (function() {
                 photographer.tags, photographer.tagsTemplate,
                 photographer.photographerMedia = [],
                 photographer.template,
+                photographer.contactRequests
             );
             myphotographers.push(photographer);
         });
@@ -81,10 +82,11 @@ export const homeModule = (function() {
             mediaItemFactory.create(
                 mediaItem.id,
                 mediaItem.photographerId,
+                mediaItem.tags,
                 mediaItem.likes,
                 mediaItem.date,
                 mediaItem.price,
-                mediaItem.tags
+                mediaItem.title
             );
             mymedias.push(mediaItem);
         });
@@ -98,7 +100,7 @@ export const homeModule = (function() {
         setUpTemplates(myphotographers); 
     } // end of initializeData()
 
-     // initialize photographers templates (param is either all photographers or a filtered by tag list)
+     // initialize photographers templates (param is either all photographers or a list filtered by tag)
     function setUpTemplates(myphotographers) {
         
         myphotographers.forEach(photog => {
@@ -111,29 +113,26 @@ export const homeModule = (function() {
         })
     }
 
-
     // function used by 'navtags component' as an event listener on each navtag item
     function updateHomePageView(navTag) {
+
         // store tag name for sorting
         var sortingTerm = navTag;
-
         // define homepage content
         const photographersList = document.querySelector('.photographers');
         // remove eveything that's displayed by default
         while (photographersList.firstChild) {photographersList.removeChild(photographersList.firstChild)}
-
         filterPhotographers(myphotographers, sortingTerm);
     }
 
-    function filterPhotographers(myphotographers, sortingTerm){ 
+    function filterPhotographers(myphotographers, sortingTerm){
             var filtered = myphotographers.filter(x => x.tags.includes(sortingTerm));
             setUpTemplates(filtered);
-           // homeModule.useSetUpTemplates(filtered);
     }
 
-    function getPhotographers(){ return myphotographers};
+    function getPhotographers(){ return myphotographers}; // make all data public
 
-    // public (these methods can be used outside of this module)
+    // public part of module (these methods can be used outside of this module)
     return {
         startHome: initData,
         getAllData: getPhotographers,
