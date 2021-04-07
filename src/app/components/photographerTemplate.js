@@ -14,7 +14,8 @@ export class PhotographerTemplateHome extends HTMLElement {
 
             // create a shadow root
             const shadow = this.attachShadow({mode: 'open'});
-            
+            this.setAttribute('style', 'flex:auto;flex-basis:30%;');  // ------- TO REVIEW 
+
             // create photographer component main container div
             const photographerWrapperHome = document.createElement('div');
 

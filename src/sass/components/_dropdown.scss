@@ -18,13 +18,16 @@
         @include border-radius(5px);
         background-color: $red-main;
 
-        ul { @include flex(column, nowrap);} 
         button { 
             @include flex(row, nowrap);
             justify-content: space-between;
             padding: 0;
             background-color: transparent;
         }
+        ul { visibility: hidden;}     
+
+            
+        
 
         button, li { // select items
             width:90%; margin:auto; 
@@ -32,7 +35,7 @@
             color: $white;
             text-align: unset; // reset to left
             text-transform: capitalize;
-            }
+        }
         button, li:nth-child(1) { border-bottom: 0.5px solid $white; } // all but third li element have bottom border
         
     }

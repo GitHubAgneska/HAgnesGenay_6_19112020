@@ -18,7 +18,7 @@ export class NavTags extends HTMLElement {
         // param navtags = mainListNavtags
         // ELSE IF navTags component is generated to populate PHOTOGRAPHER TAGS LIST
         // navTags = photographer.tags;
-        let navTags = navtags; console.log('PARAM=====', navTags);
+        let navTags = navtags;
 
         // attach data attributes passed in params ----------------------------- * 
         navTagsTemplate.setAttribute('data', navTags);

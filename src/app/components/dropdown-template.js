@@ -1,4 +1,5 @@
 
+import { photographerPageModule } from '../modules/photographerPageModule';
 
 export class DropdownTemplate extends HTMLElement {
     constructor() {
@@ -23,17 +24,45 @@ export class DropdownTemplate extends HTMLElement {
         
         <p class="dropdown-menu-title">trier par</p>
             <div class="dropdown-menu" id="dropdown-menu" aria-label="sort gallery by">
-                <button id="open-dropdown-btn" class="open-dropdown-btn" aria-haspopup="listbox" aria-labelledby="exp_elem exp_button">
+                <button id="toggle-dropdown-btn" class="open-dropdown-btn" aria-haspopup="listbox" aria-labelledby="exp_elem exp_button">
                     popularité
                     <i class="fas fa-angle-down"></i>
                     <i class="fas fa-angle-up"></i>
                 </button> 
-                <ul id="exp_elem_list" tabindex="-1" role="listbox" aria-labelledby="exp_elem" class="hidden">
-                    <li id="exp_date" role="option">date</li>
-                    <li id="exp_elem_Np" role="option">titre</li>
+                <ul id="exp-elem-list" tabindex="-1" role="listbox" aria-labelledby="exp_elem" class="hidden">
+                    <li id="exp_elem_date" role="option">date</li>
+                    <li id="exp_elem_title" role="option">titre</li>
                 </ul>
             </div>
         `;
+
+        // events for btns
+        const toggleDropdownBtn = dropdownWrapper.querySelector('#toggle-dropdown-btn');
+        toggleDropdownBtn.addEventListener('click', function(event){ toggleDropdown(event);}, false);
+
+        const dropdownList = dropdownWrapper.querySelector('#exp-elem-list');
+        
+        function toggleDropdown(event){
+            console.log(event.target); // = btn
+            if ( dropdownList.hasAttribute('style', 'visibility:hidden') ){
+                dropdownList.setAttribute('style', 'visibility:visible')
+            }
+            
+        /*  if ( dropdownList.hasAttribute('class', 'hidden') ) {
+                dropdownList.removeAttribute('class', 'hidden');
+            } else {
+                dropdownList.setAttribute('class', 'hidden');
+            } */
+        }
+
+        const sortByDateBtn = dropdownWrapper.querySelector('#exp_elem_date');
+        const sortByTitle = dropdownWrapper.querySelector('#exp_elem_title');
+
+        // sortByDateBtn.onclick = () => { photographerPageModule. }
+        
+
+
+
 
         // Attach stylesheet to component
         shadow3.appendChild(dropdownStyle);

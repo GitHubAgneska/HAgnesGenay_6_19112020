@@ -102,25 +102,30 @@ export const photographerPageModule = (function() {
                 console.log('allMediaOfPhotog===', allMediaOfPhotog);
 
                 // SORTING MEDIA ITEMS ====================================================
-                // copy media array ( as 'sort()' will be destructive )
-                mediaSortedByTitle = JSON.parse(JSON.stringify(allMediaOfPhotog));  // ======== ! NOT mediaSortedByDate = [...allMediaOfPhotog] <= shallow copy
-                mediaSortedByTitle.sort( (a, b) => { a.title.localeCompare(b.title)});
-                console.log('mediaSortedByTitleAfter ===== ', mediaSortedByTitle);
-
-                mediaSortedByDate = JSON.parse(JSON.stringify(allMediaOfPhotog));
-                mediaSortedByDate.sort((a, b) => parseFloat(a.date) - parseFloat(b.date));
-                console.log('mediaSortedBydate after ===== ', mediaSortedByDate);
                 
-                mediaSortedByPop = JSON.parse(JSON.stringify(allMediaOfPhotog));
-                mediaSortedByPop.sort( (a, b) => { a.likes - b.likes });
-                console.log('mediaSortedByPOP after ===== ', mediaSortedByPop);
+                    // copy media array ( as 'sort()' will be destructive )
+                    mediaSortedByTitle = JSON.parse(JSON.stringify(allMediaOfPhotog));  // ======== ! NOT mediaSortedByDate = [...allMediaOfPhotog] <= shallow copy
+                    mediaSortedByTitle = mediaSortedByTitle.sort( (a, b) => { a.title.localeCompare(b.title)});
+                    console.log('mediaSortedByTitleAfter ===== ', mediaSortedByTitle);
+    
+                    mediaSortedByDate = JSON.parse(JSON.stringify(allMediaOfPhotog));
+                    mediaSortedByDate = mediaSortedByDate.sort((a, b) => parseFloat(a.date) - parseFloat(b.date));
+    
+                    console.log('mediaSortedBydate after ===== ', mediaSortedByDate);
+                    
+                    mediaSortedByPop = JSON.parse(JSON.stringify(allMediaOfPhotog));
+                    mediaSortedByPop = mediaSortedByPop.sort( (a, b) => { a.likes - b.likes });
+                    console.log('mediaSortedByPOP after ===== ', mediaSortedByPop);
+
+                
 
                 allMediaOfPhotog.forEach(x => { photographerGalleryBlock.appendChild(x.template)});
                 // mediaSortedByTitle.forEach(x => { photographerGalleryBlock.appendChild(x.template)});
 
-
                 main.appendChild(photographerGalleryBlock);
+
                 function getName() { return photog.name; } // necessary for gallery imgs urls
+
             }
         })
     } // ( end of init() )
