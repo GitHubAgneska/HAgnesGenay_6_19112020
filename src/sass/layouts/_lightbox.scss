@@ -7,7 +7,7 @@
 
     .lightbox {
         border: 5px solid violet;
-        width:800px;height:600px; 
+        width:400px;height:200px; 
         margin:auto;
         position: relative;
         
@@ -16,6 +16,7 @@
         .lightbox.with-slidenav { padding-bottom: 2em;} // leave space at bottom for aria infos
         .lightbox.active {position: relative;}
     }
+
     // first ul : images display 
     // .slide / = li elements
     // ---------------------------------------
@@ -27,14 +28,14 @@
         top: 0;
         display:block !important;
         transition: left .6s ease-out;
-        z-index: 6;
+        // z-index: 6;
     }  
     
     .active .prev.slide {left: -100%; border: 2px solid yellow; }
-    .active .current.slide {visibility: visible;left: 0; border:2px solid blue;}
+    .active .current.slide {z-index: 6;left: 0; border:2px solid blue;}
     .active .next.slide {left: 100%; border:2px solid orange;}
 }
-    
+
 
 
         // = second ul
@@ -62,5 +63,6 @@
         .slidenav { 
             width:100%;position: absolute; bottom:0;z-index: 8;
             border: 2px solid yellow;
-            @include flex(row, nowrap);            
+            @include flex(row, nowrap); 
+            justify-content: space-between;           
         }

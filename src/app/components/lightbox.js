@@ -1,4 +1,3 @@
-
 // code chunk adapted from:   https://www.w3.org/WAI/tutorials/lightboxs/full-code/
 // Focusin/out event polyfill (for Firefox) by nuxodin
 // Source: https://gist.github.com/nuxodin/9250e56a3ce6c0446efa
@@ -37,8 +36,6 @@
         });
     }
 }();
-
-
 
 
 
@@ -101,7 +98,7 @@ export const Lightbox = (function () {
         // generate LIGHTBOX  ========================================
         const lightboxElement = document.createElement('div');
         lightboxElement.setAttribute('id', 'lightbox');
-        lightboxElement.setAttribute('class', 'active lightbox with-slidenav');
+        lightboxElement.setAttribute('class', 'active lightbox');
         
         // attach lightbox to its main wrapper
         lightboxWrapper.appendChild(lightboxElement);
@@ -141,7 +138,7 @@ export const Lightbox = (function () {
                 <button type="button" class="btn-prev"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
             </li> 
             <li>
-                <button type="button" class="btn-next"><i class="fa fa-chevron-right" aria-hidden="true"></button>
+                <button type="button" class="btn-next"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
             </li>
             `;
         
@@ -160,17 +157,16 @@ export const Lightbox = (function () {
             slidenav = document.createElement('ul'); // settings.slidenav = true : 'list of slides is shown.'
             slidenav.className = 'slidenav';
 
-            if (settings.animate) {  // 'If true, the slides can be animated.'
+            if (settings.animate) {  // 'If true, the slides can be animated => add start/stop btns
 
-                forEachElement(slides, function (el, i) {  // for each li element created with bg image
-                    var li = document.createElement('li');
-                    if (settings.startAnimated) {
-                        li.innerHTML = '<button data-action="stop"><span class="visuallyHidden">Stop Animation </span>￭</button>';
-                    } else {
-                        li.innerHTML = '<button data-action="start"><span class="visuallyHidden">Start Animation </span>▶</button>';
-                    }
-                    slidenav.appendChild(li);
-                });
+                var li = document.createElement('li');
+                if (settings.startAnimated) {
+                    li.innerHTML = '<button data-action="stop"><span class="visuallyHidden">Stop Animation </span>￭</button>';
+                } else {
+                    li.innerHTML = '<button data-action="start"><span class="visuallyHidden">Start Animation </span>▶</button>';
+                }
+                slidenav.appendChild(li);
+                
             }
             if (settings.slidenav) { // settings.slidenav = true : list of slides is shown.
 
@@ -180,7 +176,7 @@ export const Lightbox = (function () {
                     var kurrent = (i === 0) ? ' <span class="visuallyHidden">(Current Item)</span>' : '';
 
                     li.innerHTML = // ----------------------- list should only display picture name/title
-                        `<button ` + klass + `data-slide="` + i + `"><span class="visuallyHidden">${currentImg.image || currentImg.video}</span>` + ( i + 1 ) + kurrent + `</button>`;
+                        `<button ` + klass + `data-slide="` + i + `"><span class="visuallyHidden">${currentImg.title || currentImg.title}</span>` + ( i + 1 ) + kurrent + `</button>`;
 
                     slidenav.appendChild(li);
                 });
