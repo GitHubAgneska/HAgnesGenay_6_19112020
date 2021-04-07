@@ -41,14 +41,14 @@ import { photographerPageModule } from "../modules/photographerPageModule";
 
 
 
-export const Lightbox = (function (currentImg) {
+export const Lightbox = (function () {
 
     "use strict"; // code should be executed in "strict mode"- you can not, for example, use undeclared variables
 
     // Initial variables
     var lightbox, index, slidenav, slides, settings, timer, setFocus, animationSuspended, announceItem, _this;
     var currentImgId;  var currentGallery;
-    var currentImg = currentImg;
+    var currentImg;
     
     //HELPER FUNCTIONS
             // Helper function: Iterates over an array of elements
@@ -81,7 +81,7 @@ export const Lightbox = (function (currentImg) {
 
     function init(set) { // Make settings available to all functions
         settings = set;
-        currentImgId = settings.currentImgId;
+        currentImgId = settings.currentImgId; console.log('CURRENT ID CLICKED==', currentImgId);
         currentImg = settings.currentImg ; // = mediaItem object
         currentGallery = settings.currentGallery;
 
@@ -132,11 +132,15 @@ export const Lightbox = (function (currentImg) {
         var firstUl = document.createElement('ul');
         firstUl.setAttribute('class', 'lightbox-images');
 
+        // set up clicked image as first li item
+
         // for each image of gallery, generate a li element with bg img + class .slide
         currentGallery.forEach(pic => {
             var liItem = document.createElement('li');
             liItem.className = 'slide';
 
+            liItem.setAttribute('data', pic.id);
+            
             liItem.setAttribute('style', 'background-image:url("./assets/img/' + pic.photographerName + '/S/'+ (pic.image || pic.video) + '")' );
             firstUl.appendChild(liItem); // attach li element to ul
         });
@@ -283,9 +287,9 @@ export const Lightbox = (function (currentImg) {
         announceItem = typeof announceItemHere !== 'undefined' ? announceItemHere : false;
         
         lightbox = document.querySelector("#lightbox");
-        console.log('SLIDES====', slides); 
+        // console.log('SLIDES====', slides); 
         //currentImgId = currentImgId;
-        new_current = parseFloat(new_current);
+        new_current = parseFloat(new_current); 
 
         var length = slides.length;
         var new_next = new_current + 1;

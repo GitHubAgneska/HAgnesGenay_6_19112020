@@ -117,8 +117,7 @@ export const photographerPageModule = (function() {
         var currentGallery = currentGallery;
 
         console.log('currentImg==', currentImg,'currentGallery==', currentGallery );
-        var lightbox = new Lightbox(currentImg);
-        lightbox.init({currentImgId:currentImgId, currentImg:currentImg, currentGallery:currentGallery, slidenav: true, animate: true, startAnimated: true});
+        new Lightbox().init({currentImgId:currentImgId, currentImg:currentImg, currentGallery:currentGallery, slidenav: true, animate: false, startAnimated: false});
     }
     function closeLightbox(lightboxWrapper) {
         destroyView(lightboxWrapper);
