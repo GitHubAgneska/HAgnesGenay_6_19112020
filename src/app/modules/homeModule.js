@@ -1,4 +1,4 @@
-
+import { homePageTemplate } from '../components/base-page-template';
 import { NavTags } from '../../app/components/nav-tags';
 import { PhotographerFactory } from '../../app/utils/photographerFactory';
 import { PhotographerTemplateHome } from '../../app/components/photographerTemplate';
@@ -11,6 +11,17 @@ const tagslistMainNav = [ 'portrait', 'art', 'fashion', 'architecture', 'travel'
 // MODULE PATTERN STRUCTURE
 export const homeModule = (function() {
 
+    // -------------------------------------------------------------------------------
+    // CREATE BASE HTML CONTEXT TO HOST ALL FOLLOWING ELEMENTS
+    // -------------------------------------------------------------------------------
+
+    // const pageType = 'homepage';
+    // where any 'main' content will be hosted
+    const root = document.querySelector('#root');
+    const homepage = new homePageTemplate();
+    root.appendChild(homepage);
+
+
     // private
     function initData() { 
         fetch(apiUrl)
@@ -22,6 +33,7 @@ export const homeModule = (function() {
             initializeMainNav(tagslistMainNav);
         });
     }
+
     // -------------------------------------------------------------------------------
     // AT HOMEPAGE OPENING, THE MAIN NAVIGATION WITH TAGS IS GENERATED
     // -------------------------------------------------------------------------------

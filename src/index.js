@@ -1,5 +1,6 @@
 
 import "./main.scss";
+import { PageTemplate } from './app/components/base-page-template';
 
 import { homeModule } from './app/modules/homeModule';
 import { photographerPageModule } from './app/modules/photographerPageModule';
@@ -13,7 +14,16 @@ const portraitAssetsPath = './assets/img/portraits/S/';
 
 // START HOMEPAGE
 homeModule.run();
-// window.DOMContentLoaded = () => homeModule.run();
+// init homepage base View to host content in MAIN
+/* 
+const homepage = new PageTemplate('homepage');
+// where any 'main' content will be hosted
+const root = document.querySelector('#root');
+root.appendChild(homepage);
+
+window.addEventListener('DOMContentLoaded', (event) => {homeModule.run();}); */
+
+// window.onload = () => homeModule.run();
 console.log('window.location.pathname==', window.location.pathname)
 
 

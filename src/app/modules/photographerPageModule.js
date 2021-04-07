@@ -1,5 +1,6 @@
 
 import { homeModule } from './homeModule';
+import { PagePhotogTemplateBase } from '../components/base-page-template';
 import { PhotographerInfosTemplate } from '../components/photographerInfosTemplate';
 import { MediaItemTemplate } from '../../app/components/mediaItemTemplate';
 import { DropdownTemplate } from '../components/dropdown-template';
@@ -13,6 +14,18 @@ import { destroyView } from '../../app/utils/destroyView';
 
 // MODULE PATTERN STRUCTURE
 export const photographerPageModule = (function() {
+
+
+    // -------------------------------------------------------------------------------
+    // CREATE BASE HTML CONTEXT TO HOST ALL FOLLOWING ELEMENTS
+    // -------------------------------------------------------------------------------
+
+    // where any 'main' content will be hosted
+    const root = document.querySelector('#root');
+    // destroy previous view
+    // destroyView(root);
+    const photogPage = new PagePhotogTemplateBase();
+    root.appendChild(photogPage);
 
     // private 
     // RETRIEVE ALL PHOTOGRAPHERS [] from homeModule
