@@ -1,9 +1,13 @@
 /* ================================================== */
 /* PAGE TEMPLATE FOR ANY 'MAIN' CONTENT TO BE HOSTED  */
 /* ================================================== */
+// the process using params to generate a specific page view
+// does not work atm, so instead, using custom components
+// specific to views
 
-
+/* ================================================== */
 /* BASE TEMPLATE CONTEXT FOR HOME PAGE */
+/* ================================================== */
 export class homePageTemplate extends HTMLElement {
     constructor() { // constructor(pageType) {
         super();
@@ -57,7 +61,10 @@ export class homePageTemplate extends HTMLElement {
 customElements.define('page-template-component', homePageTemplate);
 
 
+
+/* ================================================== */
 /* BASE TEMPLATE CONTEXT FOR PHOTOGRAPHER PAGE */
+/* ================================================== */
 export class PagePhotogTemplateBase extends HTMLElement {
 
     constructor() { // constructor(pageType) {

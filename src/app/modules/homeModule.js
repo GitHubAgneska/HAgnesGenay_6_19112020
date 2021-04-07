@@ -1,4 +1,5 @@
 import { homePageTemplate } from '../components/base-page-template';
+import { HeaderBaseTemplate } from '../components/header-base-template';
 import { NavTags } from '../../app/components/nav-tags';
 import { PhotographerFactory } from '../../app/utils/photographerFactory';
 import { PhotographerTemplateHome } from '../../app/components/photographerTemplate';
@@ -18,8 +19,10 @@ export const homeModule = (function() {
     // const pageType = 'homepage';
     // where any 'main' content will be hosted
     const root = document.querySelector('#root');
+    const header = new HeaderBaseTemplate();
     const homepage = new homePageTemplate();
     root.appendChild(homepage);
+    root.appendChild(header);
 
 
     // private

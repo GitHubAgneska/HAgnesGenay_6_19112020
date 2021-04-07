@@ -1,6 +1,7 @@
 
 import { homeModule } from './homeModule';
 import { PagePhotogTemplateBase } from '../components/base-page-template';
+import { HeaderBaseTemplate } from '../components/header-base-template';
 import { PhotographerInfosTemplate } from '../components/photographerInfosTemplate';
 import { MediaItemTemplate } from '../../app/components/mediaItemTemplate';
 import { DropdownTemplate } from '../components/dropdown-template';
@@ -24,8 +25,10 @@ export const photographerPageModule = (function() {
     const root = document.querySelector('#root');
     // destroy previous view
     // destroyView(root);
+    const header = new HeaderBaseTemplate();
     const photogPage = new PagePhotogTemplateBase();
     root.appendChild(photogPage);
+    root.appendChild(header);
 
     // private 
     // RETRIEVE ALL PHOTOGRAPHERS [] from homeModule
