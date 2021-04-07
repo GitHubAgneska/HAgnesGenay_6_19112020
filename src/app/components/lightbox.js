@@ -3,6 +3,8 @@
 // Source: https://gist.github.com/nuxodin/9250e56a3ce6c0446efa
 // lightbox Prototype Eric Eggert for W3C
 
+import { photographerPageModule } from "../modules/photographerPageModule";
+
 
 !function () {   // syntax = short-hand or alternative of self-invoking anonymous function IIFE
     var w = window,
@@ -39,14 +41,15 @@
 
 
 
-export const Lightbox = (function () {
+export const Lightbox = (function (currentImg) {
 
     "use strict"; // code should be executed in "strict mode"- you can not, for example, use undeclared variables
 
     // Initial variables
     var lightbox, index, slidenav, slides, settings, timer, setFocus, animationSuspended, announceItem, _this;
-    var currentImgId; var currentImg; var currentGallery;
-
+    var currentImgId;  var currentGallery;
+    var currentImg = currentImg;
+    
     //HELPER FUNCTIONS
             // Helper function: Iterates over an array of elements
             function forEachElement(elements, fn) {
@@ -78,7 +81,7 @@ export const Lightbox = (function () {
 
     function init(set) { // Make settings available to all functions
         settings = set;
-        currentImgId = settings.currentImgId
+        currentImgId = settings.currentImgId;
         currentImg = settings.currentImg ; // = mediaItem object
         currentGallery = settings.currentGallery;
 
@@ -99,7 +102,20 @@ export const Lightbox = (function () {
         const lightboxElement = document.createElement('div');
         lightboxElement.setAttribute('id', 'lightbox');
         lightboxElement.setAttribute('class', 'active lightbox');
-        
+
+        // close lightbox btn ========================================
+        const closeLightboxBtn = document.createElement('div');
+        closeLightboxBtn.innerHTML = 
+        `
+        <div id="closeLightboxBtn" class="closeLightboxBtn" role="button" aria-label="close lightbox">
+            <i class="fa fa-times" aria-hidden="true"></i>
+        </div>
+        `;
+        closeLightboxBtn.addEventListener('click', function(event){photographerPageModule.closeLightbox(lightboxWrapper)});
+
+        lightboxElement.appendChild(closeLightboxBtn);
+
+
         // attach lightbox to its main wrapper
         lightboxWrapper.appendChild(lightboxElement);
         
@@ -199,7 +215,7 @@ export const Lightbox = (function () {
             lightbox.className = 'active lightbox with-slidenav';
             lightboxElement.appendChild(slidenav);
         }
-        // Add a live region to announce the slide number when using the previous/next buttons ----- use?
+        // Add a live region to announce the slide number when using the previous/next buttons
         var liveregion = document.createElement('div');
         liveregion.setAttribute('aria-live', 'polite');
         liveregion.setAttribute('aria-atomic', 'true');
@@ -207,7 +223,6 @@ export const Lightbox = (function () {
         lightbox.appendChild(liveregion);
 
         
-        // slides = lightbox.querySelectorAll('.slide'); // necessary to redefine --- ?
         // After the slide transitioned, remove the in-transition class, 
         // if focus should be set, set the tabindex attribute to -1 and focus the slide.
         slides[0].parentNode.addEventListener('transitionend', function (event) {
@@ -232,14 +247,12 @@ export const Lightbox = (function () {
                 startAnimation();
             }
         });
-
         // When the focus enters the lightbox, suspend the animation
         lightbox.addEventListener('focusin', function (event) {
             if (! hasClass(event.target, 'slide')) {
                 suspendAnimation();
             }
         });
-
         // When the focus leaves the lightbox, and the animation is suspended, start the animation
         lightbox.addEventListener('focusout', function (event) {
             if (! hasClass(event.target, 'slide') && animationSuspended) {
@@ -307,12 +320,13 @@ export const Lightbox = (function () {
             var buttons = lightbox.querySelectorAll('.slidenav button[data-slide]');
             for (var j = buttons.length - 1; j >= 0; j--) {
                 buttons[j].className = '';
-                buttons[j].innerHTML = `<span class="visuallyHidden">PLACEHOLDER</span> ` + ( j + 1 );
+                buttons[j].innerHTML = `<span class="visuallyHidden"></span> ` + ( j + 1 );  // ------- TO REVIEW : images titles should be displayed
             }
             buttons[new_current].className = "current";
-            buttons[new_current].innerHTML = `<span class="visuallyHidden">PLACEHOLDER</span> ` 
-            + ( new_current + 1 ) 
-            + ` <span class="visuallyHidden">(Current Item)</span>`;
+            buttons[new_current].innerHTML = `
+                <span class="visuallyHidden"></span> ` 
+                + ( new_current + 1 ) 
+                + ` <span class="visuallyHidden">(Current Item)</span>`;
         }
         // global index = new current value
         index = new_current;

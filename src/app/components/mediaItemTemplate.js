@@ -55,7 +55,7 @@ import { photographerPageModule } from "../modules/photographerPageModule";
             // add event listener to OPEN LIGHTBOX
             mediaWrapper.addEventListener('click', function(event) {
                 // mediaItem.id = event.target;
-                photographerPageModule.openLightbox(medium.id, medium, currentGallery)
+                photographerPageModule.openLightbox(event, medium.id, medium, currentGallery)
             }, false);
 
 

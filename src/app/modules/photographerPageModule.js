@@ -8,6 +8,7 @@ import { ModalContact } from '../components/modal-contact';
 import { ConfirmBox } from '../components/confirm-box';
 import { validateFormInputs } from '../utils/validateFormInputs';
 import { processTitle } from '../../app/utils/processApiTitles';
+import { destroyView } from '../../app/utils/destroyView';
 
 
 // MODULE PATTERN STRUCTURE
@@ -110,14 +111,17 @@ export const photographerPageModule = (function() {
 
     // LIGHTBOX ======================================================================
 
-    function openLightbox (currentImgId, currentImg, currentGallery) { 
+    function openLightbox (event, currentImgId, currentImg, currentGallery) { 
         var currentImgId = currentImgId;
         var currentImg = currentImg;
         var currentGallery = currentGallery;
 
         console.log('currentImg==', currentImg,'currentGallery==', currentGallery );
-        var lightbox = new Lightbox();
+        var lightbox = new Lightbox(currentImg);
         lightbox.init({currentImgId:currentImgId, currentImg:currentImg, currentGallery:currentGallery, slidenav: true, animate: true, startAnimated: true});
+    }
+    function closeLightbox(lightboxWrapper) {
+        destroyView(lightboxWrapper);
     }
 
     // CONTACT MODAL FORM  ===========================================================
@@ -177,6 +181,7 @@ export const photographerPageModule = (function() {
         closeModal: closeModal,
         submitForm:submitForm,
         openLightbox: openLightbox,
+        closeLightbox: closeLightbox,
         run: initPhotographerPageView, // for router
     }
 }());

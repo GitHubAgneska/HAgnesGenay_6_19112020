@@ -1,6 +1,6 @@
 
 
-export function destroyView(parent, childToRemove){
+export function destroyView(parent){
 
     while (parent.firstChild) { parent.removeChild(parent.firstChild); }
 
