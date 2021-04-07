@@ -142,7 +142,9 @@ export const photographerPageModule = (function() {
         new Lightbox().init({currentImgId:currentImgId, currentImg:currentImg, currentGallery:currentGallery, slidenav: true, animate: false, startAnimated: false});
     }
     function closeLightbox(lightboxWrapper) {
-        destroyView(lightboxWrapper);
+        // destroyView(lightboxWrapper);
+        const parent = document.body;
+        parent.removeChild(parent.lastChild);
     }
 
     // CONTACT MODAL FORM  ===========================================================

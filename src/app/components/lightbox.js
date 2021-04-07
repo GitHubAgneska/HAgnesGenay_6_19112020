@@ -85,10 +85,6 @@ export const Lightbox = (function () {
         currentImg = settings.currentImg ; // = mediaItem object
         currentGallery = settings.currentGallery;
 
-        console.log('INDEX==', currentGallery.indexOf(currentImg));
-
-
-
         // generate LIGHTBOX WRAPPER ========================================
         const lightboxWrapper = document.createElement('div');
         lightboxWrapper.setAttribute('class', 'lightbox-main-wrapper');
@@ -117,13 +113,11 @@ export const Lightbox = (function () {
 
         lightboxElement.appendChild(closeLightboxBtn);
 
-
         // attach lightbox to its main wrapper
         lightboxWrapper.appendChild(lightboxElement);
         
         // append lightbox main wrapper to body
         document.body.appendChild(lightboxWrapper);
-
 
         // from here, definition of 'lightbox':
         const lightbox = lightboxWrapper.querySelector("#lightbox");
@@ -138,12 +132,17 @@ export const Lightbox = (function () {
 
         // for each image of gallery, generate a li element with bg img + class .slide
         currentGallery.forEach(pic => {
-            var liItem = document.createElement('li');
+            let liItem = document.createElement('li');
             liItem.className = 'slide';
-
             liItem.setAttribute('data', pic.id);
-            
             liItem.setAttribute('style', 'background-image:url("./assets/img/' + pic.photographerName + '/S/'+ (pic.image || pic.video) + '")' );
+            
+            let imgTitle = document.createElement('h5');
+            imgTitle.setAttribute('class', 'mediaItem-title');
+            let imgTitleTxt = document.createTextNode(pic.title);
+            imgTitle.appendChild(imgTitleTxt);
+
+            liItem.appendChild(imgTitle);// attach h5 title element to li element
             firstUl.appendChild(liItem); // attach li element to ul
         });
 
@@ -267,7 +266,7 @@ export const Lightbox = (function () {
         });
         // --------------------------------------------------------------------------
 
-        // Set the index (=current slide) to 0 : whatever img is clicked, its index is then 0 (start)
+        // Set the index to current slide index in gallery
         index = currentGallery.indexOf(currentImg);
         setSlides(index, lightbox, slides);
 
