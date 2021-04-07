@@ -18,7 +18,6 @@ h1 {
 body  {
     // main contains homepage view
     .homepage-content {
-       // background-color: lightyellow;
         @include max-1200px { margin: 0 20px; }
         @include min-1200px { margin: 0 35px; }
     }

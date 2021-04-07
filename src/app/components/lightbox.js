@@ -85,6 +85,8 @@ export const Lightbox = (function () {
         currentImg = settings.currentImg ; // = mediaItem object
         currentGallery = settings.currentGallery;
 
+        console.log('INDEX==', currentGallery.indexOf(currentImg));
+
 
 
         // generate LIGHTBOX WRAPPER ========================================
@@ -266,7 +268,7 @@ export const Lightbox = (function () {
         // --------------------------------------------------------------------------
 
         // Set the index (=current slide) to 0 : whatever img is clicked, its index is then 0 (start)
-        index = 0;
+        index = currentGallery.indexOf(currentImg);
         setSlides(index, lightbox, slides);
 
         // AUTO ANIM ----------------------------------------------------------------
