@@ -46,7 +46,7 @@ export const photographerPageModule = (function() {
     // INIT PAGE FOR PHOTOGRAPHER WITH ID
     function initPhotog(myphotographers, photographerId) {
         const photogId = photographerId;
-        let allMediaOfPhotog = [];
+        //let allMediaOfPhotog = [];
         let mediaSortedByTitle = [];
         let mediaSortedByDate = [];
         let mediaSortedByPop = [];
@@ -74,7 +74,7 @@ export const photographerPageModule = (function() {
                 photographerGalleryBlock.setAttribute('id', 'gallery-section-'+ photog.name);
                 photographerGalleryBlock.setAttribute('aria-label', photog.name + ' gallery collection');
 
-                function getPhotographerMedia() { return photog.photographerMedia }; // used by lightbox methods when called from mediaItem
+                
                 function getName() { return photog.name; } // necessary for gallery imgs urls
 
                 // EACH PIC OF GALLERY BLOCK ======================================================================
@@ -94,13 +94,15 @@ export const photographerPageModule = (function() {
                         mediaItem.template = new MediaItemTemplate(mediaItem, currentGallery);
 
                         // for sorting method : retrieve each created processed mediaItem object into an array
-                        allMediaOfPhotog.push(mediaItem);
+                        // allMediaOfPhotog.push(mediaItem);
                 });
-                
+                function getPhotographerMedia() { return photog.photographerMedia }; // used by lightbox methods when called from mediaItem
 
-                renderSortedView(allMediaOfPhotog, 'likes');
+                renderSortedView(photog.id, photog.photographerMedia, 'likes');
 
-                function renderSortedView(allMediaOfPhotog, type='likes') {  // default view = sorted by popularity
+                function renderSortedView(id, allMediaOfPhotog, type='likes') {  // default view = sorted by popularity
+                    id = photog.id;
+                    allMediaOfPhotog = photog.photographerMedia;
                     mediaSortedByPop = sortBy(allMediaOfPhotog, type);
                     mediaSortedByPop.forEach(item => { photographerGalleryBlock.appendChild(item.template) });
                     main.appendChild(photographerGalleryBlock);
