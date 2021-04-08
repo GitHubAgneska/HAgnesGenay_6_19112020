@@ -12,7 +12,6 @@ import { validateFormInputs } from '../utils/validateFormInputs';
 import { processTitle } from '../../app/utils/processApiTitles';
 import { destroyView } from '../../app/utils/destroyView';
 import { sortBy } from '../../app/utils/sortBy';
-import * as cloneDeep from 'lodash/cloneDeep';
 
 
 // MODULE PATTERN STRUCTURE
@@ -36,12 +35,17 @@ export const photographerPageModule = (function() {
         const photogPage = new PagePhotogTemplateBase();
         root.appendChild(photogPage);
 
-
         // e.stopPropagation();  ------------------------- = event calling this method, from clicking homepage photog profile
         // e.preventDefault();
         const photogId = photographerId;
         const myphotographers = getAllData();  //  ------------------------- instead : retrieve photographer object as param
 
+        initPhotog(myphotographers, photographerId);
+    }
+
+    // INIT PAGE FOR PHOTOGRAPHER WITH ID
+    function initPhotog(myphotographers, photographerId) {
+        const photogId = photographerId;
         let allMediaOfPhotog = [];
         let mediaSortedByTitle = [];
         let mediaSortedByDate = [];
@@ -50,8 +54,7 @@ export const photographerPageModule = (function() {
         // find photographer via passed id param
         myphotographers.forEach(photog => {
             if (photog.id === photogId ) {
-                
-                // INFOS BLOCK ======================================================================
+            // INFOS BLOCK ======================================================================
                 // generate new profile template
                 photog.template = new PhotographerInfosTemplate(photog); // = INFOS SECTION
 
@@ -63,7 +66,7 @@ export const photographerPageModule = (function() {
                 let dropdown = new DropdownTemplate();
                 main.appendChild(dropdown);
 
-                // GALLERY BLOCK ======================================================================
+            // GALLERY BLOCK ======================================================================
                 // create container SECTION for GALLERY
                 const photographerGalleryBlock = document.createElement('section');
                 // set GALLERY SECTION container +  attributes/properties
@@ -72,7 +75,8 @@ export const photographerPageModule = (function() {
                 photographerGalleryBlock.setAttribute('aria-label', photog.name + ' gallery collection');
 
                 function getPhotographerMedia() { return photog.photographerMedia }; // used by lightbox methods when called from mediaItem
-                
+                function getName() { return photog.name; } // necessary for gallery imgs urls
+
                 // EACH PIC OF GALLERY BLOCK ======================================================================
                 // set up media/gallery content for the photographer
                 photog.photographerMedia.forEach( mediaItem => {
@@ -88,24 +92,25 @@ export const photographerPageModule = (function() {
                         
                         const currentGallery = getPhotographerMedia(); // pass it through mediaItem template so it can pass it back to 'openLightbox()' below --- ...
                         mediaItem.template = new MediaItemTemplate(mediaItem, currentGallery);
-                        // photographerGalleryBlock.appendChild(mediaItem.template);
-                        // for sorting method : retrieve each created mediaItem object into an array
+
+                        // for sorting method : retrieve each created processed mediaItem object into an array
                         allMediaOfPhotog.push(mediaItem);
                 });
+                
 
-                // default view = sorted by popularity
-                mediaSortedByPop = sortBy(allMediaOfPhotog, 'likes'); console.log('mediaSortedByPop==', mediaSortedByPop);
-                mediaSortedByPop.forEach(item => {photographerGalleryBlock.appendChild(item.template)});
-                main.appendChild(photographerGalleryBlock);
+                renderSortedView(allMediaOfPhotog, 'likes');
 
-                function getName() { return photog.name; } // necessary for gallery imgs urls
-            }
+                function renderSortedView(allMediaOfPhotog, type='likes') {  // default view = sorted by popularity
+                    mediaSortedByPop = sortBy(allMediaOfPhotog, type);
+                    mediaSortedByPop.forEach(item => { photographerGalleryBlock.appendChild(item.template) });
+                    main.appendChild(photographerGalleryBlock);
+                }
+            } // ( end of if photog.id  ) 
+        })  // ( end of forEach(photog) )
+    }     // ( end of initPhotog() )
 
-        })
-    } // ( end of init() )
+    // SORTING MEDIA ITEMS ==========================================================
 
-    // SORTING MEDIA ITEMS ====================================================
-    
     // LIGHTBOX ======================================================================
 
     function openLightbox (event, currentImgId, currentImg, currentGallery) { 

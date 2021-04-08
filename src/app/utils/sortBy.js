@@ -1,6 +1,8 @@
 
 import * as cloneDeep from 'lodash/cloneDeep';
 
+// Using lodash here will allow to sort objects containing TEMPLATES ( ≠ jsonParse+stringify )
+
 export function sortBy(arr, type) { 
 
     if (type == 'title') {
