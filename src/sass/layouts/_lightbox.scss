@@ -7,7 +7,8 @@
     background: rgba(196, 196, 196, 0.8);
     z-index:5;
 
-    .lightbox {
+    .lightbox { border: 5px solid red;
+        
         width:800px;height:600px; 
         margin:auto;
         position: relative;
@@ -21,7 +22,8 @@
                 @include min-600px {font-size:4em !important;}}
         }
         
-        ul {margin: 0;padding: 0;} 
+        ul {margin: 0;padding: 0;}
+        
 
         .lightbox.with-slidenav { padding-bottom: 2em;} // leave space at bottom for aria infos
         .lightbox.active {position: relative;}
@@ -30,13 +32,22 @@
     // first ul : images display 
     // .slide / = li elements
     // ---------------------------------------
-    .lightbox-images li {height: 100%;width:100%; }
+    .lightbox-images {
+
+        li { 
+            height: 100%;width:100%; // leave space for controls + img title ?
+            h5 { color: $red-main; }
+        }   
+    }
+
     .slide {height: 100%; background-size: cover; overflow: hidden; position: absolute;}
     
     .active .slide {
         top: 0;
         display:block !important;
         transition: left .6s ease-out;
+
+       //  top: -60px; // leave space at bottom for title ? 
     }  
     
     .active .prev.slide {left: -100%; visibility: hidden; }

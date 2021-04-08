@@ -22,10 +22,12 @@ export const photographerPageModule = (function() {
     // RETRIEVE ALL PHOTOGRAPHERS [] from homeModule
     function getAllData() { return homeModule.getAllData(); }
 
+
+    // CREATE BASE HTML CONTEXT TO HOST PAGE CONTENT + retrieve data
+    // -------------------------------------------------------------------------------
     function initPhotographerPageView(e, photographerId) {
-        // -------------------------------------------------------------------------------
-        // CREATE BASE HTML CONTEXT TO HOST ALL FOLLOWING ELEMENTS
-        // -------------------------------------------------------------------------------
+        // e.stopPropagation();  ------------------------- = event calling this method, from clicking homepage photog profile
+
         // where any 'main' content will be hosted
         const root = document.querySelector('#root');
         // destroy previous view ------------------------- SHOULD VERY PROBABLY BE ELSEWHERE OUTSIDE FROM THIS MODULE
@@ -35,15 +37,13 @@ export const photographerPageModule = (function() {
         const photogPage = new PagePhotogTemplateBase();
         root.appendChild(photogPage);
 
-        // e.stopPropagation();  ------------------------- = event calling this method, from clicking homepage photog profile
-        // e.preventDefault();
-        const photogId = photographerId;
-        const myphotographers = getAllData();  //  ------------------------- instead : retrieve photographer object as param
+        const myphotographers = getAllData();  //  ------------------------- instead : retrieve photographer object as param ?
 
         initPhotog(myphotographers, photographerId);
     }
 
-    // INIT PAGE FOR PHOTOGRAPHER WITH ID
+    // INIT ELEMENTS FOR PHOTOGRAPHER WITH ID
+    // -------------------------------------------------------------------------------
     function initPhotog(myphotographers, photographerId) {
         const photogId = photographerId;
         //let allMediaOfPhotog = [];
