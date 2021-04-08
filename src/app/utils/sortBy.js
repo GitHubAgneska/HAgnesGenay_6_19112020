@@ -1,9 +1,21 @@
 
+import * as cloneDeep from 'lodash/cloneDeep';
 
+export function sortBy(arr, type) { 
 
-export function sortBy(originalElement) {
-
-    // make deep copy of original element to sort
-    
-
+    if (type == 'title') {
+        let sorted = cloneDeep(arr);
+       //  let sorted = JSON.parse(JSON.stringify(arr));
+        return (sorted.sort((a, b) => a.title.localeCompare(b.title) ));
+    }
+    else if (type == 'date') {
+        let sorted = cloneDeep(arr);
+       //  let sorted = JSON.parse(JSON.stringify(arr));
+        return (sorted.sort((a, b) => parseFloat(a.date) - parseFloat(b.date) ));
+    }
+    else if (type == 'likes') {
+        let sorted = cloneDeep(arr);
+       //  let sorted = JSON.parse(JSON.stringify(arr));
+        return (sorted.sort((a, b) => a.likes - b.likes) );
+    }
 }

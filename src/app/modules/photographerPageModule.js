@@ -11,6 +11,8 @@ import { ConfirmBox } from '../components/confirm-box';
 import { validateFormInputs } from '../utils/validateFormInputs';
 import { processTitle } from '../../app/utils/processApiTitles';
 import { destroyView } from '../../app/utils/destroyView';
+import { sortBy } from '../../app/utils/sortBy';
+import * as cloneDeep from 'lodash/cloneDeep';
 
 
 // MODULE PATTERN STRUCTURE
@@ -70,66 +72,40 @@ export const photographerPageModule = (function() {
                 photographerGalleryBlock.setAttribute('aria-label', photog.name + ' gallery collection');
 
                 function getPhotographerMedia() { return photog.photographerMedia }; // used by lightbox methods when called from mediaItem
-
-
+                
                 // EACH PIC OF GALLERY BLOCK ======================================================================
                 // set up media/gallery content for the photographer
                 photog.photographerMedia.forEach( mediaItem => {
+                        // correct manually a few api typos preventing mediaItem to be displayed
+                        if ( mediaItem.id === 9275938 ) { mediaItem.image = 'Event_WeddingGazebo.jpg'; }
+                        if ( mediaItem.id === 95234343 ) { mediaItem.image = 'Animals_Rainbow.jpg'; }
+                        if ( mediaItem.id === 725639493 ) { mediaItem.image = 'Event_ProductPitch.jpg'; }
 
-                    // correct manually a few api typos preventing mediaItem to be displayed
-                    if ( mediaItem.id === 9275938 ) { mediaItem.image = 'Event_WeddingGazebo.jpg'; }
-                    if ( mediaItem.id === 95234343 ) { mediaItem.image = 'Animals_Rainbow.jpg'; }
-                    if ( mediaItem.id === 725639493 ) { mediaItem.image = 'Event_ProductPitch.jpg'; }
+                        mediaItem.photographerName = getName(); // necessary for imgs urls
+                        // use method to format images names to be displayed
+                        let title =  processTitle(mediaItem.image, mediaItem.tags[0]) || processTitle(mediaItem.video, mediaItem.tags[0]);
+                        mediaItem.title = title;
+                        
+                        const currentGallery = getPhotographerMedia(); // pass it through mediaItem template so it can pass it back to 'openLightbox()' below --- ...
+                        mediaItem.template = new MediaItemTemplate(mediaItem, currentGallery);
+                        // photographerGalleryBlock.appendChild(mediaItem.template);
+                        // for sorting method : retrieve each created mediaItem object into an array
+                        allMediaOfPhotog.push(mediaItem);
+                });
 
-                    mediaItem.photographerName = getName(); // necessary for imgs urls
-                    // use method to format images names to be displayed
-                    let title =  processTitle(mediaItem.image, mediaItem.tags[0]) 
-                                || processTitle(mediaItem.video, mediaItem.tags[0]);
-
-                    mediaItem.title = title;
-                    
-                    const currentGallery = getPhotographerMedia(); // pass it through mediaItem template so it can pass it back to 'openLightbox()' below --- ...
-                    mediaItem.template = new MediaItemTemplate(mediaItem, currentGallery);
-
-                    // for sorting method : retrieve each created mediaItem object into an array
-                    allMediaOfPhotog.push(mediaItem);
-
-                    // without any sorting:
-                    // attach each photo item to gallery
-                    //photographerGalleryBlock.appendChild(mediaItem.template);
-                })
-
-                console.log('allMediaOfPhotog===', allMediaOfPhotog);
-
-                // SORTING MEDIA ITEMS ====================================================
-                
-                    // copy media array ( as 'sort()' will be destructive )
-                    mediaSortedByTitle = JSON.parse(JSON.stringify(allMediaOfPhotog));  // ======== ! NOT mediaSortedByDate = [...allMediaOfPhotog] <= shallow copy
-                    mediaSortedByTitle = mediaSortedByTitle.sort( (a, b) => { a.title.localeCompare(b.title)});
-                    console.log('mediaSortedByTitleAfter ===== ', mediaSortedByTitle);
-    
-                    mediaSortedByDate = JSON.parse(JSON.stringify(allMediaOfPhotog));
-                    mediaSortedByDate = mediaSortedByDate.sort((a, b) => parseFloat(a.date) - parseFloat(b.date));
-    
-                    console.log('mediaSortedBydate after ===== ', mediaSortedByDate);
-                    
-                    mediaSortedByPop = JSON.parse(JSON.stringify(allMediaOfPhotog));
-                    mediaSortedByPop = mediaSortedByPop.sort( (a, b) => { a.likes - b.likes });
-                    console.log('mediaSortedByPOP after ===== ', mediaSortedByPop);
-
-                
-
-                allMediaOfPhotog.forEach(x => { photographerGalleryBlock.appendChild(x.template)});
-                // mediaSortedByTitle.forEach(x => { photographerGalleryBlock.appendChild(x.template)});
-
+                // default view = sorted by popularity
+                mediaSortedByPop = sortBy(allMediaOfPhotog, 'likes'); console.log('mediaSortedByPop==', mediaSortedByPop);
+                mediaSortedByPop.forEach(item => {photographerGalleryBlock.appendChild(item.template)});
                 main.appendChild(photographerGalleryBlock);
 
                 function getName() { return photog.name; } // necessary for gallery imgs urls
-
             }
+
         })
     } // ( end of init() )
 
+    // SORTING MEDIA ITEMS ====================================================
+    
     // LIGHTBOX ======================================================================
 
     function openLightbox (event, currentImgId, currentImg, currentGallery) { 

@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/GitHubAgneska/HAgnesGenay_6_19112020#readme",
   "dependencies": {
+    "lodash": "^4.17.21",
     "sass": "^1.32.8"
   },
   "devDependencies": {
