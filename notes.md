@@ -50,3 +50,9 @@ SASS SCSS AUTOPREFIXER
 
 
 ----
+
+
+DEPLOY DIST TO GITHUBPAGES
+-----------
+
+` git subtree push --prefix dist origin gh-pages `

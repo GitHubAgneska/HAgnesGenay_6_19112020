@@ -23,13 +23,13 @@ export class DropdownTemplate extends HTMLElement {
         dropdownWrapper.innerHTML = `
         
         <p class="dropdown-menu-title">trier par</p>
-            <div class="dropdown-menu" id="dropdown-menu" aria-label="sort gallery by">
+            <div class="dropdown-menu hide" id="dropdown-menu" aria-label="sort gallery by">
                 <button id="toggle-dropdown-btn" class="open-dropdown-btn" aria-haspopup="listbox" aria-labelledby="exp_elem exp_button">
                     popularité
                     <i class="fas fa-angle-down"></i>
                     <i class="fas fa-angle-up"></i>
                 </button> 
-                <ul id="exp-elem-list" tabindex="-1" role="listbox" aria-labelledby="exp_elem" class="hidden">
+                <ul id="exp-elem-list" tabindex="-1" role="listbox" aria-labelledby="exp_elem">
                     <li id="exp_elem_date" role="option">date</li>
                     <li id="exp_elem_title" role="option">titre</li>
                 </ul>
@@ -37,32 +37,23 @@ export class DropdownTemplate extends HTMLElement {
         `;
 
         // events for btns
-        const toggleDropdownBtn = dropdownWrapper.querySelector('#toggle-dropdown-btn');
-        toggleDropdownBtn.addEventListener('click', function(event){ toggleDropdown(event);}, false);
+        const toggleDropdownBtn = dropdownWrapper.querySelector('#dropdown-menu');
+        toggleDropdownBtn.addEventListener('click' , function(event){ toggleDropdown(event);}, false);
 
         const dropdownList = dropdownWrapper.querySelector('#exp-elem-list');
         
         function toggleDropdown(event){
-            console.log(event.target); // = btn
-            if ( dropdownList.hasAttribute('style', 'visibility:hidden') ){
-                dropdownList.setAttribute('style', 'visibility:visible')
-            }
-            
-        /*  if ( dropdownList.hasAttribute('class', 'hidden') ) {
-                dropdownList.removeAttribute('class', 'hidden');
-            } else {
-                dropdownList.setAttribute('class', 'hidden');
-            } */
+            if ( toggleDropdownBtn.hasAttribute('class', 'hidden') ){
+                toggleDropdownBtn.removeAttribute('class', 'hidden');
+            } else { toggleDropdownBtn.classList.add('hidden');}
         }
 
         const sortByDateBtn = dropdownWrapper.querySelector('#exp_elem_date');
         const sortByTitle = dropdownWrapper.querySelector('#exp_elem_title');
 
-        // sortByDateBtn.onclick = () => { photographerPageModule. }
-        
-
-
-
+        sortByDateBtn.onclick = () => { 
+            let type = 'date';
+            photographerPageModule.renderSortedView(type); }
 
         // Attach stylesheet to component
         shadow3.appendChild(dropdownStyle);

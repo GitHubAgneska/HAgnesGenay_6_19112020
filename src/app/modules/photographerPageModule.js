@@ -98,19 +98,24 @@ export const photographerPageModule = (function() {
                 });
                 function getPhotographerMedia() { return photog.photographerMedia }; // used by lightbox methods when called from mediaItem
 
-                renderSortedView(photog.id, photog.photographerMedia, 'likes');
-
-                function renderSortedView(id, allMediaOfPhotog, type='likes') {  // default view = sorted by popularity
-                    id = photog.id;
-                    allMediaOfPhotog = photog.photographerMedia;
-                    mediaSortedByPop = sortBy(allMediaOfPhotog, type);
-                    mediaSortedByPop.forEach(item => { photographerGalleryBlock.appendChild(item.template) });
-                    main.appendChild(photographerGalleryBlock);
-                }
+                renderSortedView(photographerGalleryBlock, photog.id, photog.photographerMedia, 'likes');
             } // ( end of if photog.id  ) 
         })  // ( end of forEach(photog) )
-    }     // ( end of initPhotog() )
+    } // ( end of initPhotog() )
+    
+    function renderSortedView(photographerGalleryBlock, id, allMediaOfPhotog, type) {  
+        photographerGalleryBlock = photographerGalleryBlock;
+        id = id;
+        allMediaOfPhotog = allMediaOfPhotog;
+        if ( !type) { type = 'likes'} else { type = type; } // default view = sorted by popularity (likes)
 
+        const mediaSortedBy = sortBy(allMediaOfPhotog, type);
+        mediaSortedBy.forEach(item => { photographerGalleryBlock.appendChild(item.template) });
+
+        const main = document.querySelector('#photographer-content');
+        main.appendChild(photographerGalleryBlock);
+    }
+    
     // SORTING MEDIA ITEMS ==========================================================
 
     // LIGHTBOX ======================================================================
@@ -188,6 +193,7 @@ export const photographerPageModule = (function() {
         submitForm:submitForm,
         openLightbox: openLightbox,
         closeLightbox: closeLightbox,
+        renderSortedView: renderSortedView,
         run: initPhotographerPageView, // for router
     }
 }());

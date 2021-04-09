@@ -17,17 +17,26 @@
         width: 170px; height:170px;
         @include border-radius(5px);
         background-color: $red-main;
+        &.hide {
+            @extend .dropdown-menu;
+            height:50px;
+            #exp-elem-list { visibility: hidden; ;}
+        }
 
         button { 
             @include flex(row, nowrap);
             justify-content: space-between;
             padding: 0;
             background-color: transparent;
+            .fas .fa-angle-down 
+            .fas .fa-angle-up {
+                width: 1em;
+                color:white !important;
+            }
         }
-        ul { visibility: hidden;}     
+       //  ul { visibility: hidden;}   
 
-            
-        
+   
 
         button, li { // select items
             width:90%; margin:auto; 
@@ -37,7 +46,6 @@
             text-transform: capitalize;
         }
         button, li:nth-child(1) { border-bottom: 0.5px solid $white; } // all but third li element have bottom border
-        
     }
 }
 

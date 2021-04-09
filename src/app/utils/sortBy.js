@@ -5,17 +5,17 @@ import * as cloneDeep from 'lodash/cloneDeep';
 
 export function sortBy(arr, type) { 
 
-    if (type == 'title') {
+    if (type === 'title') {
         let sorted = cloneDeep(arr);
        //  let sorted = JSON.parse(JSON.stringify(arr));
         return (sorted.sort((a, b) => a.title.localeCompare(b.title) ));
     }
-    else if (type == 'date') {
+    else if (type === 'date') {
         let sorted = cloneDeep(arr);
        //  let sorted = JSON.parse(JSON.stringify(arr));
         return (sorted.sort((a, b) => parseFloat(a.date) - parseFloat(b.date) ));
     }
-    else if (type == 'likes') {
+    else if (type === 'likes') {
         let sorted = cloneDeep(arr);
        //  let sorted = JSON.parse(JSON.stringify(arr));
         return (sorted.sort((a, b) => a.likes - b.likes) );
