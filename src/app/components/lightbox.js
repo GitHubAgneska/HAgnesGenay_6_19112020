@@ -76,7 +76,7 @@ export const Lightbox = (function () {
     // Argument: set = an object of settings
     // - slidenav <bool> If true, a list of slides is shown.
     // - animate <bool> If true, the slides can be animated.
-    // - startAnimated <bool> If true, the animation begins immediately.
+    // - startAnimated <bool> If true, the animation begins immediately. ===> DEFAULT = FALSE 
     //                        If false, the animation needs to be initiated by clicking the play button.
 
     function init(set) { // Make settings available to all functions
