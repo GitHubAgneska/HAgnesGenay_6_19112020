@@ -40,6 +40,10 @@
 
     .slide {
         height: 100%; background-size: cover; position: absolute;
+        video {
+            width:100%; height:100%;z-index:10;
+            background-size: cover;
+        }
     }
     
     .active .slide {
@@ -53,6 +57,7 @@
         visibility: hidden;
     }
     .active:not(.current).slide h5 {visibility: hidden;}
+    // .active:not(.current).slide h5 {visibility: hidden;}
 
     .active .current.slide {
         z-index: 6; left: 0;
@@ -66,7 +71,9 @@
             font-size:2em;
         }
     }
-    .active .next.slide {left: 100%; visibility: hidden;}
+    .active .next.slide {
+        left: 100%; 
+        visibility: hidden;}
 }
 
         // = second ul

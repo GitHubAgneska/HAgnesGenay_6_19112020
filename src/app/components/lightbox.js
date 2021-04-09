@@ -128,14 +128,25 @@ export const Lightbox = (function () {
         var firstUl = document.createElement('ul');
         firstUl.setAttribute('class', 'lightbox-images');
 
-        // set up clicked image as first li item
-
-        // for each image of gallery, generate a li element with bg img + class .slide
+        // for each image of gallery, generate a li element with bg img + class .slide or a video tag + source
         currentGallery.forEach(pic => {
             let liItem = document.createElement('li');
             liItem.className = 'slide';
             liItem.setAttribute('data', pic.id);
-            liItem.setAttribute('style', 'background-image:url("./assets/img/' + pic.photographerName + '/S/'+ (pic.image || pic.video) + '")' );
+
+            if (pic.hasOwnProperty('image')) {
+                liItem.setAttribute('style', 'background-image:url("./assets/img/' + pic.photographerName + '/S/'+ (pic.image ) + '")' );
+            }
+            if (pic.hasOwnProperty('video')) {
+                let videoWrapper = document.createElement('video');
+                videoWrapper.setAttribute('style', 'width:100%; height:100%;z-index:10');
+                videoWrapper.setAttribute('autoplay', '');
+                let source = document.createElement('source');
+                source.setAttribute('src', './assets/img/' + pic.photographerName + '/'+ (pic.video) );
+                source.setAttribute('type', 'video/mp4');
+                videoWrapper.appendChild(source);
+                liItem.appendChild(videoWrapper);
+            }
             
             let imgTitle = document.createElement('h5');
             imgTitle.setAttribute('class', 'mediaItem-title');
