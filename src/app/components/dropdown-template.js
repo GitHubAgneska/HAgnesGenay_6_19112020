@@ -2,8 +2,10 @@
 import { photographerPageModule } from '../modules/photographerPageModule';
 
 export class DropdownTemplate extends HTMLElement {
-    constructor() {
+    constructor(photog) {
         super();
+
+        this.photog = photog;
 
         // create a shadow root
         const shadow3 = this.attachShadow({mode: 'open'});
@@ -49,11 +51,19 @@ export class DropdownTemplate extends HTMLElement {
         }
 
         const sortByDateBtn = dropdownWrapper.querySelector('#exp_elem_date');
-        const sortByTitle = dropdownWrapper.querySelector('#exp_elem_title');
+        const sortByTitleBtn = dropdownWrapper.querySelector('#exp_elem_title');
 
         sortByDateBtn.onclick = () => { 
             let type = 'date';
-            photographerPageModule.renderSortedView(type); }
+            let photographerGalleryBlock = document.querySelector('.gallery-wrapper');
+            photographerPageModule.renderSortedView(photographerGalleryBlock, photog, type); }
+
+        sortByTitleBtn.onclick = () => { 
+            let type = 'title';
+            let photographerGalleryBlock = document.querySelector('.gallery-wrapper');
+            photographerPageModule.renderSortedView(photographerGalleryBlock, photog, type); }
+
+
 
         // Attach stylesheet to component
         shadow3.appendChild(dropdownStyle);

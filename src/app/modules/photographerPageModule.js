@@ -63,7 +63,7 @@ export const photographerPageModule = (function() {
                 // attach each new created photographer profile to this section
                 main.appendChild(photog.template);
     
-                let dropdown = new DropdownTemplate();
+                let dropdown = new DropdownTemplate(photog);
                 main.appendChild(dropdown);
 
             // GALLERY BLOCK ======================================================================
@@ -98,15 +98,17 @@ export const photographerPageModule = (function() {
                 });
                 function getPhotographerMedia() { return photog.photographerMedia }; // used by lightbox methods when called from mediaItem
 
-                renderSortedView(photographerGalleryBlock, photog.id, photog.photographerMedia, 'likes');
+                renderSortedView(photographerGalleryBlock, photog, 'likes');
             } // ( end of if photog.id  ) 
         })  // ( end of forEach(photog) )
     } // ( end of initPhotog() )
     
-    function renderSortedView(photographerGalleryBlock, id, allMediaOfPhotog, type) {  
-        photographerGalleryBlock = photographerGalleryBlock;
-        id = id;
-        allMediaOfPhotog = allMediaOfPhotog;
+    function renderSortedView(photographerGalleryBlock, photog, type) {  
+
+        photographerGalleryBlock = photographerGalleryBlock  || document.querySelector('.gallery-wrapper');
+        let id = id || photog.id;
+        console.log('photog====', photog);
+        let allMediaOfPhotog = photog.photographerMedia;
         if ( !type) { type = 'likes'} else { type = type; } // default view = sorted by popularity (likes)
 
         const mediaSortedBy = sortBy(allMediaOfPhotog, type);
