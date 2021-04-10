@@ -157,7 +157,6 @@ export const photographerPageModule = (function() {
 
     function submitForm(event, photog, form, formInputs) {
         let inputElements = formInputs;
-        console.log('FORMMMMMM=', typeof(form));  // -- no need to redefine
         let newContactRequest = [];
         photog = photog;
         // var photogCurrentContactRequests = photog.contactRequests;

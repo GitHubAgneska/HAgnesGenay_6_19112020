@@ -2,6 +2,7 @@
 // CUSTOM ELEMENT TEMPLATE FORM MODAL
 // ----------------------------------------------------
 import { photographerPageModule } from '../modules/photographerPageModule';
+import { removeRequirementsMessage } from '../utils/validateFormInputs';
 
 export class ModalContact extends HTMLElement {
     constructor(photog){
@@ -79,9 +80,10 @@ export class ModalContact extends HTMLElement {
 
             </div>
         `;
-
+    
         // add event listener on form to check if touched before cancel
         modalInnerWrapper.addEventListener('input', function(event) {
+            // event.target = input elements
             event.stopPropagation();
             inputsTouched = true;
             console.log('Some fields have been touched!');
@@ -89,7 +91,8 @@ export class ModalContact extends HTMLElement {
 
         // add event on contact btn to call modal contact
         const cancelModalBtn = modalInnerWrapper.querySelector('#cancelModalBtn');
-        cancelModalBtn.addEventListener('click', function(event){ photographerPageModule.closeModal(event, mainModalWrapper, inputsTouched) }, false);
+        cancelModalBtn.addEventListener('click', function(event){
+            photographerPageModule.closeModal(event, mainModalWrapper, inputsTouched) }, false);
 
         // retrieve all inputs from form
         const form = modalInnerWrapper.querySelector('#contact-form');
@@ -97,7 +100,10 @@ export class ModalContact extends HTMLElement {
 
         // add event listener on submit input btn, to send all data input to parent module
         const submitBtn = modalInnerWrapper.querySelector('#submitBtn');
-        submitBtn.addEventListener('click', function(event){ photographerPageModule.submitForm(event, photog, form, formInputs)});
+        submitBtn.addEventListener('click', function(event){
+            modalInnerWrapper.removeEventListener('input', function(event) {});
+            photographerPageModule.submitForm(event, photog, form, formInputs)
+        });
 
         // attach modal inner content to modal main wrapper
         mainModalWrapper.appendChild(modalInnerWrapper);
