@@ -8,9 +8,6 @@ export class ModalContact extends HTMLElement {
         super();
 
         let inputsTouched = false;
-
-        // create a shadow root
-        // const shadow = this.attachShadow({mode: 'open'});
     
         // MODAL MAIN WRAPPER ======================================================================
         // create modal main wrapper
@@ -27,7 +24,6 @@ export class ModalContact extends HTMLElement {
         modalStyle.setAttribute('href', './main.css');
         modalStyle.setAttribute('rel', 'stylesheet');
         modalStyle.setAttribute('type', 'text/css');
-
 
 
         // MODAL CONTENT ======================================================================
@@ -58,19 +54,19 @@ export class ModalContact extends HTMLElement {
                     <div class="field">
                         <label for="field-firstname" id="firstnameLabel">prénom</label>
                         <input type="text" name="firstName" id="firstName" aria-labelledby="firstnameLabel firstnameDescription" required aria-required="true">
-                        <span class="requirements" id="firstnameDescription" aria-live="assertive">Firstname must be at least 2 characters</span>
+                        <span class="requirements visuallyHidden" id="firstnameDescription" aria-live="assertive">Firstname must be at least 2 characters</span>
                     </div>
 
                     <div class="field">
                         <label for="lastName" id="lastnameLabel">nom</label>
                         <input type="text" name="lastName" id="lastName" aria-labelledby="lastnameLabel lastnameDescription" required aria-required="true">
-                        <span class="requirements" id="lastnameDescription" aria-live="assertive">Lastname must be at least 2 characters</span>
+                        <span class="requirements visuallyHidden" id="lastnameDescription" aria-live="assertive">Lastname must be at least 2 characters</span>
                     </div>
 
                     <div class="field">
                         <label for="email" id="emailLabel">email</label>
                         <input type="email" name="email" id="email" aria-labelledby="emailLabel emailDescription" required aria-required="true">
-                        <span class="requirements" id="emailDescription" aria-live="assertive">Please enter a valid email address</span>
+                        <span class="requirements visuallyHidden" id="emailDescription" aria-live="assertive">Please enter a valid email address</span>
                     </div>
 
                     <div class="field">
@@ -84,7 +80,7 @@ export class ModalContact extends HTMLElement {
             </div>
         `;
 
-        // add event listener on form to check if touched
+        // add event listener on form to check if touched before cancel
         modalInnerWrapper.addEventListener('input', function(event) {
             event.stopPropagation();
             inputsTouched = true;
@@ -96,11 +92,12 @@ export class ModalContact extends HTMLElement {
         cancelModalBtn.addEventListener('click', function(event){ photographerPageModule.closeModal(event, mainModalWrapper, inputsTouched) }, false);
 
         // retrieve all inputs from form
+        const form = modalInnerWrapper.querySelector('#contact-form');
         const formInputs = modalInnerWrapper.querySelector('#contact-form').elements;  // = object
 
         // add event listener on submit input btn, to send all data input to parent module
         const submitBtn = modalInnerWrapper.querySelector('#submitBtn');
-        submitBtn.addEventListener('click', function(event){ photographerPageModule.submitForm(event, photog.id, modalInnerWrapper,formInputs)});
+        submitBtn.addEventListener('click', function(event){ photographerPageModule.submitForm(event, photog, form, formInputs)});
 
         // attach modal inner content to modal main wrapper
         mainModalWrapper.appendChild(modalInnerWrapper);

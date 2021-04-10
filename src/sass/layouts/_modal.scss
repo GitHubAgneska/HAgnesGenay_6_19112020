@@ -53,12 +53,12 @@
                     @include min-600px { height: 170px;}
                 }
                 .requirements {
-                    // visibility: hidden; //------ to review for accessibility 
                     color: $red-main;
                     font-style: italic;
                     font-size: 1em;
                     transition: 0.28s;
                 }
+                
             }
             .main-btn { margin: 25px 0;}   //------ to review - mobile version of btn
         }

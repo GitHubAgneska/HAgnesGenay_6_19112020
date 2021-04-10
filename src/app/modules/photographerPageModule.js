@@ -155,13 +155,16 @@ export const photographerPageModule = (function() {
         }
     }
 
-    function submitForm(event, photog, modalInnerWrapper,inputElements) {
+    function submitForm(event, photog, form, formInputs) {
+        let inputElements = formInputs;
+        console.log('FORMMMMMM=', typeof(form));  // -- no need to redefine
         let newContactRequest = [];
-        var photog = photog;
+        photog = photog;
         // var photogCurrentContactRequests = photog.contactRequests;
         //console.log('photogCurrentContactRequests=', photogCurrentContactRequests);
 
-        let isFormValid = () => { return validateFormInputs(modalInnerWrapper,inputElements); }
+        let isFormValid = validateFormInputs(form,inputElements);
+
         if ( !isFormValid ) {
             event.preventDefault(); // Prevent the form being submitted;
             return;
