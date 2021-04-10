@@ -1,7 +1,7 @@
 
 
 export class Photographer {
-    constructor(id, name, tagline, portrait, url, city, country, price, bottomLikes, template, tagsTemplate, tags, contactRequests){
+    constructor(id, name, tagline, portrait, url, city, country, price, bottomLikes, template, tagsTemplate, tags){
         
         id = id;
         name = name;
@@ -17,6 +17,5 @@ export class Photographer {
         bottomLikes = bottomLikes;
 
         template = template; // photographer home - custom html element
-        contactRequests = contactRequests;
     }
 }

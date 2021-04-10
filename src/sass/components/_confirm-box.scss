@@ -4,28 +4,34 @@
 // =========================================
 
 .confirmation-message-wrapper {
-    height:80vh;
-    margin-left:35px; margin-right: 35px;
-    display: none; /* default before user clicks 'submit' */
-    /* display: flex; */
+    height:40vh;
+    display: flex;
+    flex-flow: column;
     justify-content: center;
     align-items: center;
-    text-align: center;
-    h1 {font-family: "DMSans-regular", Arial, sans-serif;
-        font-size: 3rem; color: $white; }
+    h1 {
+        text-align: center; 
+        font-family: "DMSans-regular", Arial, sans-serif;
+        font-size: 2em;
+    }
 }
+
+
 .confirBox-cancelModal {
-    // display:none;/* default */
-    position:absolute;
-    top:0;
-    z-index:5;
-    height:200px;
+
+    position: fixed;
+    top: 20%;
+    right: 35%;
+    z-index: 5;
+    height: 400px;
+    @include flex(column, nowrap);
+    justify-content: center;
+    align-items: center;
+
     @include max-600px { width:80%; }
-    margin:10%;
     background-color: $white;
-    flex-flow: column nowrap;
     @include border-radius(25px);
-    // @include box-shadow;
-    h2 { text-align: center; }
-    h2, .btns-wrapper {width:80%; margin:auto; }          
+    @include box-shadow;
+    h2 { text-align: center; width: 80%;}
+    .btns-wrapper {@include flex(row, nowrap); justify-content: space-evenly;}      
 }

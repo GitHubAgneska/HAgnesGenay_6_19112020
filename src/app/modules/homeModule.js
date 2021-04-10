@@ -73,7 +73,7 @@ export const homeModule = (function() {
                 photographer.tags, photographer.tagsTemplate,
                 photographer.photographerMedia = [],
                 photographer.template,
-                photographer.contactRequests
+                photographer.contactRequests = []
             );
             myphotographers.push(photographer);
         });

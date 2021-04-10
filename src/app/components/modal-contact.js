@@ -100,10 +100,10 @@ export class ModalContact extends HTMLElement {
 
         // add event listener on submit input btn, to send all data input to parent module
         const submitBtn = modalInnerWrapper.querySelector('#submitBtn');
-        submitBtn.addEventListener('click', function(event){
-            modalInnerWrapper.removeEventListener('input', function(event) {});
-            photographerPageModule.submitForm(event, photog, form, formInputs)
+        submitBtn.addEventListener('click', function(event) {
+            photographerPageModule.submitForm(event, photog, form, formInputs);
         });
+
 
         // attach modal inner content to modal main wrapper
         mainModalWrapper.appendChild(modalInnerWrapper);

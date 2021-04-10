@@ -103,6 +103,7 @@ export const photographerPageModule = (function() {
         })  // ( end of forEach(photog) )
     } // ( end of initPhotog() )
     
+    // SORTING MEDIA ITEMS ==========================================================
     function renderSortedView(photographerGalleryBlock, photog, type) {  
 
         photographerGalleryBlock = photographerGalleryBlock  || document.querySelector('.gallery-wrapper');
@@ -118,7 +119,6 @@ export const photographerPageModule = (function() {
         main.appendChild(photographerGalleryBlock);
     }
     
-    // SORTING MEDIA ITEMS ==========================================================
 
     // LIGHTBOX ======================================================================
 
@@ -144,7 +144,8 @@ export const photographerPageModule = (function() {
         var root = document.querySelector('#photographer-content');  //  TEMPORARY : IMPLEMENT 'DESTRUCT PREVIOUS VIEW' UTIL FUNCTION
         root.appendChild(contactModal);
     }
-    function closeModal(event, mainModalWrapper, inputsTouched) {
+    function closeModal(event, inputsTouched) {
+        let mainModalWrapper = document.querySelector('#modal-contact');
         // check inputs touched => confirmation box
         if (inputsTouched) { 
             var confirmBox = new ConfirmBox('cancelModal');
@@ -159,8 +160,7 @@ export const photographerPageModule = (function() {
         let inputElements = formInputs;
         let newContactRequest = [];
         photog = photog;
-        // var photogCurrentContactRequests = photog.contactRequests;
-        //console.log('photogCurrentContactRequests=', photogCurrentContactRequests);
+        let photogCurrentContactRequests = photog.contactRequests;
 
         let isFormValid = validateFormInputs(form,inputElements);
 
@@ -169,9 +169,8 @@ export const photographerPageModule = (function() {
             return;
         } else {
             // create new requestContact object for photographer
-            // ( = making object out of each of input value )
-            for ( let i = 0 ; i < inputElements.length; i++ ) {
-
+            // ( = making object out of each of 4 first inputs)
+            for ( let i = 0 ; i < 4; i++ ) {
                 var newInputObject = new Object();
                 /* each field name becomes object key */
                 newInputObject.fieldName = inputElements[i].name;
@@ -179,14 +178,25 @@ export const photographerPageModule = (function() {
                 newInputObject.value = inputElements[i].value;
                 newContactRequest.push(newInputObject);
             }
-            console.log('newcontact=', newContactRequest);
             // push new object to contactRequests array 
-            // photogCurrentContactRequests.push(newContactRequest);
+            photogCurrentContactRequests.push(newContactRequest);
+            console.log('newcontact=', newContactRequest);
+            console.log('photogCurrentContactRequests=', photogCurrentContactRequests);
+
             // display submitted confirmation message + terminate
-            const confirmMessage = new ConfirmBox('closeModalAfterSubmitOk');
-            const form = modalInnerWrapper.firstChild;
-            modalInnerWrapper.replaceChild(confirmMessage, form);
-        } 
+            confirmSubmitted();
+        }
+    }
+    // display submitted confirmation message + terminate
+    function confirmSubmitted() {
+        // define parent container
+        let parent = document.querySelector('.fields-wrapper');
+        // destruct modal content
+        destroyView(parent);
+        // generate new content (confirm message)
+        let confirmMessage = new ConfirmBox('closeModalAfterSubmitted');
+        // place new content into parent
+        parent.appendChild(confirmMessage);
     }
 
     //public part of module
@@ -195,6 +205,7 @@ export const photographerPageModule = (function() {
         openContactForm: openContactForm,
         closeModal: closeModal,
         submitForm:submitForm,
+        confirmSubmitted:confirmSubmitted,
         openLightbox: openLightbox,
         closeLightbox: closeLightbox,
         renderSortedView: renderSortedView,

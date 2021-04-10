@@ -1,7 +1,6 @@
 export function validateFormInputs(form, inputs) {
-
-         // inputs= HTMLFormControlsCollection { 0: input#firstName, 1: input#lastName, 2: input#email, 3: input#message, 4: input#submitBtn.main-btn, length: 5, … }
-
+        // inputs= HTMLFormControlsCollection { 0: input#firstName, 1: input#lastName, 2: input#email, 3: input#message, 4: input#submitBtn.main-btn, length: 5, … }
+        
         // store fields validity state in object 
         let valid = {};
         // store fields marked as invalid in array 
