@@ -29,7 +29,12 @@ export class ConfirmBox extends HTMLElement {
 
             // add events on yes/no btns
             const yesBtn = this.querySelector('#yes-btn');
-            yesBtn.onclick = (event) => {  photographerPageModule.closeModal(event, false); }; 
+            yesBtn.onclick = (event) => {  photographerPageModule.closeModal(event, false); };
+
+            const noBtn = this.querySelector('#no-btn');
+            const elToRemove = this.querySelector('#confirBox-cancelModal');
+            const elParent = this;
+            noBtn.onclick = (event) => { photographerPageModule.closeConfirmBox(event, elParent, elToRemove ); }; 
         }
 
         else if (confirmationType === 'closeModalAfterSubmitted') {

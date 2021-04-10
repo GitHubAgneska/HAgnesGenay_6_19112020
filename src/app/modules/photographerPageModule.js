@@ -156,6 +156,10 @@ export const photographerPageModule = (function() {
         }
     }
 
+    function closeConfirmBox(event, elParent, elToRemove) {
+        elParent.removeChild(elToRemove);
+    }
+
     function submitForm(event, photog, form, formInputs) {
         let inputElements = formInputs;
         let newContactRequest = [];
@@ -208,6 +212,7 @@ export const photographerPageModule = (function() {
         confirmSubmitted:confirmSubmitted,
         openLightbox: openLightbox,
         closeLightbox: closeLightbox,
+        closeConfirmBox:closeConfirmBox,
         renderSortedView: renderSortedView,
         run: initPhotographerPageView, // for router
     }
