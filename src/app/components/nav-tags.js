@@ -21,7 +21,7 @@ export class NavTags extends HTMLElement {
         navTagsTemplate.setAttribute('data', navTags);
 
         if (parent === 'header') {
-            navTagsTemplate.setAttribute('class', 'header__nav tags-list home');
+            navTagsTemplate.setAttribute('class', 'header__nav tags-list header home');
         }
         if (parent === 'profile-home') {
             navTagsTemplate.setAttribute('class', 'tags-list home');

@@ -3,18 +3,19 @@
 /* =============================================== */
 nav-tags-component { 
 
+    // taglist container -  props no matter parent
     .tags-list { 
         background-color: lightgreen;
         display: flex;
         align-items: center;
         justify-content: center;
         width: 100%; // always takes whole width of parent -> see _header.scss
-
         @include max-992px { @include flex(row, wrap); }
-        // from 992 nav will wrap to next line 
-        @include min-992px{ @include flex(row, nowrap);margin: 0 80px;} 
-        
-        .nav-tag {
+        @include min-992px{ @include flex(row, nowrap);} // from 992 nav will wrap to next line 
+
+        &.header { margin: 0 80px;} // when parent = header
+
+        .nav-tag {   // tag items -  props no matter parent
             padding: 0.1em 0.5em;
             color: $red-main;
             font-weight: 500;text-transform: capitalize;
@@ -23,15 +24,16 @@ nav-tags-component {
             @include max-1200px {margin: 1%;}
             @include min-1200px {margin: 1%;}
         }
-        &.home {
+
+        &.home { // tag items - parent = header
             // @include max-1200px{ margin:25px auto; } 
             .nav-tag {
                 font-size: 0.75em;
             }
         }
-        &.page{ 
+        &.page{ // tag items - parent = photog page
             justify-content: unset; // photographer page: taglist = left aligned 
-            .nav-tag {
+            .nav-tag {  
                 @include min-600px {font-size: 1.125em;} // = 18px
                 @include max-600px { font-size: 0.8125em;} // = 13px
             }

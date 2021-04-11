@@ -43,10 +43,13 @@ export class PhotographerInfosTemplate extends HTMLElement {
         const contactBtn = photographerInfosBlock.querySelector('#contact-btn');
         contactBtn.addEventListener('click', function(event){ photographerPageModule.openContactForm(photographer) }, false); //passes current photographer object as param
 
+
+        const whereToStickNavtag = photographerInfosBlock.querySelector('.photographer__text-infos');
+
         // generate new tagslists custom element template (using Navtags custom html element)
         let parent = 'profile-page';
         let photographerTagsList2 = new NavTags(photographer.tags, parent);
-        photographerInfosBlock.appendChild(photographerTagsList2);
+        whereToStickNavtag.appendChild(photographerTagsList2);
 
         const block2 = document.createElement('div');
         block2.innerHTML =
