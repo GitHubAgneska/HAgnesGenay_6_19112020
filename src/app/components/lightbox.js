@@ -120,8 +120,9 @@ export const Lightbox = (function () {
         // attach lightbox to its main wrapper
         lightboxInnerWrapper.appendChild(lightboxElement);
         
-        // append lightbox main wrapper to body
-        document.body.appendChild(lightboxWrapper);
+        // append lightbox main wrapper to root container
+        const root = document.querySelector('#root');
+        root.appendChild(lightboxWrapper);
 
         // from here, definition of 'lightbox':
         const lightbox = lightboxWrapper.querySelector("#lightbox");
