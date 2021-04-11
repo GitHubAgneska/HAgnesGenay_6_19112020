@@ -1,16 +1,18 @@
 // body {margin : 0 !important; } //----- to review : see _photographer-page.scss
 
 .lightbox-main-wrapper {
-    width: 100vw; height: 100vh;
-    position: absolute;top: 0;
+    position: absolute;
+    top: 0;
+    width: 100vw; height: 100%;
     display: flex;
     background: rgba(196, 196, 196, 0.8);
     z-index:5;
 
     .lightbox {
+        position: relative;
+        border:5px solid red;
         width:800px;height:600px; 
         margin:auto;
-        position: relative;
         .closeLightboxBtn { 
             position: absolute; z-index: 9;
             @include max-600px {height:30px;width:30px; right:-50px;top:0;}
@@ -20,54 +22,50 @@
                 @include max-600px {font-size:2em !important;}
                 @include min-600px {font-size:4em !important;}
             }
-        }
+        } 
+        ul {margin: 0;padding: 0; }
         
-        ul {margin: 0;padding: 0;}
-        
-        .lightbox.with-slidenav { padding-bottom: 3em;} // leave space at bottom for aria infos
-        .lightbox.active {position: relative;}
-    }
+        .with-slidenav { padding-bottom: 3em;} // leave space at bottom for aria infos
+        .active {position: relative;}
 
-    // first ul : images display 
-    // .slide / = li elements
-    // ---------------------------------------
-    .lightbox-images {
-        li { height: 100%;width:100%; }
-    }
-    .slide {
-        height: 100%; background-size: cover; position: absolute;
-        video {
-            width:100%; height:100%;z-index:10;
-            background-size: cover;
+        // first ul : images display 
+        // .slide / = li elements
+        // ---------------------------------------
+        .lightbox-images { // ul
+            .slide { // li
+                width:100%;height: 100%; background-size: cover; position: absolute;
+                video { height: 100%; max-width: 100%; }
+            }
         }
-    }
-    .active .slide {
-        top: 0;
-        display:block !important;
-        transition: left .6s ease-out;
-    }  
-    .active .prev.slide {
-        left: -100%;
-        visibility: hidden;
-    }
-    .active:not(.current).slide h5 {display: none;} // if pic not current, hide title bottom
-
-
-    .active .current.slide {
-        z-index: 6; left: 0;
-        h5 {  // image title below lightbox
-            color: $red-main;
-            z-index: 7;
-            position: absolute;
-            bottom: -100px;
-            width: 100%;
-            height: 50px;
-            font-size:2em;
+        &.active {
+            .slide {
+            top: 0;
+            display:block !important;
+            transition: left .6s ease-out;
+            }  
+            .prev.slide {
+                left: -100%;
+                visibility: hidden;
+            }
+            .current.slide {
+                z-index: 6; left: 0;
+                h5 {  // image title below lightbox
+                    color: $red-main;
+                    z-index: 7;
+                    position: absolute;
+                    bottom: -100px;
+                    width: 100%;
+                    height: 50px;
+                    font-size:2em;
+                }
+            }
+            .next.slide {
+                left: 100%; 
+                visibility: hidden;
+            }
         }
+        &.active:not(.current).slide h5 {display: none;} // if pic not current, hide title bottom
     }
-    .active .next.slide {
-        left: 100%; 
-        visibility: hidden;}
 }
 
         // = second ul
@@ -76,8 +74,7 @@
             width:120%; height:45%; // of lightbox
             position: absolute;
             z-index: 7;
-            top: 45%;
-            right:-10%;  
+            top: 45%; right:-10%;  
             @include flex(row, nowrap);
             justify-content: space-between;
             button { 
