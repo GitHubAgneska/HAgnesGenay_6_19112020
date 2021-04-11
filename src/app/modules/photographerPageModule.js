@@ -111,7 +111,7 @@ export const photographerPageModule = (function() {
 
         photographerGalleryBlock = photographerGalleryBlock  || document.querySelector('.gallery-wrapper');
         let id = id || photog.id;
-        console.log('photog====', photog);
+        // console.log('photog====', photog);
         let allMediaOfPhotog = photog.photographerMedia;
         if ( !type) { type = 'likes'} else { type = type; } // default view = sorted by popularity (likes)
 

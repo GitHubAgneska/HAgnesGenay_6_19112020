@@ -27,7 +27,7 @@ export class DropdownTemplate extends HTMLElement {
             <p class="dropdown-menu-title">trier par</p>
 
             <div class="dropdown-menu hide" id="dropdown-menu" aria-label="sort gallery by">
-                <button id="toggle-dropdown-btn" class="open-dropdown-btn" aria-haspopup="listbox" aria-labelledby="exp_elem exp_button">
+                <button id="exp_elem_likes" class="open-dropdown-btn" aria-haspopup="listbox" aria-labelledby="exp_elem exp_button">
                     popularité
                     <img src="./assets/icons/caret.png" id="open" alt="logo open" aria-hidden="true">
                 </button> 
@@ -43,12 +43,13 @@ export class DropdownTemplate extends HTMLElement {
         toggleOpenBtn.addEventListener('click' , function(event){ toggleDropdownOpen(event);}, false);
 
         function toggleDropdownOpen(event){ 
-            let targetedElement = event.target.parentNode.parentNode; // i -> btn -> div parent
+            let targetedElement = event.target.parentNode.parentNode; // event on logo img -> effect on div parent
             targetedElement.classList.toggle('hide');
         }
 
         const sortByDateBtn = dropdownWrapper.querySelector('#exp_elem_date');
         const sortByTitleBtn = dropdownWrapper.querySelector('#exp_elem_title');
+        const sortByLikesBtn = dropdownWrapper.querySelector('#exp_elem_likes');
 
         sortByDateBtn.onclick = () => { 
             let type = 'date';
@@ -57,6 +58,11 @@ export class DropdownTemplate extends HTMLElement {
 
         sortByTitleBtn.onclick = () => { 
             let type = 'title';
+            let photographerGalleryBlock = document.querySelector('.gallery-wrapper');
+            photographerPageModule.renderSortedView(photographerGalleryBlock, photog, type); }
+        
+        sortByLikesBtn.onclick = () => { 
+            let type = 'likes';
             let photographerGalleryBlock = document.querySelector('.gallery-wrapper');
             photographerPageModule.renderSortedView(photographerGalleryBlock, photog, type); }
 
