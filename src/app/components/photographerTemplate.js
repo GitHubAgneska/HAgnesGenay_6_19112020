@@ -58,7 +58,7 @@ export class PhotographerTemplateHome extends HTMLElement {
             photographerInfosBlock.innerHTML = `
                         <h3 class="photographer__location home" id="${photographer.name}-location">${photographer.city}, ${photographer.country}</h3>
                         <h4 class="photographer__tagline home" id="${photographer.name}-tagline">${photographer.tagline}</h4>
-                        <h5 class="photographer__price home" id="${photographer.name}-price">${photographer.price}</h5>
+                        <h5 class="photographer__price home" id="${photographer.name}-price">${photographer.price}€/jour</h5>
             `;
 
             // generate new tagslists custom element template (using Navtags custom html element)

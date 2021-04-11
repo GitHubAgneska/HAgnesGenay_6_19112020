@@ -10,7 +10,6 @@ h1 {
     @include min-1200px {font-size:2.25em; }
 }
 
-
 /* =============================================== */
 /* ===  HOMEPAGE -  MAIN SECTIONS === */
 /* =============================================== */
@@ -25,12 +24,6 @@ body  {
         @include max-1200px { margin: 0 20px; }
         @include min-1200px { margin: 0 35px; }
     }
-    // main contains photographerpage view
-    .photographer-content-wrapper {
-        
-    }
-
-
 }
 
 /* home photographers list presentation */
@@ -42,6 +35,7 @@ body  {
         @include min-1200px {.nav-help { visibility: visible; }} // visible only when main content hovered
     }
     photographer-component-home {  // custom element that contains '.photographer' class
+        // border:2px solid blue;
         @include max-600px { width:100%;}
         @include min-600px { height: 400px; width:350px;}
     }  
@@ -73,5 +67,4 @@ body  {
         position: absolute;
         top: 0;
     }
-
 }

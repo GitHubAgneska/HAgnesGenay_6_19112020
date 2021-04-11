@@ -4,6 +4,7 @@
 .gallery-wrapper {
     width: 100%;
     @include flex(row, wrap); // elements always unfold as a row
+    margin-bottom: 10%; // make space from bottom infos to see last pic infos
 
     media-item-component {
         margin: 1em auto;

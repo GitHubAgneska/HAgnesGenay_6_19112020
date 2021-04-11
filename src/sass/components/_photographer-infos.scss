@@ -4,24 +4,18 @@
 // FYI : --home = homepage / --page = photographer page
 // phographers profiles have a few differences when displayed on homepage or own page
 
-
 .photographer {
-    border:2px solid red;
+    // border:2px solid red;
 
-    &--home {
-        @include flex(column, nowrap);text-align: center;
-        /* @include max-600px { flex-basis:100%;}
-        @include min-600px { height: 400px; min-width:350px;} */
-    }
+    &--home { @include flex(column, nowrap);text-align: center; }
     &--page{ 
         @include flex(row-reverse, nowrap);
         justify-content: space-between; 
-        // align-items: center;
         @include min-600px{ padding: 25px; }
         @include min-1200px { padding: 45px; background-color:$lightgrey;}
     }
     &__text-infos.page {
-        width:80%;
+        flex: auto;
         @include min-1200px{height:200px;} } // photographer profile H when inline on own page
     
     &__pic {
@@ -35,7 +29,7 @@
 
     &__name {
         color: $orange-main; text-transform: capitalize; margin:0;
-        &.home { font-size: 2.25em; margin: 0; }
+        &.home { font-size: 2.25em; margin: 0; white-space: nowrap; }
         &.page { @include max-1200px{font-size: 2.25em; } @include min-1200px {font-size:4em;} }
     }
     &__location {
@@ -54,7 +48,7 @@
     
     /* likes and price  */
     &__bottom-infos  {
-        
+        padding: 0 3%;
         @include max-1200px {display: none;} // only visible from 1200px
         @include min-1200px {
             position: fixed;
@@ -78,8 +72,8 @@
             .photographer__likes h4, 
             .photographer__price {
                 color:black;
-                font-size: 1.25em;
-                font-weight: 500;
+                font-size: 1.50em;
+                font-weight: 600;
                 margin:5%;
             }
         }
