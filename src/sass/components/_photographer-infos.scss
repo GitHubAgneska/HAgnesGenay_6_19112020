@@ -20,7 +20,9 @@
         @include min-600px{ padding: 25px; }
         @include min-1200px { padding: 45px; background-color:$lightgrey;}
     }
-    &__text-infos.page { @include min-1200px{height:200px;} } // photographer profile H when inline on own page
+    &__text-infos.page {
+        width:80%;
+        @include min-1200px{height:200px;} } // photographer profile H when inline on own page
     
     &__pic {
         border-radius:50%;
@@ -53,7 +55,7 @@
     /* likes and price  */
     &__bottom-infos  {
         
-        @include max-600px {display: none;} // only visible from 1200px
+        @include max-1200px {display: none;} // only visible from 1200px
         @include min-1200px {
             position: fixed;
             bottom: 0; right:0;
