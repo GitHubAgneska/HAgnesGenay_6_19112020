@@ -99,7 +99,8 @@ export const Lightbox = (function () {
         // generate LIGHTBOX  ========================================
         const lightboxElement = document.createElement('div');
         lightboxElement.setAttribute('id', 'lightbox');
-        lightboxElement.setAttribute('class', 'active lightbox');
+        lightboxElement.setAttribute('class', 'lightbox');
+        // lightboxElement.setAttribute('class', 'active lightbox');
 
         // close lightbox btn ========================================
         const closeLightboxBtn = document.createElement('div');
@@ -139,12 +140,11 @@ export const Lightbox = (function () {
             }
             if (pic.hasOwnProperty('video')) {
                 let videoWrapper = document.createElement('video');
-                videoWrapper.setAttribute('style', 'width:100%; height:100%;z-index:10');
-                videoWrapper.setAttribute('autoplay', '');
                 let source = document.createElement('source');
                 source.setAttribute('src', './assets/img/' + pic.photographerName + '/'+ (pic.video) );
                 source.setAttribute('type', 'video/mp4');
                 videoWrapper.appendChild(source);
+
                 liItem.appendChild(videoWrapper);
             }
             

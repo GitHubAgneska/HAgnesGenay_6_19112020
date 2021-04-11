@@ -8,7 +8,6 @@
     z-index:5;
 
     .lightbox {
-        
         width:800px;height:600px; 
         margin:auto;
         position: relative;
@@ -19,12 +18,12 @@
             .fa.fa-times { 
                 @include icon-base;  color: $red-main !important;
                 @include max-600px {font-size:2em !important;}
-                @include min-600px {font-size:4em !important;}}
+                @include min-600px {font-size:4em !important;}
+            }
         }
         
         ul {margin: 0;padding: 0;}
         
-
         .lightbox.with-slidenav { padding-bottom: 3em;} // leave space at bottom for aria infos
         .lightbox.active {position: relative;}
     }
@@ -33,11 +32,8 @@
     // .slide / = li elements
     // ---------------------------------------
     .lightbox-images {
-        li { 
-            height: 100%;width:100%; // leave space for controls + img title ?
-        }   
+        li { height: 100%;width:100%; }
     }
-
     .slide {
         height: 100%; background-size: cover; position: absolute;
         video {
@@ -45,19 +41,17 @@
             background-size: cover;
         }
     }
-    
     .active .slide {
         top: 0;
         display:block !important;
         transition: left .6s ease-out;
     }  
-    
     .active .prev.slide {
         left: -100%;
         visibility: hidden;
     }
-    .active:not(.current).slide h5 {visibility: hidden;}
-    // .active:not(.current).slide h5 {visibility: hidden;}
+    .active:not(.current).slide h5 {display: none;} // if pic not current, hide title bottom
+
 
     .active .current.slide {
         z-index: 6; left: 0;

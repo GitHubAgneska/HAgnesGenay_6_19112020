@@ -46,6 +46,7 @@ export const photographerPageModule = (function() {
     // -------------------------------------------------------------------------------
     function initPhotog(myphotographers, photographerId) {
         const photogId = photographerId;
+        location.hash = '#/photographer/' + photogId;
         //let allMediaOfPhotog = [];
         let mediaSortedByTitle = [];
         let mediaSortedByDate = [];
