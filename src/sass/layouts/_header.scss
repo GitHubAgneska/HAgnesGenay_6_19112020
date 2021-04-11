@@ -8,7 +8,7 @@
     @include min-1200px { height:110px;}
 
     .header {
-        background-color: lightcoral; 
+        // background-color: lightcoral; 
         height:50px;margin:30px 0;
         @include flex(row, wrap);
         align-items:center;
@@ -23,7 +23,7 @@
             img { max-width: 100%;}
         } 
         nav-tags-component {
-            background-color: rgb(89, 97, 89);
+            // background-color: rgb(89, 97, 89);
             @include max-992px {width : 100%; } // up to 992 nav takes the whole width => goes underneath
             @include min-992px { flex:auto;} // takes whatever x space is left
             .header__nav { /* FYI : see '_nav-tags.scss' */
@@ -36,7 +36,7 @@
 
 .homepage-content {
     .homepage-title {
-        background-color: lightblue;
+        // background-color: lightblue;
         position: absolute;  /* force page title into header top right */
         height: 50px;
         @include max-1200px {right: 1.5em; top: 2.5em;}

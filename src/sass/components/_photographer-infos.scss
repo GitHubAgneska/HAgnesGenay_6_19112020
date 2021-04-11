@@ -8,7 +8,8 @@
     // border:2px solid red;
 
     &--home { @include flex(column, nowrap);text-align: center; }
-    &--page{ 
+    &--page{
+        height: 350px; // grey info block 
         @include flex(row-reverse, nowrap);
         justify-content: space-between; 
         @include min-600px{ padding: 25px; }

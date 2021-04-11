@@ -2,18 +2,17 @@
 /* GALLERY + PICTURES RULES  */
 /* =============================================== */
 .gallery-wrapper {
-    width: 100%;
+    width: 100%;white-space: nowrap;
     @include flex(row, wrap); // elements always unfold as a row
     margin-bottom: 10%; // make space from bottom infos to see last pic infos
 
     media-item-component {
-        background-color: pink;
+        // background-color: pink;
         margin: 1em auto;
         overflow: hidden;
         display:flex;
 
-        @include max-768px {  
-            flex-basis:100%; // takes all width
+        @include max-768px {flex-basis:100%; // takes all width
             height: 210px;
         }
         @include min-768px { 
@@ -27,15 +26,21 @@
             width:100%;
             .pic-wrapper {
                 @include border-radius(5px);
-                @include max-992px { height:170px; }
-                @include min-992px { height:300px; }
-                overflow: hidden;
-        
-                img, video source {
-                    height:auto;
-                    display: block;
-                    min-height: 100%; min-width: 100%;
+                @include max-992px { 
+                    height:170px;
+                    a video {max-height:100%;min-width:100%;}
                 }
+                @include min-992px { 
+                    height:300px;
+                    a video {max-height:100%;min-width:100%;}}
+                overflow: hidden;
+            }
+            .pic-wrapper a img {
+                min-width: 100%;
+                max-height: 100%;
+                display: block;
+                object-fit: cover;
+                object-position: center;  
             }
             .mediaItem-infos {
                 @include flex(row, nowrap); // photo infos = in a row
@@ -47,7 +52,7 @@
                 @include min-992px { height:50px; }// ======================= to review ( useless if using text default margins?
                 @include min-1200px { font-size: 1.25em; }
                 
-                .mediaItem-title { max-width: 70%; overflow:hidden;} // title takes most width
+                .mediaItem-title { min-width: 60%;max-width: 70%; overflow:hidden;} // title takes most width but hidden if too long
                 .mediaItem-likes, .mediaItem-price { font-weight: 500; }
                 .mediaItem-likes{
                     @include flex(row, nowrap); // elements = in a row

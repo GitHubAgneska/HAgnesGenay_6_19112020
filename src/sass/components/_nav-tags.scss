@@ -5,7 +5,7 @@ nav-tags-component {
 
     // taglist container -  props no matter parent
     .tags-list { 
-        background-color: lightgreen;
+        // background-color: lightgreen;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -24,7 +24,6 @@ nav-tags-component {
             @include max-1200px {margin: 1%;}
             @include min-1200px {margin: 1%;}
         }
-
         &.home { // tag items - parent = header
             // @include max-1200px{ margin:25px auto; } 
             .nav-tag {
@@ -33,15 +32,14 @@ nav-tags-component {
         }
         &.page{ // tag items - parent = photog page
             justify-content: unset; // photographer page: taglist = left aligned 
-            .nav-tag {  
+            .nav-tag {
                 @include min-600px {font-size: 1.125em;} // = 18px
                 @include max-600px { font-size: 0.8125em;} // = 13px
             }
         }
     }
+    .tags-list.page a:first-of-type {margin-left:0;} // first child tag
 
     /* navigation tags inside photographer profile  HOME */
-    .photographer__tags-list {
-        margin:5px auto;
-    }
+    .photographer__tags-list { margin:5px auto; }
 }

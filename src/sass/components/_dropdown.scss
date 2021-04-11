@@ -10,8 +10,8 @@
     height: 80px;
     position: relative; // allows menu to pass over gallery when expanded
     display: flex; // dropdown title and menu are side by side
-    margin-top: 15px;
-    p { margin-right: 20px;}
+    margin-top: 20px;
+    p { margin-right: 20px; text-transform: capitalize;font-weight:600;}
 
     .dropdown-menu {
         width: 170px; height:170px;
@@ -23,7 +23,6 @@
             height:50px;
             #exp-elem-list { visibility: hidden; ;}
         }
-
         button { 
             @include flex(row, nowrap);
             justify-content: space-between;
@@ -35,8 +34,6 @@
                 height:1em;
             }
         }
-
-
         button, li { // select items
             width:90%; margin:auto; 
             padding: 10%;
