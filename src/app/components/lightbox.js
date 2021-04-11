@@ -81,13 +81,16 @@ export const Lightbox = (function () {
 
     function init(set) { // Make settings available to all functions
         settings = set;
-        currentImgId = settings.currentImgId; console.log('CURRENT ID CLICKED==', currentImgId);
+        currentImgId = settings.currentImgId; // console.log('CURRENT ID CLICKED==', currentImgId);
         currentImg = settings.currentImg ; // = mediaItem object
         currentGallery = settings.currentGallery;
 
         // generate LIGHTBOX WRAPPER ========================================
         const lightboxWrapper = document.createElement('div');
         lightboxWrapper.setAttribute('class', 'lightbox-main-wrapper');
+        const lightboxInnerWrapper = document.createElement('div');
+        lightboxInnerWrapper.setAttribute('class', 'lightbox-inner-wrapper');
+        lightboxWrapper.appendChild(lightboxInnerWrapper);
 
         // lightbox style
         const lightboxStyle = document.createElement('link');
@@ -115,7 +118,7 @@ export const Lightbox = (function () {
         lightboxElement.appendChild(closeLightboxBtn);
 
         // attach lightbox to its main wrapper
-        lightboxWrapper.appendChild(lightboxElement);
+        lightboxInnerWrapper.appendChild(lightboxElement);
         
         // append lightbox main wrapper to body
         document.body.appendChild(lightboxWrapper);
@@ -140,11 +143,12 @@ export const Lightbox = (function () {
             }
             if (pic.hasOwnProperty('video')) {
                 let videoWrapper = document.createElement('video');
+                videoWrapper.setAttribute('controls', '');
                 let source = document.createElement('source');
                 source.setAttribute('src', './assets/img/' + pic.photographerName + '/'+ (pic.video) );
                 source.setAttribute('type', 'video/mp4');
-                videoWrapper.appendChild(source);
 
+                videoWrapper.appendChild(source);
                 liItem.appendChild(videoWrapper);
             }
             
@@ -193,9 +197,9 @@ export const Lightbox = (function () {
 
                 var li = document.createElement('li');
                 if (settings.startAnimated) {
-                    li.innerHTML = '<button data-action="stop"><span class="visuallyHidden">Stop Animation </span>￭</button>';
+                    li.innerHTML = '<button class="commands" data-action="stop"><span class="visuallyHidden">Stop Animation </span>￭</button>';
                 } else {
-                    li.innerHTML = '<button data-action="start"><span class="visuallyHidden">Start Animation </span>▶</button>';
+                    li.innerHTML = '<button class="commands" data-action="start"><span class="visuallyHidden">Start Animation </span>▶</button>';
                 }
                 slidenav.appendChild(li);
                 
@@ -208,7 +212,7 @@ export const Lightbox = (function () {
                     var kurrent = (i === 0) ? ' <span class="visuallyHidden">(Current Item)</span>' : '';
 
                     li.innerHTML = // ----------------------- list should only display picture name/title
-                        `<button ` + klass + `data-slide="` + i + `"><span class="visuallyHidden">${currentImg.title || currentImg.title}</span>` + ( i + 1 ) + kurrent + `</button>`;
+                        `<button  ` + klass + `data-slide="` + i + `"><span class="visuallyHidden">${currentImg.title || currentImg.title}</span>` + ( i + 1 ) + kurrent + `</button>`;
 
                     slidenav.appendChild(li);
                 });
