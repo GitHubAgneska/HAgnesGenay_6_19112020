@@ -9,7 +9,7 @@
 
     &--home { @include flex(column, nowrap);text-align: center; }
     &--page{
-        height: 350px; // grey info block 
+        // height: 350px; // grey info block 
         @include flex(row-reverse, nowrap);
         justify-content: space-between; 
         @include min-600px{ padding: 25px; }
@@ -26,7 +26,7 @@
         &.page {@include max-1200px {width:6.25em; height:6.25em;}@include min-1200px{width:12.5em; height:12.5em;}}
     }
     &__name.page, .main-btn--contact { @include min-600px{display: inline;}} // from 600 photographer page : contact btn = inline by side of name
-    .main-btn--contact { @include max-600px{position: absolute; bottom:15px; }} // mobile photographer page: contact btn at bottom center
+    .main-btn--contact { @include max-600px{position: fixed; bottom:15px; margin: 0 30%; }} // mobile photographer page: contact btn at bottom center
 
     &__name {
         color: $orange-main; text-transform: capitalize; margin:0;

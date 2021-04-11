@@ -12,6 +12,7 @@ import { validateFormInputs } from '../utils/validateFormInputs';
 import { processTitle } from '../../app/utils/processApiTitles';
 import { destroyView } from '../../app/utils/destroyView';
 import { sortBy } from '../../app/utils/sortBy';
+import { root } from 'postcss';
 
 
 // MODULE PATTERN STRUCTURE
@@ -33,6 +34,7 @@ export const photographerPageModule = (function() {
         // destroy previous view ------------------------- SHOULD VERY PROBABLY BE ELSEWHERE OUTSIDE FROM THIS MODULE
         destroyView(root);
         const header = new HeaderBaseTemplate();
+       //  const header = new HeaderBaseTemplate('page');
         root.appendChild(header);
         const photogPage = new PagePhotogTemplateBase();
         root.appendChild(photogPage);
@@ -145,15 +147,18 @@ export const photographerPageModule = (function() {
         var root = document.querySelector('#photographer-content');  //  TEMPORARY : IMPLEMENT 'DESTRUCT PREVIOUS VIEW' UTIL FUNCTION
         root.appendChild(contactModal);
     }
-    function closeModal(event, inputsTouched) {
+
+    function closeModal(event, inputsTouched, modal) {
+        event.stopPropagation();
         let mainModalWrapper = document.querySelector('#modal-contact');
+        modal = modal;
         // check inputs touched => confirmation box
         if (inputsTouched) { 
             var confirmBox = new ConfirmBox('cancelModal');
             mainModalWrapper.appendChild(confirmBox);
             
         } else { // untouched => destruct view
-            mainModalWrapper.style.display='none'; //test OK
+        mainModalWrapper.parentNode.removeChild(mainModalWrapper);
         }
     }
 

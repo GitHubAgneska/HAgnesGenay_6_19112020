@@ -4,9 +4,11 @@
 
 .header-wrapper {
     // border:1px solid palevioletred;background-color:lightcyan;
-    padding-bottom: 3.75em;
+    
     @include min-1200px { height:110px;}
 
+/*     .home { @include max-600px { padding-bottom: 3.75em;}}
+    .page { @include max-600px { padding-bottom: 0;}} */
     .header {
         // background-color: lightcoral; 
         height:50px;margin:30px 0;

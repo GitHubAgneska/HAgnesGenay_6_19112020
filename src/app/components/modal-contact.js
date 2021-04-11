@@ -91,8 +91,10 @@ export class ModalContact extends HTMLElement {
 
         // add event on contact btn to call modal contact
         const cancelModalBtn = modalInnerWrapper.querySelector('#cancelModalBtn');
+        const modal = this;
+
         cancelModalBtn.addEventListener('click', function(event){
-            photographerPageModule.closeModal(event, mainModalWrapper, inputsTouched) }, false);
+            photographerPageModule.closeModal(event, mainModalWrapper, inputsTouched, modal) }, false);
 
         // retrieve all inputs from form
         const form = modalInnerWrapper.querySelector('#contact-form');

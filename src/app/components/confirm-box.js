@@ -20,7 +20,7 @@ export class ConfirmBox extends HTMLElement {
 
             this.innerHTML = 
             `<div class="confirBox-cancelModal" id="confirBox-cancelModal">
-                <h2>Are you sure you want to close form?<br>You will loose your informations</h2>
+                <h2>Are you sure you want to close form?</h2>
                 <div class="btns-wrapper">
                     <button class="main-btn btn--confirm yes" id="yes-btn">yes</button>
                     <button class="main-btn btn--confirm no" id="no-btn">no</button>

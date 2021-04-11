@@ -21,6 +21,7 @@ export const homeModule = (function() {
     // where 'main' content will be hosted
     const root = document.querySelector('#root');
     const header = new HeaderBaseTemplate();
+    // const header = new HeaderBaseTemplate('home');
     root.appendChild(header);
     const homepage = new homePageTemplate();
     root.appendChild(homepage);
