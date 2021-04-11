@@ -8,28 +8,35 @@
     @include min-1200px { height:110px;}
 
     .header {
-        // border:1px solid lightcoral; 
+        background-color: lightcoral; 
         height:50px;margin:30px 0;
-        @include flex(row, wrap);justify-content: space-between;align-items:center;
+        @include flex(row, wrap);
+        align-items:center;
+        @include max-992px { justify-content: start; }
         @include max-1200px {align-items:center;}
-        @include min-1200px { width: 75%;}
+        @include min-992px { width: 85%;} // leave space right for 'photographers' title
+        @include min-1200px { width: 70%;} // leave space right for 'photographers' title
 
         &__logo-wrapper {
             @include max-1200px{ width:150px; }
             @include min-1200px{ width:200px;margin-left:80px; }
             img { max-width: 100%;}
-        }
-        &__nav {
-            // border:1px solid lightskyblue;
-            height: 100%;
-            /* FYI : see '_nav-tags.scss' */
-            @include max-1200px{ margin:25px auto; } 
+        } 
+        nav-tags-component {
+            background-color: rgb(89, 97, 89);
+            @include max-992px {width : 100%; } // up to 992 nav takes the whole width => goes underneath
+            @include min-992px { flex:auto;} // takes whatever x space is left
+            .header__nav { /* FYI : see '_nav-tags.scss' */
+                height: 100%;
+                @include max-1200px{ margin:25px auto; } 
+            }
         }
     }
 }
 
 .homepage-content {
     .homepage-title {
+        background-color: lightblue;
         position: absolute;  /* force page title into header top right */
         height: 50px;
         @include max-1200px {right: 1.5em; top: 2.5em;}

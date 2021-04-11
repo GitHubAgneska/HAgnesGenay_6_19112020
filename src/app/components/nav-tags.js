@@ -5,14 +5,11 @@ import { homeModule } from '../modules/homeModule';
 // CUSTOM ELEMENT TEMPLATE FOR NAVTAGS
 // ----------------------------------------------------
 export class NavTags extends HTMLElement {
-    constructor(navtags) {
+    constructor(navtags, parent) {
         super();
-
-        const shadowRoot = this.attachShadow({mode:'open'});
 
         // create nav section
         const navTagsTemplate = document.createElement('nav');
-       // navTagsTemplate.setAttribute('class', 'header__nav tags-list home');
 
         // IF navTags component is generated to populate HOME MAIN NAV
         // param navtags = mainListNavtags
@@ -23,13 +20,15 @@ export class NavTags extends HTMLElement {
         // attach data attributes passed in params ----------------------------- * 
         navTagsTemplate.setAttribute('data', navTags);
 
-        navTagsTemplate.setAttribute('class', 'header__nav tags-list home');
-
-        // link component to main stylesheet  ============> ! does not work in webpack
-        const navstyle = document.createElement('link');
-        navstyle.setAttribute('rel', 'stylesheet');
-        navstyle.setAttribute('href', './main.css');
-        navstyle.setAttribute('type', 'text/css');
+        if (parent === 'header') {
+            navTagsTemplate.setAttribute('class', 'header__nav tags-list home');
+        }
+        if (parent === 'profile-home') {
+            navTagsTemplate.setAttribute('class', 'tags-list home');
+        }
+        if (parent === 'profile-page') {
+            navTagsTemplate.setAttribute('class', 'tags-list page');
+        }
 
         // populate nav section with tags, list depending on context :
         // (home nav or photographer profile tags nav)
@@ -58,10 +57,7 @@ export class NavTags extends HTMLElement {
 
             navTagsTemplate.appendChild(navTagItem);
         };
-        // Attach stylesheet to component
-        shadowRoot.appendChild(navstyle);
-        // Attach the created elements to the shadow dom
-        shadowRoot.appendChild(navTagsTemplate); 
+        this.appendChild(navTagsTemplate); 
     }
 }
 // register custom element in the built-in CustomElementRegistry object

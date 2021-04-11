@@ -62,7 +62,8 @@ export class PhotographerTemplateHome extends HTMLElement {
             `;
 
             // generate new tagslists custom element template (using Navtags custom html element)
-            const photographerTagsList = new NavTags(photographer.tags);
+            let parent = 'profile-home';
+            const photographerTagsList = new NavTags(photographer.tags, parent);
             // inject data into it ====> done as attribute setting IN Navtag class
 
             // attach navtags component to photographer profile

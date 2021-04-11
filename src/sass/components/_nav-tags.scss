@@ -1,42 +1,45 @@
 /* =============================================== */
 /* NAV TAGS RULES  */
 /* =============================================== */
+nav-tags-component { 
 
-.tags-list { 
-    // border:1px solid lightgreen;
-    display: flex;
-    align-items: center;
-    flex:auto; // takes whatever x space is left
+    .tags-list { 
+        background-color: lightgreen;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%; // always takes whole width of parent -> see _header.scss
 
-    // up to 1200 nav takes the whole width
-    @include max-1200px{ width:100%; @include flex(row, wrap);justify-content: center; }
-    // from 1200 nav will wrap to next line 
-    @include min-1200px{ @include flex(row, nowrap);justify-content: center; margin: 0 80px;} 
-    .nav-tag { 
-        padding: 0.1em 0.5em;
-        color: $red-main;
-        font-weight: 500;text-transform: capitalize;
-        border: 1px solid $greySpecial;
-        @include border-radius(10px);
-        @include max-1200px {margin: 0 1%;}
-        @include min-1200px {margin: 1%;}
-    }
-    &.home {
-        // @include max-1200px{ margin:25px auto; } 
+        @include max-992px { @include flex(row, wrap); }
+        // from 992 nav will wrap to next line 
+        @include min-992px{ @include flex(row, nowrap);margin: 0 80px;} 
+        
         .nav-tag {
-            font-size: 0.75em;
+            padding: 0.1em 0.5em;
+            color: $red-main;
+            font-weight: 500;text-transform: capitalize;
+            border: 1px solid $greySpecial;
+            @include border-radius(10px);
+            @include max-1200px {margin: 1%;}
+            @include min-1200px {margin: 1%;}
+        }
+        &.home {
+            // @include max-1200px{ margin:25px auto; } 
+            .nav-tag {
+                font-size: 0.75em;
+            }
+        }
+        &.page{ 
+            justify-content: unset; // photographer page: taglist = left aligned 
+            .nav-tag {
+                @include min-600px {font-size: 1.125em;} // = 18px
+                @include max-600px { font-size: 0.8125em;} // = 13px
+            }
         }
     }
-    &.page{ 
-        justify-content: unset; // photographer page: taglist = left aligned 
-        .nav-tag {
-            @include min-600px {font-size: 1.125em;} // = 18px
-            @include max-600px { font-size: 0.8125em;} // = 13px
-        }
-    }
-}
 
-/* navigation tags inside photographer profile  HOME */
-.photographer__tags-list {
-    margin:5px auto;
+    /* navigation tags inside photographer profile  HOME */
+    .photographer__tags-list {
+        margin:5px auto;
+    }
 }

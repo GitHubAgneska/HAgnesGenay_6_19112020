@@ -44,7 +44,8 @@ export class PhotographerInfosTemplate extends HTMLElement {
         contactBtn.addEventListener('click', function(event){ photographerPageModule.openContactForm(photographer) }, false); //passes current photographer object as param
 
         // generate new tagslists custom element template (using Navtags custom html element)
-        let photographerTagsList2 = new NavTags(photographer.tags);
+        let parent = 'profile-page';
+        let photographerTagsList2 = new NavTags(photographer.tags, parent);
         photographerInfosBlock.appendChild(photographerTagsList2);
 
         const block2 = document.createElement('div');

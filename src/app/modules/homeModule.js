@@ -43,7 +43,8 @@ export const homeModule = (function() {
         // define parent container (header)
         const mainNavContainer = document.querySelector('#header');
         // generate new navtag from navTags custom html element, with whole tags list as param
-        var headerNav = new NavTags(tagslistMainNav);
+        let parent = 'header';
+        var headerNav = new NavTags(tagslistMainNav, parent);
         // attach component to parent
         mainNavContainer.appendChild(headerNav);
     }
