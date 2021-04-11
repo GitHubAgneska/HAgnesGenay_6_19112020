@@ -7,62 +7,65 @@
     margin-bottom: 10%; // make space from bottom infos to see last pic infos
 
     media-item-component {
+        background-color: pink;
         margin: 1em auto;
         overflow: hidden;
         display:flex;
-        @include max-992px { 
+
+        @include max-768px {  
             flex-basis:100%; // takes all width
             height: 210px;
         }
-        @include min-992px { 
+        @include min-768px { 
             flex-basis:30%; // takes 1/3 width (= 3 items per row)
             height: 350px;
-            max-width: 350px; // limits expansion when item = 30% width - to keep proportions on big screens 
+            min-width: 335px; // limits shrinking when item = 30% width
+            max-width: 350px; // limits expansion when item = 30% width - to keep proportions on big screens
         }
-        min-width: 335px; // limits shrinking when item = 30% width
-    }
-}
-
-.mediaItem {
-    width:100%;
-    .pic-wrapper {
-        @include border-radius(5px);
-        @include max-992px { height:170px; }
-        @include min-992px { height:300px; }
-        overflow: hidden;
-
-        img, video source {
-            height:auto;
-            display: block;
-            min-height: 100%; min-width: 100%;
-        }
-    }
-    .mediaItem-infos {
-        @include flex(row, nowrap); // photo infos = in a row
-        align-items: center; // text = vertically centered
-        justify-content: space-between;
-        color: $red-main;
-
-        @include max-992px { height:40px; }// ======================= to review ( useless if using text default margins?
-        @include min-992px { height:50px; }// ======================= to review ( useless if using text default margins?
-        @include min-1200px { font-size: 1.25em; }
         
-        .mediaItem-title { max-width: 70%; overflow:hidden;} // title takes most width
-        .mediaItem-likes, .mediaItem-price { font-weight: 500; }
-        .mediaItem-likes{
-            @include flex(row, nowrap); // elements = in a row
-            height: 100%;
-            justify-content: end;
-            align-items: center;
-
-            h5 {margin-right: 5px;}
-            .heart-icon { width: 15px;}
-        }
-        @include max-1200px {
-            .mediaItem-title,
-            .mediaItem-likes { font-size: 0.875em; }
-            .mediaItem-price { font-size: 0.75em; }
+        .mediaItem {
+            width:100%;
+            .pic-wrapper {
+                @include border-radius(5px);
+                @include max-992px { height:170px; }
+                @include min-992px { height:300px; }
+                overflow: hidden;
+        
+                img, video source {
+                    height:auto;
+                    display: block;
+                    min-height: 100%; min-width: 100%;
+                }
+            }
+            .mediaItem-infos {
+                @include flex(row, nowrap); // photo infos = in a row
+                align-items: center; // text = vertically centered
+                justify-content: space-between;
+                color: $red-main;
+        
+                @include max-992px { height:40px; }// ======================= to review ( useless if using text default margins?
+                @include min-992px { height:50px; }// ======================= to review ( useless if using text default margins?
+                @include min-1200px { font-size: 1.25em; }
+                
+                .mediaItem-title { max-width: 70%; overflow:hidden;} // title takes most width
+                .mediaItem-likes, .mediaItem-price { font-weight: 500; }
+                .mediaItem-likes{
+                    @include flex(row, nowrap); // elements = in a row
+                    height: 100%;
+                    justify-content: end;
+                    align-items: center;
+        
+                    h5 {margin-right: 5px;}
+                    .heart-icon { width: 15px;}
+                }
+                @include max-1200px {
+                    .mediaItem-title,
+                    .mediaItem-likes { font-size: 0.875em; }
+                    .mediaItem-price { font-size: 0.75em; }
+                }
+            }
         }
     }
+
 }
 

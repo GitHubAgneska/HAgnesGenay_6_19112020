@@ -37,6 +37,20 @@ $breakpoints: (xs-mobile: 375px, mobile: 600px, tablet: 768px, laptop: 992px, de
         @include transition(all, 1s, ease-in-out);
     }
 }
+/* == up to 768  */
+@mixin max-768px {
+    @media screen and (max-width: map-get($breakpoints, tablet )) {
+        @content;
+        @include transition(all, 1s, ease-in-out);
+    }
+}
+/* == from 768  */
+@mixin min-768px {
+    @media screen and (min-width: map-get($breakpoints, tablet )) {
+        @content;
+        @include transition(all, 1s, ease-in-out);
+    }
+}
 /* == up to 992  */
 @mixin max-992px {
     @media screen and (max-width: map-get($breakpoints, laptop )) {

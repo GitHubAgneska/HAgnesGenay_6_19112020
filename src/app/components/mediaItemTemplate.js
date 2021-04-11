@@ -11,7 +11,7 @@ import { photographerPageModule } from "../modules/photographerPageModule";
             super();
 
             // create a shadow root
-            const shadow4 = this.attachShadow({mode: 'open'});
+            // const shadow4 = this.attachShadow({mode: 'open'});
             
             // append content to UL
             const galleryItem = document.createElement('li');
@@ -22,10 +22,10 @@ import { photographerPageModule } from "../modules/photographerPageModule";
             galleryItem.setAttribute('data', medium);
             
             // link component to main stylesheet
-            const mediaItemStyle = document.createElement('link');
+    /*         const mediaItemStyle = document.createElement('link');
             mediaItemStyle.setAttribute('rel', 'stylesheet');
             mediaItemStyle.setAttribute('href', './main.css');
-            mediaItemStyle.setAttribute('type', 'text/css');
+            mediaItemStyle.setAttribute('type', 'text/css'); */
             // galleryItem.appendChild(mediaItemStyle);
 
 
@@ -87,12 +87,13 @@ import { photographerPageModule } from "../modules/photographerPageModule";
             // attach image/video wrapper to media item wrapper in first position
             galleryItem.insertAdjacentElement('afterbegin',mediaWrapper);
             galleryItem.appendChild(mediaInfosWrapper);
-            galleryItem.appendChild(mediaItemStyle);
+            // galleryItem.appendChild(mediaItemStyle);
 
             // Attach stylesheet to component
-            shadow4.appendChild(mediaItemStyle);
+            // shadow4.appendChild(mediaItemStyle);
             // Attach the created elements to the shadow dom
-            shadow4.appendChild(galleryItem);
+            this.appendChild(galleryItem);
+            // shadow4.appendChild(galleryItem);
 
             // attach each photo item to gallery => happens in photographer module
             // galleryWrapperSection.appendChild(galleryItem);
