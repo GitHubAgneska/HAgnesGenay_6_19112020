@@ -140,7 +140,7 @@ export const Lightbox = (function () {
             liItem.setAttribute('data', pic.id);
 
             if (pic.hasOwnProperty('image')) {
-                liItem.setAttribute('style', 'background-image:url("./assets/img/' + pic.photographerName + '/S/'+ (pic.image ) + '")' );
+                liItem.setAttribute('style', 'background-image:url("./assets/img/' + pic.photographerName + '/XL/'+ (pic.image ) + '")' );
             }
             if (pic.hasOwnProperty('video')) {
                 let videoWrapper = document.createElement('video');
