@@ -6,6 +6,8 @@
 import { photographerPageModule } from "../modules/photographerPageModule";
 
 
+
+// COMPATIBILITY ENHANCER ===> NOT NECESSARY WITH WEBPACK -----------------------------------------------------
 !function () {   // syntax = short-hand or alternative of self-invoking anonymous function IIFE
     var w = window,
         d = w.document;
@@ -38,7 +40,7 @@ import { photographerPageModule } from "../modules/photographerPageModule";
         });
     }
 }();
-
+// ----------------------------------------------------------------------------------------------------------
 
 
 export const Lightbox = (function () {

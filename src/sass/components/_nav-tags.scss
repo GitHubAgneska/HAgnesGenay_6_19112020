@@ -2,7 +2,7 @@
 /* NAV TAGS RULES  */
 /* =============================================== */
 nav-tags-component { 
-
+    
     // taglist container -  props no matter parent
     .tags-list { 
         // background-color: lightgreen;
@@ -24,6 +24,8 @@ nav-tags-component {
             @include max-1200px {margin: 1%;}
             @include min-1200px {margin: 1%;}
         }
+        .nav-tag:focus{ border: 2px solid red;}
+        
         &.home { // tag items - parent = header
             // @include max-1200px{ margin:25px auto; } 
             .nav-tag {

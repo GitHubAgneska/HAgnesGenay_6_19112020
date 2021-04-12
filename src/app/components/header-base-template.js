@@ -25,7 +25,7 @@ export class HeaderBaseTemplate extends HTMLElement {
         `
         <div id="header-wrapper" class="header-wrapper">
             <header class="header" role="banner" id="header">
-                <div class="header__logo-wrapper">
+                <div class="header__logo-wrapper" tabindex="0">
                     <a href="/" aria-label="Fisheye Home page"><img src="./assets/logo/logo.png" alt="Fisheye logo"></a>
                 </div>
             </header>

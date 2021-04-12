@@ -6,7 +6,7 @@
 
 .photographer {
     // border:2px solid red;
-
+    &:focus{border:2px solid red;}
     &--home { @include flex(column, nowrap);text-align: center; }
     &--page{
         // height: 350px; // grey info block 

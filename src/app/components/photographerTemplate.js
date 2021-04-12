@@ -33,11 +33,12 @@ export class PhotographerTemplateHome extends HTMLElement {
             photographerWrapperHome.setAttribute('id', 'photographer-'+ photographer.name); // + name
             photographerWrapperHome.setAttribute('aria-label', photographer.name + ' presentation');
             
+            
             // create clickable photographer main presentation block (name+pic)
             const photographerMainBlock = photographerWrapperHome.appendChild(document.createElement('div'));
             photographerMainBlock.setAttribute('class', 'photographer__main-block');
             photographerMainBlock.innerHTML = `
-                <a aria-label="go to ${photographer.name} page">
+                <a aria-label="go to ${photographer.name} page" tabindex="">
                     <img class="photographer__pic home" src="./assets/img/portraits/S/${photographer.portrait}" alt="${photographer.name} presentation picture" id="${photographer.name}-pres-picture">
                     <h2 class="photographer__name home" id="${photographer.name}">${photographer.name}</h2>
                 </a>
@@ -46,11 +47,11 @@ export class PhotographerTemplateHome extends HTMLElement {
             // add event listener on this block, that calls the photographer page with id as param
             photographerMainBlock.addEventListener('click', function(e) { 
                 photographerPageModule.initPagePhotographer(e, photographer.id);
-                let url = '/photographer';
-                // navigateTo(e, url);
             }, false);
-            //photographerMainBlock.addEventListener('click', function(e) { initPhotographerPageView(e, photographer.id); }, false);
-            
+
+            photographerMainBlock.addEventListener('keydown', function() { photographerPageModule.initPagePhotographer(e, photographer.id);}, false);
+
+
             // create photographer infos block main presentation block
             const photographerInfosBlock = photographerWrapperHome.appendChild(document.createElement('div'));
             photographerInfosBlock.setAttribute('class', 'photographer__text-infos');
