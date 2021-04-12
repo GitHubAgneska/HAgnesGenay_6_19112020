@@ -10,21 +10,21 @@ export class NavTags extends HTMLElement {
 
         // create nav section
         const navTagsTemplate = document.createElement('nav');
-        navTagsTemplate.setAttribute('id', 'header-nav');   
-        // navTagsTemplate.setAttribute('aria-activedescendant', 'portrait-nav-tag'); // make nav tabbable
-
+        
         // IF navTags component is generated to populate HOME MAIN NAV : param navtags = mainListNavtags
         // ELSE IF navTags component is generated to populate PHOTOGRAPHER TAGS LIST : navTags = photographer.tags;
         let navTags = navtags;
         // attach data attributes passed in params ----------------------------- * 
         navTagsTemplate.setAttribute('data', navTags);
-
+        
         if (parent === 'header') {
+            navTagsTemplate.setAttribute('id', 'header-nav');   
             navTagsTemplate.setAttribute('class', 'header__nav tags-list header home');
             navTagsTemplate.setAttribute('aria-label', 'main-navigation');
             
         }
         if (parent === 'profile-home') {
+            navTagsTemplate.setAttribute('id', 'profile-nav'); 
             navTagsTemplate.setAttribute('class', 'tags-list home');
             navTagsTemplate.setAttribute('aria-label', 'secondary-navigation');
         }
@@ -44,11 +44,6 @@ export class NavTags extends HTMLElement {
             // & passing name of tag as parameter (example : 'portrait')
             navTagItem.addEventListener('click', function() { homeModule.updateSortedHome(navTags[i])}, false);
 
-            navTagItem.addEventListener('focus', function(event) { 
-                // if (event.keyIdentifier = 'Tab') { } 
-                if ( event.keyIdentifier === 13 ) homeModule.updateSortedHome(navTags[i])}, false);
-
-
             var navTagItemContent = document.createTextNode('#' + navTags[i]);
             navTagItem.appendChild(navTagItemContent);
 
@@ -62,27 +57,46 @@ export class NavTags extends HTMLElement {
             navTagItem.appendChild(spanAccessibility);
             //attach tag to nav
             navTagsTemplate.appendChild(navTagItem);
-
-            // navTagsTemplate.setAttribute('aria-activedescendant', 'portrait-nav-tag'); // make nav tabbable
-
-            navTagsTemplate.setAttribute('tabindex', '0'); // make nav tabbable
-
-            navTagsTemplate.addEventListener('focus', function(event) { // if tab focus on nav, delegate focus to first child element
-                let nav = event.target;
-                
-                // add a second event listener on focused nav for new action
-                nav.addEventListener('keydown', function(event){
-                    event.target.removeAttribute('tabindex', '0');
-                    // place focus on first tag
-                    
-                    // when key press 'enter',
-                    if ( event.keyCode === 13 ) { // Enter/Return key)
-                        event.target.firstChild.focus();    
-                        console.log('event.keyIdentifier', event.key);
-                    }
-                }, false);
-            },false)
         };
+
+
+
+        navTagsTemplate.setAttribute('tabindex', '0'); // make nav tabbable
+
+        // if tab focus on nav, delegate focus to first child element
+        navTagsTemplate.addEventListener('focus', function(event) { 
+            let nav = event.target;
+            
+            // on NAV FOCUSED, listen to key down
+            nav.addEventListener('keydown', function(event){
+                console.log('event.key', event.key); 
+
+                // event.target.removeAttribute('tabindex', '0'); // remove tabbable from nav
+                // event.target.setAttribute('tabindex', '-1'); // make it temporarily untabbable 
+                
+                // if NAV press enter
+                if ( event.keyCode === 13 || event.keyIdentifier === 'Space') { // Enter/Return key)
+                    // focus goes on first tag element
+                    let navItem = event.target.firstElementChild;
+                    navItem.focus(); // place focus on first tag 
+                    
+                    // first tag element LISTEN TO KEYDOWN
+                    navItem.addEventListener('keydown', function(event) { 
+
+                        // if TAG press enter =>  = click()
+                        if ( event.keyCode === 13 ) {
+                        navItem.click();}
+
+                        // if TAG press RIGHT => focus moves onto nextTAG
+                        else if ( event.keyCode === 39 ) {
+                            navItem.nextSibling.focus();
+
+                        }
+                    }, false);
+                }
+            }, false);
+        },false);
+
 
 
         this.appendChild(navTagsTemplate); 

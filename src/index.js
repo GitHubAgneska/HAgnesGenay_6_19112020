@@ -16,24 +16,15 @@ const portraitAssetsPath = './assets/img/portraits/S/';
 homeModule.run();
 
 // ACCESSIBILITY
-const root = document.querySelector('#root');
-let tabbableHomeElements = [];
+// elements targeted MANUALLY for keyboard navigation - HOME
 
-//elements targeted MANUALLY for keyboard navigation
-// HEADER LOGO
-/* const targetHomeLogo = root.querySelector('.header__logo-wrapper');
-targetHomeLogo.setAttribute('tabindex', '0'); */
+// HEADER LOGO (div)
+// Nav helper (div)
+// NAV id="header-nav" => children : a class="nav-tag"
+// DIV class="photographer__main-block"
 
-/* 
-root.afterDOMContentLoaded = () => {
-const targetHomeNav = root.getElementById('header-nav');
-let targetHomeNavNodes = targetHomeNav.childNodes;
 
-for (var i = 0; i<targetHomeNavNodes.length; i++ ) {
-    targetHomeNavNodes[i].setAttribute('tabindex', '0');
-}
 
-const targetHomeListOfPhotog = root.querySelector('#photographersList');
-const targetHomePhotogProfiles =  Array.from(targetHomeListOfPhotog.querySelectorAll('.photographer--home'));
-}
- */
+
+
+

@@ -22,9 +22,10 @@
         &__logo-wrapper {
             @include max-1200px{ width:150px; }
             @include min-1200px{ width:200px;margin-left:80px; }
+            a { display: block; }
             img { max-width: 100%;}
         }
-        &__logo-wrapper:focus { border: 3px solid red;}
+        &__logo-wrapper a:focus { border: 3px solid red;}
         
         nav-tags-component {
             // background-color: rgb(89, 97, 89);

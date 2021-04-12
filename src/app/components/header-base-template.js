@@ -32,7 +32,7 @@ export class HeaderBaseTemplate extends HTMLElement {
         </div> 
         `;
 
-       /*  const wrapper = this.querySelector('#header-wrapper');
+    /*  const wrapper = this.querySelector('#header-wrapper');
         if (page === 'home') { wrapper.setAttribute('class', 'header-wrapper home')}
         if (page === 'photogPage') { wrapper.setAttribute('class', 'header-wrapper page')} */
     }

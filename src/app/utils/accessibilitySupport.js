@@ -14,7 +14,7 @@ export function focusNextElement() {
 }
 
 
-window.addEventListener('keydown', function (event) {
+/* window.addEventListener('keydown', function (event) {
     // initiate navigation by tab keys
     if (event.keyIdentifier = 'Tab') {
             // if (e.keyIdentifier == 'U+000A' || e.keyIdentifier == 'Enter' || e.keyCode == 13) {
@@ -29,5 +29,14 @@ window.addEventListener('keydown', function (event) {
             document.activeElement.click();
         }
 
-}, true); 
+}, true);  */
+
+
+
+/* 
+Left: 37
+Up: 38
+Right: 39
+Down: 40 */
+
 

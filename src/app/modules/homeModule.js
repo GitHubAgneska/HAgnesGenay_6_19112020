@@ -26,8 +26,18 @@ export const homeModule = (function() {
     const homepage = new homePageTemplate();
     root.appendChild(homepage);
 
+
+    const myHeaders = new Headers();
+
+    const myRequest = new Request( apiUrl, {
+    method: 'GET',
+    headers: myHeaders,
+    mode: 'cors',
+    cache: 'default',
+    });
+
     function initData() { 
-        fetch(apiUrl)
+        fetch(myRequest)
         .then(response => response.json())
         .then(json => {
             let photographers = json.photographers;
