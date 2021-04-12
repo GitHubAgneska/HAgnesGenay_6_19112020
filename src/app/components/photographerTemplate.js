@@ -39,18 +39,23 @@ export class PhotographerTemplateHome extends HTMLElement {
             photographerMainBlock.setAttribute('class', 'photographer__main-block');
             photographerMainBlock.setAttribute('tabindex', '0'); // make element tabbable
             photographerMainBlock.innerHTML = `
-                <a aria-label="go to ${photographer.name} page" tabindex="">
+                <a aria-label="go to ${photographer.name} page" tabindex="0">
                     <img class="photographer__pic home" src="./assets/img/portraits/S/${photographer.portrait}" alt="${photographer.name} presentation picture" id="${photographer.name}-pres-picture">
                     <h2 class="photographer__name home" id="${photographer.name}">${photographer.name}</h2>
                 </a>
                 `;
 
             // add event listener on this block, that calls the photographer page with id as param
-            photographerMainBlock.addEventListener('click', function(e) { 
-                photographerPageModule.initPagePhotographer(e, photographer.id);
+            photographerMainBlock.addEventListener('click', function(event) { 
+                photographerPageModule.initPagePhotographer(event, photographer.id);
             }, false);
-
-            photographerMainBlock.addEventListener('keydown', function() { photographerPageModule.initPagePhotographer(e, photographer.id);}, false);
+            
+            // KEYBOARD NAV SUPPORT
+            photographerMainBlock.addEventListener('keydown', function(event) {
+                if ( event.keyCode === 13 ) {
+                    photographerPageModule.initPagePhotographer(event, photographer.id);
+                }
+            }, false);
 
 
             // create photographer infos block main presentation block
