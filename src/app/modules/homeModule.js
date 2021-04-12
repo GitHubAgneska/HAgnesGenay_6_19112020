@@ -28,12 +28,12 @@ export const homeModule = (function() {
 
 
     const myHeaders = new Headers();
-
     const myRequest = new Request( apiUrl, {
-    method: 'GET',
-    headers: myHeaders,
-    mode: 'cors',
-    cache: 'default',
+        method: 'GET',
+        headers: myHeaders,
+        mode: 'cors',
+        cache: 'default',
+        credentials: "include"
     });
 
     function initData() { 

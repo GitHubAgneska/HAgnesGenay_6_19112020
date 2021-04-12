@@ -25,7 +25,7 @@
             a { display: block; }
             img { max-width: 100%;}
         }
-        &__logo-wrapper a:focus { border: 3px solid red;}
+        // &__logo-wrapper a:focus { border: 3px solid red;}
         
         nav-tags-component {
             // background-color: rgb(89, 97, 89);
@@ -35,7 +35,7 @@
                 height: 100%;
                 @include max-1200px{ margin:25px auto; } 
             }
-            .header__nav:focus { border: 3px solid red;}
+            // .header__nav:focus { border: 3px solid red;}
         }
     }
 }

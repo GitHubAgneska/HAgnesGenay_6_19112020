@@ -37,6 +37,7 @@ export class PhotographerTemplateHome extends HTMLElement {
             // create clickable photographer main presentation block (name+pic)
             const photographerMainBlock = photographerWrapperHome.appendChild(document.createElement('div'));
             photographerMainBlock.setAttribute('class', 'photographer__main-block');
+            photographerMainBlock.setAttribute('tabindex', '0'); // make element tabbable
             photographerMainBlock.innerHTML = `
                 <a aria-label="go to ${photographer.name} page" tabindex="">
                     <img class="photographer__pic home" src="./assets/img/portraits/S/${photographer.portrait}" alt="${photographer.name} presentation picture" id="${photographer.name}-pres-picture">

@@ -60,7 +60,7 @@ export class NavTags extends HTMLElement {
         };
 
 
-
+        // KEYBOARD NAV SUPPORT
         navTagsTemplate.setAttribute('tabindex', '0'); // make nav tabbable
 
         // if tab focus on nav, delegate focus to first child element
