@@ -42,12 +42,10 @@ body  {
     photographer-component-page {width:100%;}  
 }
 
-
 /* 'accessibility hint 'passer au contenu' 
-= visible only on tab nav - desktop */
+= visible only on tab nav - desktop  - uses 'visuallyHidden class */
 .nav-help {
-    // visibility: hidden;
-    position: fixed; // visible only on tab nav
+    position: fixed;
     top: 0; left: 45%;
     padding: 0.2em 0.5em;
     background-color: $orange-main;

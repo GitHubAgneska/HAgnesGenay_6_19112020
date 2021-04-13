@@ -1,5 +1,6 @@
 
 import { homeModule } from '../modules/homeModule';
+import { keyAction } from '../utils/accessibilitySupport';
 
 // ----------------------------------------------------
 // CUSTOM ELEMENT TEMPLATE FOR NAVTAGS
@@ -59,43 +60,24 @@ export class NavTags extends HTMLElement {
             navTagsTemplate.appendChild(navTagItem);
         };
 
-
         // KEYBOARD NAV SUPPORT
         navTagsTemplate.setAttribute('tabindex', '0'); // make nav tabbable
+        
+        // let actionType = 'undirectAction';
+        // keyAction(navTagsTemplate, actionType);
+        // keyAction(navTagsTemplate, actionType);
 
-        // if tab focus on nav, delegate focus to first child element
-        navTagsTemplate.addEventListener('focus', function(event) { 
-            let nav = event.target;
+        // on NAV FOCUSED, listen to key down
+        navTagsTemplate.addEventListener('keydown', function(event){
             
-            // on NAV FOCUSED, listen to key down
-            nav.addEventListener('keydown', function(event){
-                console.log('event.key', event.key); 
-
-                // event.target.removeAttribute('tabindex', '0'); // remove tabbable from nav
-                // event.target.setAttribute('tabindex', '-1'); // make it temporarily untabbable 
-                
-                // if NAV press enter
-                if ( event.keyCode === 13 || event.keyIdentifier === 'Space') { // Enter/Return key)
-                    // focus goes on first tag element
-                    let navItem = event.target.firstElementChild;
-                    navItem.focus(); // place focus on first tag 
-                    
-                    // first tag element LISTEN TO KEYDOWN
-                    navItem.addEventListener('keydown', function(event) { 
-
-                        // if TAG press enter =>  = click()
-                        if ( event.keyCode === 13 ) {
-                        navItem.click();}
-
-                        // if TAG press RIGHT => focus moves onto nextTAG
-                        else if ( event.keyCode === 39 ) {
-                            navItem.nextSibling.focus();
-
-                        }
-                    }, false);
-                }
-            }, false);
-        },false);
+            // if NAV press enter
+            if ( event.keyCode === 13 || event.keyIdentifier === 'Space') { // Enter/Return key)
+                // focus goes on first tag element
+                let navItem = event.target.firstElementChild;
+                navItem.focus(); // place focus on first tag 
+                keyAction(navItem); // determine possible key actions
+            }
+        }, false);
 
 
 

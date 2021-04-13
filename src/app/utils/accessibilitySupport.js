@@ -33,10 +33,57 @@ export function focusNextElement() {
 
 
 
-/* 
+/*
+event.keyIdentifier === 'Space'
+event.key === 13
 Left: 37
 Up: 38
 Right: 39
 Down: 40 */
 
+
+
+// 'undirectAction' : tab focus on DIV parent =>  delegate focus and action to first child element
+// 'directAction' : tab focus on element 
+// export function keyAction(elem, actionType) {
+export function keyAction(elem) {
+    let concernedElement = elem;
+    // let action = actionType;
+    // let targetElem;
+    concernedElement.addEventListener('keydown', function(event) {
+        concernedElement = event.target;
+        // console.log('concerned==', concernedElement);
+        // console.log('concernedChild==', concernedElement.firstElementChild);
+        // console.log('concernedParent==', concernedElement.parentNode);
+
+        /* if ( action === 'undirectAction') {
+
+            if ( event.keyCode === 13 || event.code === 'Space') {
+                let targetElem = event.target.firstElementChild;
+                // targetElem = document.activeElement;
+                targetElem.focus();
+                keyAction(this, 'directAction');
+            }
+        }
+        if ( action === 'directAction' ) { */
+            // if elem press ENTER or SPACE =>  = click()
+            if ( event.keyCode === 13 || event.code === 'Space') { elem.click(); }
+            
+            // if elem press RIGHT => focus moves onto nextelem + listen to key
+            else if ( event.keyCode === 39 ) { 
+                elem.nextSibling.focus();
+                keyAction(elem.nextSibling); }
+
+            // if elem press LEFT => focus moves onto nextelem + listen to key
+            else if ( event.keyCode === 37 ) { 
+                elem.previousSibling.focus();
+                keyAction(elem.previousSibling); }
+
+            // if elem press LEFT => focus moves onto nextelem + listen to key
+            else if ( event.code === 'Escape' ) { 
+                elem.parentNode.focus();
+            }
+       //  }
+    }, false);
+}
 
