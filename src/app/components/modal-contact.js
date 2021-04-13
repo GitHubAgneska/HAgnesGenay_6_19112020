@@ -106,9 +106,11 @@ export class ModalContact extends HTMLElement {
             photographerPageModule.submitForm(event, photog, form, formInputs);
         });
 
-
         // attach modal inner content to modal main wrapper
         mainModalWrapper.appendChild(modalInnerWrapper);
+
+        // KEYBOARD NAV SUPPORT
+        
 
         // Attach stylesheet to component
         this.appendChild(modalStyle);

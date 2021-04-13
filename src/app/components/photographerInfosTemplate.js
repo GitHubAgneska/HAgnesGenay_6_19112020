@@ -42,6 +42,11 @@ export class PhotographerInfosTemplate extends HTMLElement {
         // add event on contact btn to call modal contact
         const contactBtn = photographerInfosBlock.querySelector('#contact-btn');
         contactBtn.addEventListener('click', function(event){ photographerPageModule.openContactForm(photographer) }, false); //passes current photographer object as param
+        // KEYBOARD NAV SUPPORT
+        // when contactBtn clicked, and modal opens disable tabindexes on all background elements
+
+
+
 
         const whereToStickNavtag = photographerInfosBlock.querySelector('.photographer__text-infos');
         // generate new tagslists custom element template (using Navtags custom html element)

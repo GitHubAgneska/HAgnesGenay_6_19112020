@@ -142,11 +142,29 @@ export const photographerPageModule = (function() {
 
     // CONTACT MODAL FORM  ===========================================================
     function openContactForm(currentPhotographer) {
+        var root = document.querySelector('#photographer-content');
+
+        // KEYBOARD NAV SUPPORT : before modal opens, all bg tabindex = -1
+        // NOTE - because DROPDOWN is in SHADOW DOM, = not detected
+        // let tabbables = root.querySelectorAll('[tabindex]');
+        let tabbables = root.childNodes;
+        console.log(tabbables);
+        for (let node of tabbables) {
+            if ( node.nodeName!=="#text") { 
+                node.setAttribute('disabled', 'disabled');
+                
+            }
+        }
+
         var currentPhotographer = currentPhotographer;
         var contactModal = new ModalContact(currentPhotographer);
-        var root = document.querySelector('#photographer-content');  //  TEMPORARY : IMPLEMENT 'DESTRUCT PREVIOUS VIEW' UTIL FUNCTION
+        contactModal.focus();
         root.appendChild(contactModal);
     }
+
+
+
+
 
     function closeModal(event, inputsTouched, modal) {
         event.stopPropagation();
