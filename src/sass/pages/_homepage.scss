@@ -44,16 +44,16 @@ body  {
 
 
 /* 'accessibility hint 'passer au contenu' 
-= visible only on hovering main content - desktop */
+= visible only on tab nav - desktop */
 .nav-help {
-    visibility: hidden;
-    position: absolute; // visible only when main content hovered
-    top: 10px; left: 45%;
+    // visibility: hidden;
+    position: fixed; // visible only on tab nav
+    top: 0; left: 45%;
     padding: 0.2em 0.5em;
     background-color: $orange-main;
     @include border-radius(3px);
     a span {
-        color:$dark;
+        color:black !important;
         font-size: 1em; // 16px
         font-weight: 700;
     }

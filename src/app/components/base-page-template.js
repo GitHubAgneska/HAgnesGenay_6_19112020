@@ -29,22 +29,25 @@ export class homePageTemplate extends HTMLElement {
             </div>
 
             <section class="photographers" id="photographersList" aria-label="photographers presentation list">
-
             </section>
 
-            <div class="nav-help" id="nav-help">
-                <a href="" aria-label="go to main content"><span>passer au contenu</span></a>
+            <div class="nav-help visuallyHidden" id="nav-help" tabindex="3">
+                <a aria-label="go to main content"><span>passer au contenu</span></a>
             </div>
         `;
 
-        // link component to main stylesheet
-        const pageStyle = document.createElement('link');
-        pageStyle.setAttribute('href', './main.css');
-        pageStyle.setAttribute('type', 'text/css');
-        pageStyle.setAttribute('rel', 'stylesheet');
+        const navHelp = main.querySelector('#nav-help');
 
+        // KEYBOARD NAV SUPPORT
+        navHelp.addEventListener('focus', function(event){
+            let help = event.target;
+            if ( help == document.activeElement) {
+                help.classList.toggle('visuallyHidden');
+            }
+        }, false);
 
-       /*  if (pageRequest === 'photographerPage') {   // ----- + if (type..) Wont work atm ?
+        /*  
+       if (pageRequest === 'photographerPage') {   // ----- + if (type..) Wont work atm ?
             main.setAttribute('id', 'photographer-content');
             main.setAttribute('class', 'photographer-content-wrapper');
 
@@ -53,8 +56,6 @@ export class homePageTemplate extends HTMLElement {
                 <div id="photographer-content" class="photographer-content-wrapper"></div>
             `;
         } */
-        // attach style to main
-        main.appendChild(pageStyle);
     }
 }
 // register custom element in the built-in CustomElementRegistry object
