@@ -22,12 +22,16 @@ export class NavTags extends HTMLElement {
             navTagsTemplate.setAttribute('id', 'header-nav');   
             navTagsTemplate.setAttribute('class', 'header__nav tags-list header home');
             navTagsTemplate.setAttribute('aria-label', 'main-navigation');
+
+            navTagsTemplate.setAttribute('tabindex', '0'); // make nav tabbable - only on homepage
             
         }
         if (parent === 'profile-home') {
             navTagsTemplate.setAttribute('id', 'profile-nav'); 
             navTagsTemplate.setAttribute('class', 'tags-list home');
             navTagsTemplate.setAttribute('aria-label', 'secondary-navigation');
+
+            navTagsTemplate.setAttribute('tabindex', '0'); // make nav tabbable  - only on homepage
         }
         if (parent === 'profile-page') {
             navTagsTemplate.setAttribute('class', 'tags-list page');
@@ -60,12 +64,10 @@ export class NavTags extends HTMLElement {
             navTagsTemplate.appendChild(navTagItem);
         };
 
-        // KEYBOARD NAV SUPPORT
-        navTagsTemplate.setAttribute('tabindex', '0'); // make nav tabbable
-        
-        // let actionType = 'undirectAction';
-        // keyAction(navTagsTemplate, actionType);
-        // keyAction(navTagsTemplate, actionType);
+        // KEYBOARD NAV SUPPORT        
+            // let actionType = 'undirectAction';
+            // keyAction(navTagsTemplate, actionType);
+            // keyAction(navTagsTemplate, actionType);
 
         // on NAV FOCUSED, listen to key down
         navTagsTemplate.addEventListener('keydown', function(event){
@@ -78,7 +80,6 @@ export class NavTags extends HTMLElement {
                 keyAction(navItem); // determine possible key actions
             }
         }, false);
-
 
 
         this.appendChild(navTagsTemplate); 
