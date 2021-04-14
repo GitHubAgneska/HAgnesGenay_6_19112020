@@ -49,10 +49,6 @@ export const photographerPageModule = (function() {
     function initPhotog(myphotographers, photographerId) {
         const photogId = photographerId;
         location.hash = '#/photographer/' + photogId;
-        //let allMediaOfPhotog = [];
-        let mediaSortedByTitle = [];
-        let mediaSortedByDate = [];
-        let mediaSortedByPop = [];
 
         // find photographer via passed id param
         myphotographers.forEach(photog => {
@@ -96,8 +92,6 @@ export const photographerPageModule = (function() {
                         const currentGallery = getPhotographerMedia(); // pass it through mediaItem template so it can pass it back to 'openLightbox()' below --- ...
                         mediaItem.template = new MediaItemTemplate(mediaItem, currentGallery);
 
-                        // for sorting method : retrieve each created processed mediaItem object into an array
-                        // allMediaOfPhotog.push(mediaItem);
                 });
                 function getPhotographerMedia() { return photog.photographerMedia }; // used by lightbox methods when called from mediaItem
 
@@ -130,14 +124,15 @@ export const photographerPageModule = (function() {
         var currentImg = currentImg;
         var currentGallery = currentGallery;
 
-        console.log('currentImg==', currentImg,'currentGallery==', currentGallery );
+        //console.log('currentImg==', currentImg,'currentGallery==', currentGallery );
         
         new Lightbox().init({currentImgId:currentImgId, currentImg:currentImg, currentGallery:currentGallery, slidenav: true, animate: true, startAnimated: false});
     }
     function closeLightbox(lightboxWrapper) {
         // destroyView(lightboxWrapper);
-        const parent = document.body;
-        parent.removeChild(parent.lastChild);
+        const root = document.querySelector('#root');
+        // const parent = document.body;
+        root.removeChild(root.lastChild);
     }
 
     // CONTACT MODAL FORM  ===========================================================

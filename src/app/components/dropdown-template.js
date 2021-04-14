@@ -51,10 +51,18 @@ export class DropdownTemplate extends HTMLElement {
         const sortByLikesBtn = dropdownWrapper.querySelector('#sortBy-likes');
         
         sortByDateBtn.onclick = (event) => {
-            console.log('I AM DATE TARGET=', event.target)
             let type = 'date';
             let photographerGalleryBlock = document.querySelector('.gallery-wrapper');
             photographerPageModule.renderSortedView(photographerGalleryBlock, photog, type); }
+        /* // KEYBOARD NAV SUPPORT
+        sortByDateBtn.onkeydown = (event) => {
+            console.log('I AM DATE TARGET=', event.target)
+            let type = 'date';
+            let photographerGalleryBlock = document.querySelector('.gallery-wrapper');
+            if ( event.keyCode === 13 ) {
+            photographerPageModule.renderSortedView(photographerGalleryBlock, photog, type); }
+            }; */
+        
             
             sortByTitleBtn.onclick = () => { 
                 let type = 'title';
