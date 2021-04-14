@@ -18,10 +18,10 @@
         @include border-radius(5px);
         background-color: $red-main;
 
-        &.hide {
+        &.hide {  // UL list
             @extend .dropdown-menu;
             height:50px;
-            #exp-elem-list { visibility: hidden; ;}
+            #sortBy { visibility: hidden; ;}
         }
         button { 
             @include flex(row, nowrap);

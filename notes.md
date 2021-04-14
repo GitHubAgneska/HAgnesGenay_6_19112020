@@ -56,3 +56,16 @@ DEPLOY DIST TO GITHUBPAGES
 -----------
 
 ` git subtree push --prefix dist origin gh-pages `
+
+
+CHROME FETCH CORS - iSSUE (to launch ghpages deploy)
+-----
+
+Launch 'chrome://flags/#temporary-unexpire-flags-m87' from address bar.
+Set to Enabled.
+Restart Chrome.
+Launch 'chrome://flags/#allow-insecure-localhost'
+It will be visible now, so simply enable it.
+Restart Chrome again.
+
+----

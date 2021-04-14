@@ -27,7 +27,7 @@ export class NavTags extends HTMLElement {
             
         }
         if (parent === 'profile-home') {
-            navTagsTemplate.setAttribute('id', 'profile-nav'); 
+            navTagsTemplate.setAttribute('id', 'profile-nav'); // ------------------ TO REVIEW : multiple ID ( role of this ID anyway ?)
             navTagsTemplate.setAttribute('class', 'tags-list home');
             navTagsTemplate.setAttribute('aria-label', 'secondary-navigation');
 

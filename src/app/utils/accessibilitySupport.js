@@ -52,7 +52,7 @@ export function keyAction(elem) {
     // let targetElem;
     concernedElement.addEventListener('keydown', function(event) {
         concernedElement = event.target;
-        // console.log('concerned==', concernedElement);
+        console.log('concerned==', concernedElement);
         // console.log('concernedChild==', concernedElement.firstElementChild);
         // console.log('concernedParent==', concernedElement.parentNode);
 
@@ -68,18 +68,24 @@ export function keyAction(elem) {
             // if elem press ENTER or SPACE =>  = click()
             if ( event.keyCode === 13 || event.code === 'Space') { elem.click(); }
             
-            // if elem press RIGHT of DOWN => focus moves onto nextelem + listen to key
-            else if ( event.keyCode === 39 || event.keyCode === 37 ) { 
-                elem.nextSibling.focus();
-                keyAction(elem.nextSibling); }
+            // if elem press RIGHT or DOWN => focus moves onto nextelem + listen to key
+            if ( event.keyCode === 39 || event.keyCode === 37 ) { 
+                if (elem.nextSibling) {  // check the element exists
+                    elem.nextSibling.focus();
+                    keyAction(elem.nextSibling); 
+                } else { return; }
+            }
 
             // if elem press LEFT or UP => focus moves onto nextelem + listen to key
-            else if ( event.keyCode === 37 || event.keyCode === 38 ) { 
-                elem.previousSibling.focus();
-                keyAction(elem.previousSibling); }
+            if ( event.keyCode === 37 || event.keyCode === 38 ) {
+                if (elem.previousSibling) { // check the element exists
+                    elem.previousSibling.focus();
+                    keyAction(elem.previousSibling); 
+                } else { return; }
+            }
 
             // if elem press LEFT => focus moves onto nextelem + listen to key
-            else if ( event.code === 'Escape' ) { 
+            if ( event.code === 'Escape' ) {
                 elem.parentNode.focus();
             }
        //  }

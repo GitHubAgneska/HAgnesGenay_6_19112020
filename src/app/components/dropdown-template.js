@@ -9,7 +9,7 @@ export class DropdownTemplate extends HTMLElement {
         this.photog = photog;
 
         // create a shadow root
-        const shadow3 = this.attachShadow({mode: 'open'});
+        // const shadow3 = this.attachShadow({mode: 'open'});
 
         // create component main container div
         const dropdownWrapper = document.createElement('div');
@@ -27,14 +27,14 @@ export class DropdownTemplate extends HTMLElement {
         
             <p class="dropdown-menu-title">trier par</p>
 
-            <div tabindex="3" class="dropdown-menu hide" id="dropdown-menu" aria-label="sort gallery by">
-                <button id="exp_elem_likes" class="open-dropdown-btn" aria-haspopup="listbox" aria-labelledby="exp_elem exp_button">
+            <div tabindex="0" id="dropdown-menu" class="dropdown-menu hide" aria-label="sort gallery by">
+                <button id="sortBy-likes" class="open-dropdown-btn" aria-haspopup="listbox" aria-labelledby="sortBy-likes-btn">
                     popularité
-                    <img tabindex="4" src="./assets/icons/caret.png" id="open" alt="logo open" aria-hidden="true">
+                    <img tabindex="1" id="open" src="./assets/icons/caret.png" alt="logo open" aria-hidden="true">
                 </button> 
-                <ul id="exp-elem-list" role="listbox" aria-labelledby="exp_elem">
-                    <li tabindex="4" id="exp_elem_date" role="option">date</li>
-                    <li tabindex="5" id="exp_elem_title" role="option">titre</li>
+                <ul id="sortBy" role="listbox" aria-labelledby="sortBy">
+                    <li tabindex="2" id="sortBy-date" role="option">date</li>
+                    <li tabindex="3" id="sortBy-title" role="option">titre</li>
                 </ul>
             </div>
         `;
@@ -44,13 +44,14 @@ export class DropdownTemplate extends HTMLElement {
         toggleOpenBtn.addEventListener('click' , function(event){ toggleDropdownOpen(event);}, false);
         
         function toggleDropdownOpen(event){ 
-            let targetedElement = event.target.parentNode.parentNode; // event on logo img -> effect on div parent
+            let targetedElement = event.target.parentNode.parentNode; // event on CARET logo img -> effect on div parent
             targetedElement.classList.toggle('hide');
+            console.log('ACTIVE HERE ==', document.activeElement); // keyboard check
         }
         
-        const sortByDateBtn = dropdownWrapper.querySelector('#exp_elem_date');
-        const sortByTitleBtn = dropdownWrapper.querySelector('#exp_elem_title');
-        const sortByLikesBtn = dropdownWrapper.querySelector('#exp_elem_likes');
+        const sortByDateBtn = dropdownWrapper.querySelector('#sortBy-date');
+        const sortByTitleBtn = dropdownWrapper.querySelector('#sortBy-title');
+        const sortByLikesBtn = dropdownWrapper.querySelector('#sortBy-likes');
         
         sortByDateBtn.onclick = () => { 
             let type = 'date';
@@ -71,32 +72,60 @@ export class DropdownTemplate extends HTMLElement {
         // KEYBOARD NAV SUPPORT
         // default tab = on dropdown-menu DIV
         const dropdownMenu = dropdownWrapper.querySelector('#dropdown-menu');
-        // elements = DIV#dropdown-menu, CARET #open, 3-BTN#exp_elem_likes btn, 
-        // ( #exp-elem-list UL) , #exp_elem_date LI, #exp_elem_title LI
+        let dropdownOpened = false;
+        // elements = 
+        // DIV #dropdown-menu
+        // CARET #open IMG
+        // sortByDateBtn #sortBy-date LI
+        // sortByTitleBtn #sortBy-title LI
+        // sortByLikesBtn #sortBy-likes BTN
 
+        // DROPDOWN FOCUS is default when tabbing nav
         dropdownMenu.addEventListener('keydown' , function(event){
-            toggleOpenBtn.focus(); // focus goes to caret icon
-            toggleOpenBtn.addEventListener('keydown', function(event) { // listen to CARET keyboard event
-                if ( event.keyCode === 13 || event.code === 'Space') { // if caret ENTER
-                    this.click(); // dropdown opens
-                    let sortByDate = event.target.parentNode.parentNode.querySelector('ul').firstElementChild; // first LI
-                    // console.log('sortbydate==', sortByDate);
-                    sortByDate.focus(); // pass action back to parent btn (popularité)
-                    
-                    sortByDate.addEventListener('focus', function(event){ 
-                        sortByDate.style.border = '2px solid white';
-                        keyAction(this);
-                        // sortByDate.click();
-                    }, false);
-                }
-            }, false);
+            if ( event.keyCode === 13 || event.code === 'Space') {
+
+                let menuDiv = event.target; // default tabbing on parent
+                let caret = document.getElementById('open');
+                
+                // FOCUS IS ON CARET
+                caret.focus(); // focus goes to caret icon
+                // pass event to CARET
+                caret.addEventListener('keydown', function(event) {
+                    caret = event.target;
+                    // CARET KEYBOARD ACTIONS
+                    // ENTER : open dropdown
+                    if ( event.keyCode === 13 || event.code === 'Space') { 
+                        caret.click();
+                        dropdownOpened = true;
+                    }
+
+                    // ONCE DROPDOWN = OPEN
+                        
+
+                    // RIGHT or DOWN => focus goes to 1st li
+                    if ( event.code === 'ArrowRight' || event.code === 'ArrowDown' ) {
+
+                        event.preventDefault(); // which is
+                        let liOne = document.getElementById('sortBy-date');
+                        caret.blur(); // ----------------------------------------- THIS ONE !!!
+                        
+                        liOne.focus();
+                        console.log('FOCUS on liOne', document.activeElement);
+                        keyAction(liOne);
+
+
+                    }
+                }, false);
+            }
         }, false);
 
 
+
         // Attach stylesheet to component
-        shadow3.appendChild(dropdownStyle);
+        // shadow3.appendChild(dropdownStyle);
         // Attach the created elements to the shadow dom
-        shadow3.appendChild(dropdownWrapper);
+        // shadow3.appendChild(dropdownWrapper);
+        this.appendChild(dropdownWrapper);
     }
 }
 

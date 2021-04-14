@@ -31,7 +31,7 @@ export const homeModule = (function() {
     const myRequest = new Request( apiUrl, {
         method: 'GET',
         headers: myHeaders,
-        mode: 'cors',
+        mode: 'cors', //  mode: 'no-cors' ? 
         cache: 'default',
         credentials: "include"
     });
