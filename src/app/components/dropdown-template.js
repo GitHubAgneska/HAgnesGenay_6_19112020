@@ -8,9 +8,6 @@ export class DropdownTemplate extends HTMLElement {
 
         this.photog = photog;
 
-        // create a shadow root
-        // const shadow3 = this.attachShadow({mode: 'open'});
-
         // create component main container div
         const dropdownWrapper = document.createElement('div');
         dropdownWrapper.setAttribute('class', 'listbox-area');
@@ -53,7 +50,8 @@ export class DropdownTemplate extends HTMLElement {
         const sortByTitleBtn = dropdownWrapper.querySelector('#sortBy-title');
         const sortByLikesBtn = dropdownWrapper.querySelector('#sortBy-likes');
         
-        sortByDateBtn.onclick = () => { 
+        sortByDateBtn.onclick = (event) => {
+            console.log('I AM DATE TARGET=', event.target)
             let type = 'date';
             let photographerGalleryBlock = document.querySelector('.gallery-wrapper');
             photographerPageModule.renderSortedView(photographerGalleryBlock, photog, type); }
@@ -73,16 +71,17 @@ export class DropdownTemplate extends HTMLElement {
         // default tab = on dropdown-menu DIV
         const dropdownMenu = dropdownWrapper.querySelector('#dropdown-menu');
         let dropdownOpened = false;
-        // elements = 
-        // DIV #dropdown-menu
-        // CARET #open IMG
-        // sortByDateBtn #sortBy-date LI
-        // sortByTitleBtn #sortBy-title LI
-        // sortByLikesBtn #sortBy-likes BTN
+                // elements = 
+                    // DIV #dropdown-menu - 1
+                        // sortByLikesBtn #sortBy-likes BTN
+                            // CARET #open IMG  - 2
+                    // ul
+                        // sortByDateBtn #sortBy-date LI  - 3
+                        // sortByTitleBtn #sortBy-title LI - 4
 
         // DROPDOWN FOCUS is default when tabbing nav
         dropdownMenu.addEventListener('keydown' , function(event){
-            if ( event.keyCode === 13 || event.code === 'Space') {
+            if ( event.code === 'Enter'|| event.code === 'Space') {
 
                 let menuDiv = event.target; // default tabbing on parent
                 let caret = document.getElementById('open');
@@ -94,37 +93,28 @@ export class DropdownTemplate extends HTMLElement {
                     caret = event.target;
                     // CARET KEYBOARD ACTIONS
                     // ENTER : open dropdown
-                    if ( event.keyCode === 13 || event.code === 'Space') { 
+                    if ( event.code === 'Enter' || event.code === 'Space') { 
                         caret.click();
                         dropdownOpened = true;
                     }
-
                     // ONCE DROPDOWN = OPEN
-                        
-
-                    // RIGHT or DOWN => focus goes to 1st li
+                    // RIGHT or DOWN => focus goes to FIRST LI
                     if ( event.code === 'ArrowRight' || event.code === 'ArrowDown' ) {
 
-                        event.preventDefault(); // which is
+                        event.preventDefault(); // which is whole page scrolling
                         let liOne = document.getElementById('sortBy-date');
                         caret.blur(); // ----------------------------------------- THIS ONE !!!
                         
                         liOne.focus();
                         console.log('FOCUS on liOne', document.activeElement);
-                        keyAction(liOne);
-
-
+                        
+                        // pass action to LI
+                        keyAction(liOne);  
                     }
                 }, false);
             }
         }, false);
 
-
-
-        // Attach stylesheet to component
-        // shadow3.appendChild(dropdownStyle);
-        // Attach the created elements to the shadow dom
-        // shadow3.appendChild(dropdownWrapper);
         this.appendChild(dropdownWrapper);
     }
 }

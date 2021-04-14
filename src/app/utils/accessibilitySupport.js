@@ -47,14 +47,12 @@ Down: 40 */
 // 'directAction' : tab focus on element 
 // export function keyAction(elem, actionType) {
 export function keyAction(elem) {
-    let concernedElement = elem;
+    let el = elem;
     // let action = actionType;
     // let targetElem;
-    concernedElement.addEventListener('keydown', function(event) {
-        concernedElement = event.target;
-        console.log('concerned==', concernedElement);
-        // console.log('concernedChild==', concernedElement.firstElementChild);
-        // console.log('concernedParent==', concernedElement.parentNode);
+    el.addEventListener('keydown', function(event) {
+        el = event.target;
+        console.log('concerned==', el);
 
         /* if ( action === 'undirectAction') {
             if ( event.keyCode === 13 || event.code === 'Space') {
@@ -66,27 +64,40 @@ export function keyAction(elem) {
         }
         if ( action === 'directAction' ) { */
             // if elem press ENTER or SPACE =>  = click()
-            if ( event.keyCode === 13 || event.code === 'Space') { elem.click(); }
+            if ( event.code === 'Enter' || event.code === 'Space') {
+
+                el.click();
+            }
             
             // if elem press RIGHT or DOWN => focus moves onto nextelem + listen to key
-            if ( event.keyCode === 39 || event.keyCode === 37 ) { 
-                if (elem.nextSibling) {  // check the element exists
-                    elem.nextSibling.focus();
-                    keyAction(elem.nextSibling); 
-                } else { return; }
+            if ( event.code === 'ArrowRight' || event.code === 'ArrowDown' ) { 
+                if (el.nextSibling && el.nextSibling!== null) {  // check the element exists
+                    el.blur();
+                    // console.log('el.nextSibling==', el.nextElementSibling)
+                    el.nextElementSibling.focus();
+                    keyAction(el.nextElementSibling); 
+                } else { // if no next sibling > focus goes back to parent
+                    event.preventDefault(); // which is whole page scrolling
+                    el.blur();
+                    el.parentNode.focus();
+                }
             }
 
             // if elem press LEFT or UP => focus moves onto nextelem + listen to key
-            if ( event.keyCode === 37 || event.keyCode === 38 ) {
-                if (elem.previousSibling) { // check the element exists
-                    elem.previousSibling.focus();
-                    keyAction(elem.previousSibling); 
-                } else { return; }
+            if ( event.code === 'ArrowLeft' || event.code === 'ArrowUp' ) {
+                if (el.previousElementSibling && el.previousElementSibling !== null) { // check the element exists
+                    el.previousElementSibling.focus();
+                    keyAction(el.previousElementSibling); 
+                } else { // if no next sibling > focus goes back to parent
+                    event.preventDefault(); // which is whole page scrolling
+                    el.blur();
+                    el.parentNode.focus(); }
             }
 
             // if elem press LEFT => focus moves onto nextelem + listen to key
             if ( event.code === 'Escape' ) {
-                elem.parentNode.focus();
+                el.parentNode.focus();
+                console.log('ESCAPED!');
             }
        //  }
     }, false);
