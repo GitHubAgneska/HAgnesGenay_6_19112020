@@ -5,42 +5,6 @@
 
 import { photographerPageModule } from "../modules/photographerPageModule";
 
-// COMPATIBILITY ENHANCER ===> NOT NECESSARY WITH WEBPACK -----------------------------------------------------
-/* !function () {   // syntax = short-hand or alternative of self-invoking anonymous function IIFE
-    var w = window,
-        d = w.document;
-
-    if (w.onfocusin === undefined) {
-        d.addEventListener('focus', addPolyfill, true);
-        d.addEventListener('blur', addPolyfill, true);
-        d.addEventListener('focusin', removePolyfill, true);
-        d.addEventListener('focusout', removePolyfill, true);
-    }
-    function addPolyfill(e) {
-        var type = e.type === 'focus' ? 'focusin' : 'focusout';
-        var event = new CustomEvent(type, {
-            bubbles: true,
-            cancelable: false
-        });
-        event.c1Generated = true;
-        e.target.dispatchEvent(event);
-    }
-    function removePolyfill(e) {
-        if (! e.c1Generated) { // focus after focusin, so chrome will the first time trigger tow times focusin
-            d.removeEventListener('focus', addPolyfill, true);
-            d.removeEventListener('blur', addPolyfill, true);
-            d.removeEventListener('focusin', removePolyfill, true);
-            d.removeEventListener('focusout', removePolyfill, true);
-        }
-        setTimeout(function () {
-            d.removeEventListener('focusin', removePolyfill, true);
-            d.removeEventListener('focusout', removePolyfill, true);
-        });
-    }
-}(); */
-// ----------------------------------------------------------------------------------------------------------
-
-
 export const Lightbox = (function () {
 
     "use strict"; // code should be executed in "strict mode"- you can not, for example, use undeclared variables
@@ -139,10 +103,10 @@ export const Lightbox = (function () {
             liItem.className = 'slide';
             liItem.setAttribute('data', pic.id);
 
-            if (pic.image) {
+            if (pic.hasAttribute('image')) {
                 liItem.setAttribute('style', 'background-image:url("./assets/img/' + pic.photographerName + '/XL/'+ (pic.image ) + '")' );
             }
-            else if (pic.video) {
+            else if (pic.hasAttribute('video')) {
                 let videoWrapper = document.createElement('video');
                 videoWrapper.setAttribute('controls', '');
                 let source = document.createElement('source');
@@ -465,4 +429,39 @@ export const Lightbox = (function () {
     <div aria-live="polite" aria-atomic="true" class="liveregion visuallyHidden"></div>
     
 </div> */
+
+// COMPATIBILITY ENHANCER ===> NOT NECESSARY WITH WEBPACK -----------------------------------------------------
+/* !function () {   // syntax = short-hand or alternative of self-invoking anonymous function IIFE
+    var w = window,
+        d = w.document;
+
+    if (w.onfocusin === undefined) {
+        d.addEventListener('focus', addPolyfill, true);
+        d.addEventListener('blur', addPolyfill, true);
+        d.addEventListener('focusin', removePolyfill, true);
+        d.addEventListener('focusout', removePolyfill, true);
+    }
+    function addPolyfill(e) {
+        var type = e.type === 'focus' ? 'focusin' : 'focusout';
+        var event = new CustomEvent(type, {
+            bubbles: true,
+            cancelable: false
+        });
+        event.c1Generated = true;
+        e.target.dispatchEvent(event);
+    }
+    function removePolyfill(e) {
+        if (! e.c1Generated) { // focus after focusin, so chrome will the first time trigger tow times focusin
+            d.removeEventListener('focus', addPolyfill, true);
+            d.removeEventListener('blur', addPolyfill, true);
+            d.removeEventListener('focusin', removePolyfill, true);
+            d.removeEventListener('focusout', removePolyfill, true);
+        }
+        setTimeout(function () {
+            d.removeEventListener('focusin', removePolyfill, true);
+            d.removeEventListener('focusout', removePolyfill, true);
+        });
+    }
+}(); */
+// ----------------------------------------------------------------------------------------------------------
 
