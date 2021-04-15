@@ -80,7 +80,7 @@ export function validateFormInputs(form, inputs) {
                 }
             }
         });
-        console.log('ISVALID==', isFormValid);
+        // console.log('ISVALID==', isFormValid);
         return isFormValid;
     }
 
@@ -92,7 +92,7 @@ export function validateFormInputs(form, inputs) {
         // locate corresponding '.requirement' class element 
         // = first immediate SPAN following input with id ('#id + .class')
         let requirement = elementFromId.nextElementSibling;
-        console.log('REQ==', requirement);
+        // console.log('REQ==', requirement);
 
         // set element's requirements attributes to be visible
         if (requirement.classList.contains('visuallyHidden')) {
@@ -104,7 +104,7 @@ export function validateFormInputs(form, inputs) {
     //  if field valid after correction or being edited : HIDE its REQUIREMENTS  
     //  ------------------------------------------------------------------------ 
     export function removeRequirementsMessage(id) {
-        console.log('REMOVE TRIGGERED');
+        // console.log('REMOVE TRIGGERED');
         //  locate concerned dom element (id param) 
         let elementFromId = document.querySelector('#'+ id);
         // console.log('RM - elementFromId ==', elementFromId);

@@ -119,19 +119,19 @@ export const photographerPageModule = (function() {
 
     // LIGHTBOX ======================================================================
 
-    function openLightbox (event, currentImgId, currentImg, currentGallery) { 
+    function openLightbox (event, currentImgId, currentImg, currentGallery) {
+
         var currentImgId = currentImgId;
         var currentImg = currentImg;
-        var currentGallery = currentGallery;
-
-        //console.log('currentImg==', currentImg,'currentGallery==', currentGallery );
+        var currentGallery = currentGallery;   // --------- TO REVIEW : currentGallery order = api images order => ≠ sortedBy : BUG at lightbox opening
+        // console.log('currentImg==', currentImg,'currentGallery==', currentGallery );
         
-        new Lightbox().init({currentImgId:currentImgId, currentImg:currentImg, currentGallery:currentGallery, slidenav: true, animate: true, startAnimated: false});
+        new Lightbox().init({currentImgId:currentImgId, currentImg:currentImg, currentGallery:currentGallery, slidenav: true, animate: false, startAnimated: false});
     }
+
     function closeLightbox(lightboxWrapper) {
         // destroyView(lightboxWrapper);
         const root = document.querySelector('#root');
-        // const parent = document.body;
         root.removeChild(root.lastChild);
     }
 
@@ -140,13 +140,12 @@ export const photographerPageModule = (function() {
         var root = document.querySelector('#photographer-content');
 
         // KEYBOARD NAV SUPPORT : before modal opens, all bg tabindex = -1
-        // NOTE - because DROPDOWN is in SHADOW DOM, = not detected
         // let tabbables = root.querySelectorAll('[tabindex]');
         let tabbables = root.childNodes;
         console.log(tabbables);
         for (let node of tabbables) {
             if ( node.nodeName!=="#text") { 
-                node.setAttribute('disabled', 'disabled');
+                node.setAttribute('tabindex', '-1');
                 
             }
         }
@@ -155,6 +154,7 @@ export const photographerPageModule = (function() {
         var contactModal = new ModalContact(currentPhotographer);
         contactModal.focus();
         root.appendChild(contactModal);
+        let modalOpen = true;
     }
 
 

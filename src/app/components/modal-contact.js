@@ -15,16 +15,11 @@ export class ModalContact extends HTMLElement {
         const mainModalWrapper = document.createElement('div');
         mainModalWrapper.setAttribute('id', 'modal-contact');
         mainModalWrapper.setAttribute('class', 'contact-modal__main-wrapper');
+        
 
         // retrieve photographer object from param
         let photographer = photog;
         mainModalWrapper.setAttribute('data', photographer);
-
-        // modal style
-        const modalStyle = document.createElement('link');
-        modalStyle.setAttribute('href', './main.css');
-        modalStyle.setAttribute('rel', 'stylesheet');
-        modalStyle.setAttribute('type', 'text/css');
 
 
         // MODAL CONTENT ======================================================================
@@ -43,13 +38,13 @@ export class ModalContact extends HTMLElement {
 
         modalInnerWrapper.innerHTML = 
             `
-            <div class="fields-wrapper">
+            <div class="fields-wrapper" tabindex="0">
 
-                <div id="cancelModalBtn" class="cancelModalBtn" role="button" aria-label="close modal">
+                <div tabindex="1" id="cancelModalBtn" class="cancelModalBtn" role="button" aria-label="close modal">
                     <i class="fa fa-times" aria-hidden="true"></i>
                 </div>
 
-                <h1>Contactez-moi<br>${photographer.name}</h1>
+                <h1 tabindex="-1">Contactez-moi<br>${photographer.name}</h1>
 
                 <form id="contact-form" method="" action="">
                     <div class="field">
@@ -89,12 +84,23 @@ export class ModalContact extends HTMLElement {
             console.log('Some fields have been touched!');
         });
 
+
         // add event on contact btn to call modal contact
         const cancelModalBtn = modalInnerWrapper.querySelector('#cancelModalBtn');
         const modal = this;
 
         cancelModalBtn.addEventListener('click', function(event){
             photographerPageModule.closeModal(event, mainModalWrapper, inputsTouched, modal) }, false);
+
+        // KEYBOARD SUPPORT : listen to 'escape' => close
+        modalInnerWrapper.addEventListener('keydown', function(event) {
+            if ( event.code === 'Escape' ) {
+                
+                photographerPageModule.closeModal(event, mainModalWrapper, inputsTouched, modal);
+
+                console.log('ESCAPED!');
+            }
+        }, false);
 
         // retrieve all inputs from form
         const form = modalInnerWrapper.querySelector('#contact-form');
@@ -109,12 +115,11 @@ export class ModalContact extends HTMLElement {
         // attach modal inner content to modal main wrapper
         mainModalWrapper.appendChild(modalInnerWrapper);
 
-        // KEYBOARD NAV SUPPORT
-        
 
-        // Attach stylesheet to component
-        this.appendChild(modalStyle);
-        // Attach the created elements to the shadow dom
+
+
+        
+        // Attach the created elements to parent
         this.appendChild(mainModalWrapper);
     }
 }

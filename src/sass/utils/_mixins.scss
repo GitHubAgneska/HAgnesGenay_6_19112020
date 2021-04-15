@@ -13,7 +13,7 @@ $breakpoints: (xs-mobile: 375px, mobile: 600px, tablet: 768px, laptop: 992px, de
 @mixin max-375px {
     @media screen and (max-width: map-get($breakpoints, xs-mobile )) {
         @content;
-        @include transition(all, 1s, ease-in-out);
+        @include transition(all, 1s, ease-in-out);  // --------- TO REVIEW : replace 'all' with specific elements
     }
 }
 /* == from 375  */

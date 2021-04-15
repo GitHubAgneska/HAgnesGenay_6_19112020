@@ -5,10 +5,8 @@
 
 import { photographerPageModule } from "../modules/photographerPageModule";
 
-
-
 // COMPATIBILITY ENHANCER ===> NOT NECESSARY WITH WEBPACK -----------------------------------------------------
-!function () {   // syntax = short-hand or alternative of self-invoking anonymous function IIFE
+/* !function () {   // syntax = short-hand or alternative of self-invoking anonymous function IIFE
     var w = window,
         d = w.document;
 
@@ -39,7 +37,7 @@ import { photographerPageModule } from "../modules/photographerPageModule";
             d.removeEventListener('focusout', removePolyfill, true);
         });
     }
-}();
+}(); */
 // ----------------------------------------------------------------------------------------------------------
 
 
@@ -48,9 +46,9 @@ export const Lightbox = (function () {
     "use strict"; // code should be executed in "strict mode"- you can not, for example, use undeclared variables
 
     // Initial variables
-    var lightbox, index, slidenav, slides, settings, timer, setFocus, animationSuspended, announceItem, _this;
-    var currentImgId;  var currentGallery;
-    var currentImg;
+    let index, slidenav, slides, settings, timer, setFocus, animationSuspended, announceItem, _this;
+    let currentImgId;  let currentGallery;
+    let currentImg;
     
     //HELPER FUNCTIONS
             // Helper function: Iterates over an array of elements
@@ -95,10 +93,10 @@ export const Lightbox = (function () {
         lightboxWrapper.appendChild(lightboxInnerWrapper);
 
         // lightbox style
-        const lightboxStyle = document.createElement('link');
+    /*  const lightboxStyle = document.createElement('link');
         lightboxStyle.setAttribute('href', './main.css');
         lightboxStyle.setAttribute('rel', 'stylesheet');
-        lightboxStyle.setAttribute('type', 'text/css');
+        lightboxStyle.setAttribute('type', 'text/css'); */
 
         
         // generate LIGHTBOX  ========================================
@@ -141,10 +139,10 @@ export const Lightbox = (function () {
             liItem.className = 'slide';
             liItem.setAttribute('data', pic.id);
 
-            if (pic.hasOwnProperty('image')) {
+            if (pic.image) {
                 liItem.setAttribute('style', 'background-image:url("./assets/img/' + pic.photographerName + '/XL/'+ (pic.image ) + '")' );
             }
-            if (pic.hasOwnProperty('video')) {
+            else if (pic.video) {
                 let videoWrapper = document.createElement('video');
                 videoWrapper.setAttribute('controls', '');
                 let source = document.createElement('source');

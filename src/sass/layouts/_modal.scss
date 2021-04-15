@@ -14,7 +14,7 @@
         @include box-shadow;
         @include max-600px { width:100vw; height:100vh; } //------- to review (white bg margins)
         @include min-600px { width: 670px; margin: auto; @include border-radius(3px); }
-
+        &:focus, &:active { border: 3px solid red;}
 
         .fields-wrapper {
             margin: 30px 35px;

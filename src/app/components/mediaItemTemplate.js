@@ -23,7 +23,6 @@ import { photographerPageModule } from "../modules/photographerPageModule";
             mediaWrapper.setAttribute('class', 'pic-wrapper');
             mediaWrapper.setAttribute('tabindex', '0'); // make element tabbable
 
-            
             if ( medium.hasOwnProperty('image') ) {
                 mediaWrapper.innerHTML = 
                     ` 
@@ -44,8 +43,8 @@ import { photographerPageModule } from "../modules/photographerPageModule";
 
             // add event listener to OPEN LIGHTBOX
             mediaWrapper.addEventListener('click', function(event) {
-                // mediaItem.id = event.target;
-                photographerPageModule.openLightbox(event, medium.id, medium, currentGallery)
+                mediaItem.id = event.target;
+                photographerPageModule.openLightbox(event, medium.id, medium, currentGallery)   // --------- TO REVIEW : currentGallery order = api images order => ≠ sortedBy
             }, false);
             
             // KEYBOARD NAV SUPPORT
@@ -101,10 +100,6 @@ import { photographerPageModule } from "../modules/photographerPageModule";
                 }
             });
 
-
-
-
-            
             // attach image/video wrapper to media item wrapper in first position
             galleryItem.insertAdjacentElement('afterbegin',mediaWrapper);
             galleryItem.appendChild(mediaInfosWrapper);

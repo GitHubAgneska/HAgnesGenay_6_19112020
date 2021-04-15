@@ -16,4 +16,10 @@
         margin-left: 50px;
         @include max-600px {height: 35px; }
     }
+    &--contact:focus, 
+    &--contact:active, 
+    &--contact:hover { 
+        background-color: $orange-main; color: black;
+        transition: background-color, 0.2s, ease-in-out !important;
+    }
 }
