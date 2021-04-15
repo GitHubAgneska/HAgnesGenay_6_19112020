@@ -26,7 +26,7 @@ export class DropdownTemplate extends HTMLElement {
             ` <p class="dropdown-menu-title">trier par</p>
 
                 <div tabindex="0" id="dropdown-menu" class="dropdown-menu hide" aria-label="sort gallery by">
-                    <button tabindex="4" id="sortBy-likes" class="open-dropdown-btn" aria-haspopup="listbox" aria-labelledby="sortBy-likes-btn">
+                    <button type="button" tabindex="4" id="sortBy-likes" class="open-dropdown-btn" aria-haspopup="listbox" aria-labelledby="sortBy-likes-btn">
                         ${currentTitle}
                     </button> 
                     <img tabindex="1" id="open" src="./assets/icons/caret.png" alt="logo open" aria-hidden="true">
@@ -53,6 +53,7 @@ export class DropdownTemplate extends HTMLElement {
         function toggleDropdown(event, currentTitle){
 
             let caret = event.target;
+            let btnToUpdate = caret.parentNode.firstElementChild;
             let targetedElement = event.target.parentNode; // div parent
             
             if ( targetedElement.classList.contains('hide') ){
@@ -66,14 +67,13 @@ export class DropdownTemplate extends HTMLElement {
 
                 dropdownOpen = false;
                 console.log('dropdownOpen==', dropdownOpen);
-                updateBtnSortTerm(currentTitle)
+                sortByLikesBtn.textContent = currentTitle;
                 caret.classList.remove('down'); // caret points upwards when dropdown is closed
-            
             }
         }
 
         function updateBtnSortTerm(currentTitle) {
-            sortByLikesBtn.childNodes[1].textContent = currentTitle;
+            sortByLikesBtn.textContent = currentTitle;
         }
 
 
@@ -82,67 +82,20 @@ export class DropdownTemplate extends HTMLElement {
         sortByDateBtn.addEventListener('click', function(event){ 
             let type = 'date';
             currentTitle = type;
-            photographerPageModule.renderSortedView(photographerGalleryBlock, photog, type);}, false);
+            photographerPageModule.renderSortedView(photographerGalleryBlock, photog, type);
+        }, false);
 
         sortByTitleBtn.addEventListener('click', function(event){ 
             let type = 'title';
             currentTitle = type;
             photographerPageModule.renderSortedView(photographerGalleryBlock, photog, type);}, false);
 
-            
         sortByLikesBtn.addEventListener('click', function(event){ 
             let btn = event.currentTarget;
             let type = 'likes';
             currentTitle ='popularité';
             photographerPageModule.renderSortedView(photographerGalleryBlock, photog, type);}, false );
                     
-                    
-        // KEYBOARD NAV SUPPORT
-        // default tab = on dropdown-menu DIV
-        
-                // elements = 
-                    // DIV #dropdown-menu - 1
-                        // sortByLikesBtn #sortBy-likes BTN
-                            // CARET #open IMG  - 2
-                    // ul
-                        // sortByDateBtn #sortBy-date LI  - 3
-                        // sortByTitleBtn #sortBy-title LI - 4
-
-        // DROPDOWN FOCUS is default when tabbing nav
-        dropdownMenu.addEventListener('keydown' , function(event){
-            if ( event.code === 'Enter'|| event.code === 'Space') {
-
-                let menuDiv = event.target; // default tabbing on parent
-                let caret = document.getElementById('open');
-                
-                // FOCUS IS ON CARET
-                caret.focus(); // focus goes to caret icon
-                // pass event to CARET
-                caret.addEventListener('keydown', function(event) {
-                    caret = event.target;
-                    // CARET KEYBOARD ACTIONS
-                    // ENTER : open dropdown
-                    if ( event.code === 'Enter' || event.code === 'Space') { 
-                        caret.click();
-                        dropdownOpened = true;
-                    }
-                    // ONCE DROPDOWN = OPEN
-                    // RIGHT or DOWN => focus goes to FIRST LI
-                    if ( event.code === 'ArrowRight' || event.code === 'ArrowDown' ) {
-
-                        event.preventDefault(); // which is whole page scrolling
-                        let liOne = document.getElementById('sortBy-date');
-                        caret.blur(); // ----------------------------------------- THIS ONE !!!
-                        
-                        liOne.focus();
-                        console.log('FOCUS on liOne', document.activeElement);
-                        
-                        // pass action to LI
-                        keyAction(liOne);  
-                    }
-                }, false);
-            }
-        }, false);
 
         this.appendChild(dropdownWrapper);
     }
