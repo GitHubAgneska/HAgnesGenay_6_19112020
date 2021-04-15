@@ -44,6 +44,8 @@
             text-align: unset; // reset to left
             text-transform: capitalize;
         }
+        button:hover, button:active, button:focus,
+        li:hover, li:active, li:focus { background-color: $orange-main; }
         button, li:nth-child(1) { border-bottom: 0.5px solid $white; } // all but third li element have bottom border
     }
 }

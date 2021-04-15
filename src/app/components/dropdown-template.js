@@ -53,21 +53,21 @@ export class DropdownTemplate extends HTMLElement {
         function toggleDropdown(event, currentTitle){
 
             let caret = event.target;
-            let btnToUpdate = caret.parentNode.firstElementChild;
             let targetedElement = event.target.parentNode; // div parent
             
             if ( targetedElement.classList.contains('hide') ){
                 targetedElement.classList.remove('hide');
                 dropdownOpen = true;
+                currentTitle = 'popularité';
+                sortByLikesBtn.textContent = currentTitle; // update btn title
                 console.log('dropdownOpen==', dropdownOpen);
                 caret.classList.add('down'); // caret points downwards when dropdown is open
             
             } else if ( !targetedElement.classList.contains('hide') ) {
                 targetedElement.classList.add('hide');
-
                 dropdownOpen = false;
                 console.log('dropdownOpen==', dropdownOpen);
-                sortByLikesBtn.textContent = currentTitle;
+                sortByLikesBtn.textContent = currentTitle; // update btn title
                 caret.classList.remove('down'); // caret points upwards when dropdown is closed
             }
         }
@@ -95,8 +95,48 @@ export class DropdownTemplate extends HTMLElement {
             let type = 'likes';
             currentTitle ='popularité';
             photographerPageModule.renderSortedView(photographerGalleryBlock, photog, type);}, false );
-                    
 
+
+        // KEYBOARD NAV SUPPORT
+        // DROPDOWN FOCUS is default when tabbing nav
+        dropdownMenu.addEventListener('keydown' , function(event){
+            if ( event.code === 'Enter'|| event.code === 'Space') {
+
+                let menuDiv = event.target; // default tabbing on parent
+                let caret = document.getElementById('open');
+                
+                // FOCUS IS ON CARET
+                caret.focus(); // focus goes to caret icon
+                // pass event to CARET
+                caret.addEventListener('keydown', function(event) {
+                    caret = event.target;
+                    // CARET KEYBOARD ACTIONS
+                    // ENTER : open dropdown
+                    if ( event.code === 'Enter' || event.code === 'Space') { 
+                        caret.click();
+                        dropdownOpened = true;
+                    }
+                    // ONCE DROPDOWN = OPEN
+                    // RIGHT or DOWN => focus goes to FIRST LI
+                    if ( event.code === 'ArrowRight' || event.code === 'ArrowDown' ) {
+
+                        event.preventDefault(); // which is whole page scrolling
+                        let liOne = document.getElementById('sortBy-date');
+                        caret.blur(); // ----------------------------------------- THIS ONE !!!
+                        
+                        liOne.focus();
+                        console.log('FOCUS on liOne', document.activeElement);
+                        
+                        // pass action to LI
+                        keyAction(liOne);  
+                    }
+                }, false);
+            }
+        }, false);
+
+
+
+            
         this.appendChild(dropdownWrapper);
     }
 }
