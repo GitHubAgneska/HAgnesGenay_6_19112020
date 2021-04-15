@@ -22,24 +22,23 @@ export class DropdownTemplate extends HTMLElement {
         let currentTitle = 'popularité';
 
         // set dropdow wrapper content
-        dropdownWrapper.innerHTML = `
-        
-            <p class="dropdown-menu-title">trier par</p>
+        dropdownWrapper.innerHTML = 
+            ` <p class="dropdown-menu-title">trier par</p>
 
-            <div tabindex="0" id="dropdown-menu" class="dropdown-menu hide" aria-label="sort gallery by">
-                <button id="sortBy-likes" class="open-dropdown-btn" aria-haspopup="listbox" aria-labelledby="sortBy-likes-btn">
-                    ${currentTitle}
+                <div tabindex="0" id="dropdown-menu" class="dropdown-menu hide" aria-label="sort gallery by">
+                    <button tabindex="4" id="sortBy-likes" class="open-dropdown-btn" aria-haspopup="listbox" aria-labelledby="sortBy-likes-btn">
+                        ${currentTitle}
+                    </button> 
                     <img tabindex="1" id="open" src="./assets/icons/caret.png" alt="logo open" aria-hidden="true">
-                </button> 
-                <ul id="sortBy" role="listbox" aria-labelledby="sortBy">
-                    <li tabindex="2" id="sortBy-date" role="option">date</li>
-                    <li tabindex="3" id="sortBy-title" role="option">titre</li>
-                </ul>
-            </div>
-        `;
+                    <ul id="sortBy" role="listbox" aria-labelledby="sortBy">
+                        <li tabindex="2" id="sortBy-date" role="option">date</li>
+                        <li tabindex="3" id="sortBy-title" role="option">titre</li>
+                    </ul>
+                </div>
+            `;
 
+        const dropdownMenu = dropdownWrapper.querySelector('#dropdown-menu');
         let dropdownOpen = false; // default
-        const menuDiv = dropdownWrapper.querySelector('#dropdown-menu');
         
         const sortByLikesBtn = dropdownWrapper.querySelector('#sortBy-likes');
         const sortByDateBtn = dropdownWrapper.querySelector('#sortBy-date');
@@ -54,7 +53,7 @@ export class DropdownTemplate extends HTMLElement {
         function toggleDropdown(event, currentTitle){
 
             let caret = event.target;
-            let targetedElement = event.target.parentNode.parentNode; // div parent
+            let targetedElement = event.target.parentNode; // div parent
             
             if ( targetedElement.classList.contains('hide') ){
                 targetedElement.classList.remove('hide');
@@ -80,29 +79,27 @@ export class DropdownTemplate extends HTMLElement {
 
         const photographerGalleryBlock = document.querySelector('.gallery-wrapper');
         
-        sortByDateBtn.onclick = (event) => {
+        sortByDateBtn.addEventListener('click', function(event){ 
             let type = 'date';
             currentTitle = type;
-            photographerPageModule.renderSortedView(photographerGalleryBlock, photog, type);
-        }
+            photographerPageModule.renderSortedView(photographerGalleryBlock, photog, type);}, false);
 
-        sortByTitleBtn.onclick = () => { 
+        sortByTitleBtn.addEventListener('click', function(event){ 
             let type = 'title';
             currentTitle = type;
-            photographerPageModule.renderSortedView(photographerGalleryBlock, photog, type); }
+            photographerPageModule.renderSortedView(photographerGalleryBlock, photog, type);}, false);
 
             
-        sortByLikesBtn.addEventListener('click',function(event){ 
+        sortByLikesBtn.addEventListener('click', function(event){ 
             let btn = event.currentTarget;
             let type = 'likes';
-            currentTitle = type;
-            photographerPageModule.renderSortedView(photographerGalleryBlock, photog, type); }, true ); // DON'T GO TO DESCENDANT CARET !
+            currentTitle ='popularité';
+            photographerPageModule.renderSortedView(photographerGalleryBlock, photog, type);}, false );
                     
                     
         // KEYBOARD NAV SUPPORT
         // default tab = on dropdown-menu DIV
-        const dropdownMenu = dropdownWrapper.querySelector('#dropdown-menu');
-        let dropdownOpened = false;
+        
                 // elements = 
                     // DIV #dropdown-menu - 1
                         // sortByLikesBtn #sortBy-likes BTN

@@ -14,6 +14,7 @@
     p { margin-right: 20px; text-transform: capitalize;font-weight:600;}
 
     .dropdown-menu {
+        position: relative; // for caret abs positioning
         width: 170px; height:170px;
         @include border-radius(5px);
         background-color: $red-main;
@@ -28,13 +29,13 @@
             justify-content: space-between;
             padding: 0;
             background-color: transparent;
-            img { 
-                @include icon-base;
-                width:1.5em;
-                height:1em;
-
-                &.down { transform: rotate(180deg);} // caret points downwards when dropdown is open
-            }
+        }
+        img {
+            position: absolute; right:15px;top:20px; 
+            @include icon-base;
+            width:1.5em;
+            height:1em;
+            &.down { transform: rotate(180deg);} // caret points downwards when dropdown is open
         }
         button, li { // select items
             width:90%; margin:auto; 
