@@ -39,61 +39,64 @@ export class DropdownTemplate extends HTMLElement {
         `;
 
         let dropdownOpen = false; // default
+        const menuDiv = dropdownWrapper.querySelector('#dropdown-menu');
+        
+        const sortByLikesBtn = dropdownWrapper.querySelector('#sortBy-likes');
+        const sortByDateBtn = dropdownWrapper.querySelector('#sortBy-date');
+        const sortByTitleBtn = dropdownWrapper.querySelector('#sortBy-title');
 
         // events for btns
-        const toggleOpenBtn = dropdownWrapper.querySelector('#open');
-        toggleOpenBtn.addEventListener('click' , function(event){ toggleDropdown(event);}, false);
+        const toggleOpenBtn = dropdownWrapper.querySelector('#open'); // CARET
+        toggleOpenBtn.addEventListener('click' , function(event){ toggleDropdown(event, currentTitle);}, false);// CARET event toggle menu
         
         
-        // open Dropdown
-        function toggleDropdown(event){
+        // open/close Dropdown
+        function toggleDropdown(event, currentTitle){
 
             let caret = event.target;
-            let targetedElement = event.target.parentNode.parentNode; // event on CARET logo img -> effect on div parent
+            let targetedElement = event.target.parentNode.parentNode; // div parent
             
             if ( targetedElement.classList.contains('hide') ){
                 targetedElement.classList.remove('hide');
                 dropdownOpen = true;
                 console.log('dropdownOpen==', dropdownOpen);
                 caret.classList.add('down'); // caret points downwards when dropdown is open
+            
             } else if ( !targetedElement.classList.contains('hide') ) {
                 targetedElement.classList.add('hide');
+
                 dropdownOpen = false;
                 console.log('dropdownOpen==', dropdownOpen);
-                caret.classList.remove('down'); // caret points downwards when dropdown is open
+                updateBtnSortTerm(currentTitle)
+                caret.classList.remove('down'); // caret points upwards when dropdown is closed
+            
             }
         }
 
+        function updateBtnSortTerm(currentTitle) {
+            sortByLikesBtn.childNodes[1].textContent = currentTitle;
+        }
 
-        const sortByDateBtn = dropdownWrapper.querySelector('#sortBy-date');
-        const sortByTitleBtn = dropdownWrapper.querySelector('#sortBy-title');
-        const sortByLikesBtn = dropdownWrapper.querySelector('#sortBy-likes');
+
+        const photographerGalleryBlock = document.querySelector('.gallery-wrapper');
         
         sortByDateBtn.onclick = (event) => {
             let type = 'date';
             currentTitle = type;
-            let photographerGalleryBlock = document.querySelector('.gallery-wrapper');
+            photographerPageModule.renderSortedView(photographerGalleryBlock, photog, type);
+        }
+
+        sortByTitleBtn.onclick = () => { 
+            let type = 'title';
+            currentTitle = type;
             photographerPageModule.renderSortedView(photographerGalleryBlock, photog, type); }
 
-        /* // KEYBOARD NAV SUPPORT
-        sortByDateBtn.onkeydown = (event) => {
-            console.log('I AM DATE TARGET=', event.target)
-            let type = 'date';
-            let photographerGalleryBlock = document.querySelector('.gallery-wrapper');
-            if ( event.keyCode === 13 ) {
-            photographerPageModule.renderSortedView(photographerGalleryBlock, photog, type); }
-            }; */
-        
             
-            sortByTitleBtn.onclick = () => { 
-                let type = 'title';
-                let photographerGalleryBlock = document.querySelector('.gallery-wrapper');
-                photographerPageModule.renderSortedView(photographerGalleryBlock, photog, type); }
-                
-                sortByLikesBtn.onclick = () => { 
-                    let type = 'likes';
-                    let photographerGalleryBlock = document.querySelector('.gallery-wrapper');
-                    photographerPageModule.renderSortedView(photographerGalleryBlock, photog, type); }
+        sortByLikesBtn.addEventListener('click',function(event){ 
+            let btn = event.currentTarget;
+            let type = 'likes';
+            currentTitle = type;
+            photographerPageModule.renderSortedView(photographerGalleryBlock, photog, type); }, true ); // DON'T GO TO DESCENDANT CARET !
                     
                     
         // KEYBOARD NAV SUPPORT
