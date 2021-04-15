@@ -32,6 +32,8 @@
                 @include icon-base;
                 width:1.5em;
                 height:1em;
+
+                &.down { transform: rotate(180deg);} // caret points downwards when dropdown is open
             }
         }
         button, li { // select items

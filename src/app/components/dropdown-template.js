@@ -19,6 +19,8 @@ export class DropdownTemplate extends HTMLElement {
         dropdownStyle.setAttribute('type', 'text/css');
         dropdownStyle.setAttribute('rel', 'stylesheet');
 
+        let currentTitle = 'popularité';
+
         // set dropdow wrapper content
         dropdownWrapper.innerHTML = `
         
@@ -26,7 +28,7 @@ export class DropdownTemplate extends HTMLElement {
 
             <div tabindex="0" id="dropdown-menu" class="dropdown-menu hide" aria-label="sort gallery by">
                 <button id="sortBy-likes" class="open-dropdown-btn" aria-haspopup="listbox" aria-labelledby="sortBy-likes-btn">
-                    popularité
+                    ${currentTitle}
                     <img tabindex="1" id="open" src="./assets/icons/caret.png" alt="logo open" aria-hidden="true">
                 </button> 
                 <ul id="sortBy" role="listbox" aria-labelledby="sortBy">
@@ -36,24 +38,43 @@ export class DropdownTemplate extends HTMLElement {
             </div>
         `;
 
+        let dropdownOpen = false; // default
+
         // events for btns
         const toggleOpenBtn = dropdownWrapper.querySelector('#open');
-        toggleOpenBtn.addEventListener('click' , function(event){ toggleDropdownOpen(event);}, false);
+        toggleOpenBtn.addEventListener('click' , function(event){ toggleDropdown(event);}, false);
         
-        function toggleDropdownOpen(event){ 
+        
+        // open Dropdown
+        function toggleDropdown(event){
+
+            let caret = event.target;
             let targetedElement = event.target.parentNode.parentNode; // event on CARET logo img -> effect on div parent
-            targetedElement.classList.toggle('hide');
-            console.log('ACTIVE HERE ==', document.activeElement); // keyboard check
+            
+            if ( targetedElement.classList.contains('hide') ){
+                targetedElement.classList.remove('hide');
+                dropdownOpen = true;
+                console.log('dropdownOpen==', dropdownOpen);
+                caret.classList.add('down'); // caret points downwards when dropdown is open
+            } else if ( !targetedElement.classList.contains('hide') ) {
+                targetedElement.classList.add('hide');
+                dropdownOpen = false;
+                console.log('dropdownOpen==', dropdownOpen);
+                caret.classList.remove('down'); // caret points downwards when dropdown is open
+            }
         }
-        
+
+
         const sortByDateBtn = dropdownWrapper.querySelector('#sortBy-date');
         const sortByTitleBtn = dropdownWrapper.querySelector('#sortBy-title');
         const sortByLikesBtn = dropdownWrapper.querySelector('#sortBy-likes');
         
         sortByDateBtn.onclick = (event) => {
             let type = 'date';
+            currentTitle = type;
             let photographerGalleryBlock = document.querySelector('.gallery-wrapper');
             photographerPageModule.renderSortedView(photographerGalleryBlock, photog, type); }
+
         /* // KEYBOARD NAV SUPPORT
         sortByDateBtn.onkeydown = (event) => {
             console.log('I AM DATE TARGET=', event.target)
