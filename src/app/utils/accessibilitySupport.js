@@ -22,12 +22,8 @@ export function disableAllBgElements(bgTabbables){
         }
     }
 }
-export function enableAllBgElements(ofElement){
-    if (!ofElement) {
-        let toReactivate = document.querySelectorAll('[isBgInactive]');
-    } else {
-        let toReactivate = ofElement
-    }
+export function enableAllBgElements(){
+    let toReactivate = document.querySelectorAll('[isBgInactive]');
     for (let node of toReactivate) {
         if ( node.nodeName!=="#text") { 
             node.setAttribute('tabindex', '0');

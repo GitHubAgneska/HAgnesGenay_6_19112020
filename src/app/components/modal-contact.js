@@ -92,16 +92,6 @@ export class ModalContact extends HTMLElement {
         cancelModalBtn.addEventListener('click', function(event){
             photographerPageModule.closeModal(event, mainModalWrapper, inputsTouched, modal) }, false);
         
-        
-        // KEYBOARD SUPPORT  : cancel btn 'enter'
-        cancelModalBtn.addEventListener('keydown', function(event){ 
-            if ( event.code === 'Enter' || event.code === 'Space') {
-                cancelModalBtn.click(); }
-            }, false);
-        //  listen to 'escape' => close
-        modalInnerWrapper.addEventListener('keydown', function(event){
-            if ( event.code === 'Escape' ) { cancelModalBtn.click(); } }, false);
-
         // retrieve all inputs from form
         const form = modalInnerWrapper.querySelector('#contact-form');
         const formInputs = modalInnerWrapper.querySelector('#contact-form').elements;  // = object
@@ -111,6 +101,26 @@ export class ModalContact extends HTMLElement {
         submitBtn.addEventListener('click', function(event) {
             photographerPageModule.submitForm(event, photog, form, formInputs);
         });
+
+        // KEYBOARD SUPPORT
+        // CANCEL btn -> 'enter'
+        cancelModalBtn.addEventListener('keydown', function(event){ 
+            if ( event.code === 'Enter' || event.code === 'Space') {
+                cancelModalBtn.click(); }
+            }, false);
+
+        // 'escape' => close
+        modalInnerWrapper.addEventListener('keydown', function(event){
+            if ( event.code === 'Escape' ) { cancelModalBtn.click(); } 
+        }, false);
+
+        // tab on last tabbable element (submit btn) -> focus back on 1st input
+        const firstInput = modalInnerWrapper.querySelector('#firstName');
+        submitBtn.addEventListener('keydown', function(event) {
+            if ( event.code === 'Tab' ) {
+                firstInput.focus();
+            }
+        }, false);
 
         // attach modal inner content to modal main wrapper
         mainModalWrapper.appendChild(modalInnerWrapper);
