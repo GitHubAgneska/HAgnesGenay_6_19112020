@@ -103,10 +103,10 @@ export const Lightbox = (function () {
             liItem.className = 'slide';
             liItem.setAttribute('data', pic.id);
 
-            if (pic.hasAttribute('image')) {
+            if (pic.hasOwnProperty('image')) {
                 liItem.setAttribute('style', 'background-image:url("./assets/img/' + pic.photographerName + '/XL/'+ (pic.image ) + '")' );
             }
-            else if (pic.hasAttribute('video')) {
+            else if (pic.hasOwnProperty('video')) {
                 let videoWrapper = document.createElement('video');
                 videoWrapper.setAttribute('controls', '');
                 let source = document.createElement('source');
