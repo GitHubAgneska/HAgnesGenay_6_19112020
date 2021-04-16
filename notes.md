@@ -4,13 +4,7 @@
 
 ----
 
-### deploy to ghpages from app/src
 
-    git subtree push --prefix app/src origin gh-pages
-
----
-
----
 ### SASS install /use
 ---
 - `brew sass`  or  `npm i sass`
@@ -56,6 +50,11 @@ DEPLOY DIST TO GITHUBPAGES
 -----------
 
 ` git subtree push --prefix dist origin gh-pages `
+
+
+[ git see current state:
+
+        ` git log --graph --decorate --oneline ` ]
 
 
 CHROME FETCH CORS - iSSUE (to launch ghpages deploy)
