@@ -13,6 +13,20 @@ export function focusNextElement() {
     }
 }
 
+// KEYBOARD NAV SUPPORT : before modal opens, all bg tabindex = -1
+export function disableTabBgElements(){
+        const root = document.getElementById('root');
+        // let tabbables = root.querySelectorAll('[tabindex]');
+        let tabbables = root.childNodes;
+        console.log(tabbables);
+        for (let node of tabbables) {
+            if ( node.nodeName!=="#text") { 
+                node.setAttribute('tabindex', '-1');
+                
+            }
+        }
+}
+
 
 /* window.addEventListener('keydown', function (event) {
     // initiate navigation by tab keys

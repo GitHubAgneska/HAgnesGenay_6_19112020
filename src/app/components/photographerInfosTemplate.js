@@ -9,9 +9,10 @@ export class PhotographerInfosTemplate extends HTMLElement {
         super();
         // retrieve photographer object from param
         let photographer = photog;
+        let modalContactOpen = false;
 
         // create a shadow root
-        const shadow2 = this.attachShadow({mode: 'open'});
+        // const shadow2 = this.attachShadow({mode: 'open'});
 
         // INFOS BLOCK ======================================================================
         // create photographer main presentation block (top infos + bottom likes / price)
@@ -41,14 +42,11 @@ export class PhotographerInfosTemplate extends HTMLElement {
 
         // add event on contact btn to call modal contact
         const contactBtn = photographerInfosBlock.querySelector('#contact-btn');
-        contactBtn.addEventListener('click', function(event){ 
+
+        contactBtn.addEventListener('click', function(){
             photographerPageModule.openContactForm(photographer)
         }, false); //passes current photographer object as param
-        // KEYBOARD NAV SUPPORT
-        // when contactBtn clicked, and modal opens disable tabindexes on all background elements
-
-
-
+    
 
         const whereToStickNavtag = photographerInfosBlock.querySelector('.photographer__text-infos');
         // generate new tagslists custom element template (using Navtags custom html element)
@@ -70,9 +68,10 @@ export class PhotographerInfosTemplate extends HTMLElement {
         photographerInfosBlock.insertAdjacentElement('beforeend', block2);
 
         // Attach stylesheet to component
-        shadow2.appendChild(stylePage);
+        // shadow2.appendChild(stylePage);
         // Attach the created elements to the shadow dom
-        shadow2.appendChild(photographerInfosBlock);
+        // shadow2.appendChild(photographerInfosBlock);
+        this.appendChild(photographerInfosBlock);
         }
     }
     // register custom element in the built-in CustomElementRegistry object
