@@ -14,7 +14,7 @@ export function focusNextElement() {
 }
 
 // KEYBOARD NAV SUPPORT : before modal opens, all bg tabindex = -1
-export function disableTabBgElements(){
+export function disableAllBgElements(){
         const root = document.getElementById('root');
         // let tabbables = root.querySelectorAll('[tabindex]');
         let tabbables = root.childNodes;
@@ -22,7 +22,6 @@ export function disableTabBgElements(){
         for (let node of tabbables) {
             if ( node.nodeName!=="#text") { 
                 node.setAttribute('tabindex', '-1');
-                
             }
         }
 }

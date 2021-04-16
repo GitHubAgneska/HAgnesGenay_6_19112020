@@ -13,6 +13,8 @@ import { processTitle } from '../../app/utils/processApiTitles';
 import { destroyView } from '../../app/utils/destroyView';
 import { sortBy } from '../../app/utils/sortBy';
 import { root } from 'postcss';
+import { disableAllBgElements } from '../utils/accessibilitySupport';
+
 
 
 // MODULE PATTERN STRUCTURE
@@ -143,6 +145,15 @@ export const photographerPageModule = (function() {
         let contactModal = new ModalContact(currentPhotographer);
         // contactModal.focus();
         root.appendChild(contactModal);
+        
+        let tabbables = document.querySelectorAll('[tabindex="0"], button, a, video, source');
+        console.log(tabbables);
+        for (let node of tabbables) {
+            if ( node.nodeName!=="#text") { 
+                node.setAttribute('tabindex', '-1');
+            }
+        }
+            
     }
 
 

@@ -2,6 +2,7 @@
 // CUSTOM ELEMENT TEMPLATE FORM MODAL
 // ----------------------------------------------------
 import { photographerPageModule } from '../modules/photographerPageModule';
+import { disableAllBgElements } from '../utils/accessibilitySupport';
 
 export class ModalContact extends HTMLElement {
     constructor(photog){
@@ -92,7 +93,11 @@ export class ModalContact extends HTMLElement {
             photographerPageModule.closeModal(event, mainModalWrapper, inputsTouched, modal) }, false);
 
         // KEYBOARD SUPPORT : listen to 'escape' => close
-
+        modalInnerWrapper.addEventListener('keydown', function(event){
+            if ( event.code === 'Escape' ) {
+                cancelModalBtn.click();
+            }
+        }, false);
 
         // retrieve all inputs from form
         const form = modalInnerWrapper.querySelector('#contact-form');
