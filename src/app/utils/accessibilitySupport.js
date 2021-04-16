@@ -13,18 +13,30 @@ export function focusNextElement() {
     }
 }
 
-// KEYBOARD NAV SUPPORT : before modal opens, all bg tabindex = -1
-export function disableAllBgElements(){
-        const root = document.getElementById('root');
-        // let tabbables = root.querySelectorAll('[tabindex]');
-        let tabbables = root.childNodes;
-        console.log(tabbables);
-        for (let node of tabbables) {
-            if ( node.nodeName!=="#text") { 
-                node.setAttribute('tabindex', '-1');
-            }
+// KEYBOARD NAV SUPPORT : before modal/confirmbox/lightbox/ open : all bg tabindex = -1
+export function disableAllBgElements(bgTabbables){
+    for (let node of bgTabbables) {
+        if ( node.nodeName!=="#text") { 
+            node.setAttribute('tabindex', '-1');
+            node.setAttribute('isBgInactive', '');
         }
+    }
 }
+export function enableAllBgElements(ofElement){
+    if (!ofElement) {
+        let toReactivate = document.querySelectorAll('[isBgInactive]');
+    } else {
+        let toReactivate = ofElement
+    }
+    for (let node of toReactivate) {
+        if ( node.nodeName!=="#text") { 
+            node.setAttribute('tabindex', '0');
+            node.removeAttribute('isBgInactive', '');
+        }
+    }
+}
+
+
 
 
 /* window.addEventListener('keydown', function (event) {

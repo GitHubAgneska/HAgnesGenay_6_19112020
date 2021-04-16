@@ -14,6 +14,7 @@ import { destroyView } from '../../app/utils/destroyView';
 import { sortBy } from '../../app/utils/sortBy';
 import { root } from 'postcss';
 import { disableAllBgElements } from '../utils/accessibilitySupport';
+import { enableAllBgElements } from '../utils/accessibilitySupport';
 
 
 
@@ -143,21 +144,18 @@ export const photographerPageModule = (function() {
         const root = document.querySelector('#photographer-content');
         currentPhotographer = currentPhotographer;
         let contactModal = new ModalContact(currentPhotographer);
-        // contactModal.focus();
         root.appendChild(contactModal);
+        contactModal.focus();
         
-        let tabbables = document.querySelectorAll('[tabindex="0"], button, a, video, source');
-        console.log(tabbables);
-        for (let node of tabbables) {
-            if ( node.nodeName!=="#text") { 
-                node.setAttribute('tabindex', '-1');
-            }
-        }
-            
+        // deactivate keyboard events for modal BG elements
+        let modalBgTabbables = document.querySelectorAll('[tabindex="0"]:not(.cancelModalBtn), button, a, video, source');
+        console.log(modalBgTabbables);
+        disableAllBgElements(modalBgTabbables);
     }
 
 
     function closeModal(event, inputsTouched, modal) {
+
         event.stopPropagation();
         let mainModalWrapper = document.querySelector('#modal-contact');
         modal = modal;
@@ -165,14 +163,24 @@ export const photographerPageModule = (function() {
         if (inputsTouched) { 
             let confirmBox = new ConfirmBox('cancelModal');
             mainModalWrapper.appendChild(confirmBox);
-            
+            // add bg modal elements to desactivate when confirm box = open
+            let confirmBoxBgTabbables = document.querySelectorAll('[tabindex="0"]:not(.btn--confirm), input, button:not(.btn--confirm), a, video, source');
+            disableAllBgElements(confirmBoxBgTabbables);
+
         } else { // untouched => destruct view
-        mainModalWrapper.parentNode.removeChild(mainModalWrapper);
+            mainModalWrapper.parentNode.removeChild(mainModalWrapper);
+            // reactivate keyboard events on modal Bg elements when closing modal
+            enableAllBgElements();
         }
     }
 
     function closeConfirmBox(event, elParent, elToRemove) {
         elParent.removeChild(elToRemove);
+        // reactivate keyboard events on MODAL elements ONLY
+        enableAllBgElements();
+        let modalBgTabbables = document.querySelectorAll('[tabindex="0"]:not(.cancelModalBtn), button, a, video, source');
+        console.log(modalBgTabbables);
+        disableAllBgElements(modalBgTabbables);
     }
 
     function submitForm(event, photog, form, formInputs) {

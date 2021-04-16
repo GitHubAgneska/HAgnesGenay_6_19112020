@@ -3,6 +3,9 @@
 // ----------------------------------------------------
 import { photographerPageModule } from '../modules/photographerPageModule';
 import { keyAction } from '../utils/accessibilitySupport';
+import { disableAllBgElements } from '../utils/accessibilitySupport';
+import { enableAllBgElements } from '../utils/accessibilitySupport';
+
 
 export class ConfirmBox extends HTMLElement {
     constructor(type) {

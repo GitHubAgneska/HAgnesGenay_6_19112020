@@ -14,10 +14,10 @@ export class DropdownTemplate extends HTMLElement {
         dropdownWrapper.setAttribute('aria-label', 'dropdown navigation container');
 
         // link component to main stylesheet
-        const dropdownStyle = document.createElement('link');
+/*         const dropdownStyle = document.createElement('link');
         dropdownStyle.setAttribute('href', './main.css');
         dropdownStyle.setAttribute('type', 'text/css');
-        dropdownStyle.setAttribute('rel', 'stylesheet');
+        dropdownStyle.setAttribute('rel', 'stylesheet'); */
 
         let currentTitle = 'popularité';
 
@@ -26,13 +26,13 @@ export class DropdownTemplate extends HTMLElement {
             ` <p class="dropdown-menu-title">trier par</p>
 
                 <div tabindex="0" id="dropdown-menu" class="dropdown-menu hide" aria-label="sort gallery by">
-                    <button type="button" tabindex="4" id="sortBy-likes" class="open-dropdown-btn" aria-haspopup="listbox" aria-labelledby="sortBy-likes-btn">
+                    <button type="button" tabindex="6" id="sortBy-likes" class="open-dropdown-btn" aria-haspopup="listbox" aria-labelledby="sortBy-likes-btn">
                         ${currentTitle}
                     </button> 
-                    <img tabindex="1" id="open" src="./assets/icons/caret.png" alt="logo open" aria-hidden="true">
+                    <img tabindex="3" id="open" src="./assets/icons/caret.png" alt="logo open" aria-hidden="true">
                     <ul id="sortBy" role="listbox" aria-labelledby="sortBy">
-                        <li tabindex="2" id="sortBy-date" role="option">date</li>
-                        <li tabindex="3" id="sortBy-title" role="option">titre</li>
+                        <li tabindex="4" id="sortBy-date" role="option">date</li>
+                        <li tabindex="5" id="sortBy-title" role="option">titre</li>
                     </ul>
                 </div>
             `;

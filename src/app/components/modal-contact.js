@@ -40,7 +40,7 @@ export class ModalContact extends HTMLElement {
             `
             <div class="fields-wrapper" tabindex="0">
 
-                <div tabindex="1" id="cancelModalBtn" class="cancelModalBtn" role="button" aria-label="close modal">
+                <div tabindex="0" id="cancelModalBtn" class="cancelModalBtn" role="button" aria-label="close modal">
                     <i class="fa fa-times" aria-hidden="true"></i>
                 </div>
 
@@ -91,13 +91,16 @@ export class ModalContact extends HTMLElement {
 
         cancelModalBtn.addEventListener('click', function(event){
             photographerPageModule.closeModal(event, mainModalWrapper, inputsTouched, modal) }, false);
-
-        // KEYBOARD SUPPORT : listen to 'escape' => close
+        
+        
+        // KEYBOARD SUPPORT  : cancel btn 'enter'
+        cancelModalBtn.addEventListener('keydown', function(event){ 
+            if ( event.code === 'Enter' || event.code === 'Space') {
+                cancelModalBtn.click(); }
+            }, false);
+        //  listen to 'escape' => close
         modalInnerWrapper.addEventListener('keydown', function(event){
-            if ( event.code === 'Escape' ) {
-                cancelModalBtn.click();
-            }
-        }, false);
+            if ( event.code === 'Escape' ) { cancelModalBtn.click(); } }, false);
 
         // retrieve all inputs from form
         const form = modalInnerWrapper.querySelector('#contact-form');
@@ -112,10 +115,6 @@ export class ModalContact extends HTMLElement {
         // attach modal inner content to modal main wrapper
         mainModalWrapper.appendChild(modalInnerWrapper);
 
-
-
-
-        
         // Attach the created elements to parent
         this.appendChild(mainModalWrapper);
     }
