@@ -26,7 +26,7 @@ export class DropdownTemplate extends HTMLElement {
             ` <p class="dropdown-menu-title">trier par</p>
 
                 <div tabindex="0" id="dropdown-menu" class="dropdown-menu hide" aria-label="sort gallery by">
-                    <button type="button" tabindex="6" id="sortBy-likes" class="open-dropdown-btn" aria-haspopup="listbox" aria-labelledby="sortBy-likes-btn">
+                    <button type="button" tabindex="0" id="sortBy-likes" class="open-dropdown-btn" aria-haspopup="listbox" aria-labelledby="sortBy-likes-btn">
                         ${currentTitle}
                     </button> 
                     <img tabindex="3" id="open" src="./assets/icons/caret.png" alt="logo open" aria-hidden="true">
@@ -128,9 +128,15 @@ export class DropdownTemplate extends HTMLElement {
                         console.log('FOCUS on liOne', document.activeElement);
                         
                         // pass action to LI
-                        keyAction(liOne);  
+                        keyAction(liOne);
                     }
                 }, false);
+            }
+
+            if ( event.code === 'Escape' ) {
+                this.blur();
+                this.parentNode.focus();
+                toggleOpenBtn.click();
             }
         }, false);
 
