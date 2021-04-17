@@ -67,15 +67,15 @@ import { photographerPageModule } from '../modules/photographerPageModule';
                     <h5 class="mediaItem-title" id="mediaItem-title">${medium.title}</h5>
                     <h5 class="mediaItem-price" id="mediaItem-price">${medium.price}€</h5>
                     <div class="mediaItem-likes">
-                        <h5 id="mediaItem-likes-count" data="likes">${medium.likes}</h5>
-                        <img tabindex="0" id="mediaItem-likes-icon" class="heart-icon" src="./assets/icons/heart-icon.png">
+                        <h5 class="mediaItem-likes-count" data="likes">${medium.likes}</h5>
+                        <img tabindex="0" class="mediaItem-likes-icon heart-icon" src="./assets/icons/heart-icon.png">
                     </div>
                 `;
             
             // increment LIKES
             let likes = medium.likes; // default value
-            const likesCount = mediaInfosWrapper.querySelector('#mediaItem-likes-count');
-            const heartLikes = mediaInfosWrapper.querySelector('#mediaItem-likes-icon');
+            const likesCount = mediaInfosWrapper.querySelector('.mediaItem-likes-count');
+            const heartLikes = mediaInfosWrapper.querySelector('.mediaItem-likes-icon');
 
             heartLikes.addEventListener('click', function() {
                 likes += 1;

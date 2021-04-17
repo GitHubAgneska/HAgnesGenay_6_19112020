@@ -45,8 +45,8 @@
         // background-color: lightblue;
         position: absolute;  /* force page title into header top right */
         height: 50px;
-        @include max-1200px {right: 1.5em; top: 2.5em;}
-        @include min-1200px {right: 4.6em; top: 2em;}
+        @include max-1200px {right: 1.5em; top: 1em;}
+        @include min-1200px {right: 4.6em; top: 1em;}
         h1 { margin:0;}
     }
 }

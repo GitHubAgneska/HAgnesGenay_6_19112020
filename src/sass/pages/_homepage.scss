@@ -18,10 +18,11 @@ body  {
     #root {
         height: 100vh;
         position: relative; // for absolute positioned children
+        width:90%; margin:auto;
     }
     // main contains homepage view
     .homepage-content {
-        @include max-1200px { margin: 0 20px; }
+        @include max-1200px { margin: 70px 20px; }
         @include min-1200px { margin: 0 35px; }
     }
 }

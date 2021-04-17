@@ -12,7 +12,12 @@
         position: relative; // for cancel btn placement
         background-color: $orange-main;
         @include box-shadow;
-        @include max-600px { width:100vw; height:100vh; } //------- to review (white bg margins)
+        @include max-600px { 
+            width:100vw; height:100vh;
+            position: fixed;
+            right: 0;
+            top: 0;
+        } 
         @include min-600px { width: 670px; margin: auto; @include border-radius(3px); }
         *:focus, *:active { border: 3px solid red; transition: none !important; }
 

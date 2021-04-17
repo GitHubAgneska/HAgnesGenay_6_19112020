@@ -31,7 +31,7 @@ export class homePageTemplate extends HTMLElement {
             <section class="photographers" id="photographersList" aria-label="photographers presentation list">
             </section>
 
-            <div class="nav-help visuallyHidden" id="nav-help" tabindex="3">
+            <div class="nav-help visuallyHidden" id="nav-help" tabindex="0">
                 <a aria-label="go to main content"><span>passer au contenu</span></a>
             </div>
         `;

@@ -20,10 +20,10 @@ export class DropdownTemplate extends HTMLElement {
             ` <p class="dropdown-menu-title">trier par</p>
 
                 <div tabindex="0" id="dropdown-menu" class="dropdown-menu hide" aria-label="sort gallery by">
-                    <button type="button" tabindex="0" id="sortBy-likes" class="open-dropdown-btn" aria-haspopup="listbox" aria-labelledby="sortBy-likes-btn">
+                    <button type="button" tabindex="0" id="sortBy-likes" class="open-dropdown-btn" aria-haspopup="listbox" aria-labelledby="sortBylikes button">
                         ${currentTitle}
                     </button> 
-                    <img tabindex="3" id="open" src="./assets/icons/caret.png" alt="logo open" aria-hidden="true">
+                    <img tabindex="3" id="open" src="./assets/icons/caret.png" alt="logo open" alt="open menu logo">
                     <ul id="sortBy" role="listbox" aria-labelledby="sortBy">
                         <li tabindex="4" id="sortBy-date" role="option">date</li>
                         <li tabindex="5" id="sortBy-title" role="option">titre</li>

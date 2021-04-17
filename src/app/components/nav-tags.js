@@ -26,7 +26,7 @@ export class NavTags extends HTMLElement {
             navTagsTemplate.setAttribute('tabindex', '0'); // make nav tabbable - only on homepage
         }
         if (parent === 'profile-home') {
-            navTagsTemplate.setAttribute('id', 'profile-nav'); // ------------------ TO REVIEW : multiple ID ( role of this ID anyway ?)
+            // navTagsTemplate.setAttribute('id', 'profile-nav'); // ------------------ TO REVIEW : multiple ID ( role of this ID anyway ?)
             navTagsTemplate.setAttribute('class', 'tags-list home');
             navTagsTemplate.setAttribute('aria-label', 'secondary-navigation');
 
@@ -62,11 +62,6 @@ export class NavTags extends HTMLElement {
             //attach tag to nav
             navTagsTemplate.appendChild(navTagItem);
         }
-
-        // KEYBOARD NAV SUPPORT        
-            // let actionType = 'undirectAction';
-            // keyAction(navTagsTemplate, actionType);
-            // keyAction(navTagsTemplate, actionType);
 
         // on NAV FOCUSED, listen to key down
         navTagsTemplate.addEventListener('keydown', function(event){
