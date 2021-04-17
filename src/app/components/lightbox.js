@@ -4,6 +4,7 @@
 // lightbox Prototype Eric Eggert for W3C
 
 import { photographerPageModule } from "../modules/photographerPageModule";
+import { keyAction } from '../utils/accessibilitySupport';
 
 export const Lightbox = (function () {
 
@@ -11,8 +12,7 @@ export const Lightbox = (function () {
 
     // Initial variables
     let index, slidenav, slides, settings, timer, setFocus, animationSuspended, announceItem, _this;
-    let currentImgId;  let currentGallery;
-    let currentImg;
+    let currentImgId;  let currentGallery; let currentImg;
     
     //HELPER FUNCTIONS
             // Helper function: Iterates over an array of elements
@@ -52,22 +52,15 @@ export const Lightbox = (function () {
         // generate LIGHTBOX WRAPPER ========================================
         const lightboxWrapper = document.createElement('div');
         lightboxWrapper.setAttribute('class', 'lightbox-main-wrapper');
+        lightboxWrapper.setAttribute('id', 'lightbox-main-wrapper');
         const lightboxInnerWrapper = document.createElement('div');
         lightboxInnerWrapper.setAttribute('class', 'lightbox-inner-wrapper');
         lightboxWrapper.appendChild(lightboxInnerWrapper);
 
-        // lightbox style
-    /*  const lightboxStyle = document.createElement('link');
-        lightboxStyle.setAttribute('href', './main.css');
-        lightboxStyle.setAttribute('rel', 'stylesheet');
-        lightboxStyle.setAttribute('type', 'text/css'); */
-
-        
         // generate LIGHTBOX  ========================================
         const lightboxElement = document.createElement('div');
         lightboxElement.setAttribute('id', 'lightbox');
         lightboxElement.setAttribute('class', 'lightbox');
-        // lightboxElement.setAttribute('class', 'active lightbox');
 
         // close lightbox btn ========================================
         const closeLightboxBtn = document.createElement('div');
@@ -77,7 +70,8 @@ export const Lightbox = (function () {
             <i class="fa fa-times" aria-hidden="true"></i>
         </div>
         `;
-        closeLightboxBtn.addEventListener('click', function(event){photographerPageModule.closeLightbox(lightboxWrapper)});
+
+        closeLightboxBtn.addEventListener('click', function(){photographerPageModule.closeLightbox(lightboxWrapper)});
 
         lightboxElement.appendChild(closeLightboxBtn);
 
@@ -127,7 +121,6 @@ export const Lightbox = (function () {
         });
 
         lightboxElement.appendChild(firstUl);
-
         slides = lightbox.querySelectorAll('.slide');
 
 
@@ -146,6 +139,7 @@ export const Lightbox = (function () {
         // attach click events to btns
         ctrls.querySelector('.btn-prev').addEventListener('click', function () { prevSlide(true); });
         ctrls.querySelector('.btn-next').addEventListener('click', function () { nextSlide(true); });
+
         lightboxElement.appendChild(ctrls);
         // ---------------------------------------------------------------------------------
 
@@ -154,7 +148,6 @@ export const Lightbox = (function () {
         // start/pause lightbox / pictures indexes to navigate manually + check current active pic 
         if (settings.slidenav || settings.animate) {   // If lightbox 'animated' or 'slide navigation' = requested in settings
 
-            // another unordered list that contains those elements is added.
             slidenav = document.createElement('ul'); // settings.slidenav = true : 'list of slides is shown.'
             slidenav.className = 'slidenav';
 
@@ -167,7 +160,6 @@ export const Lightbox = (function () {
                     li.innerHTML = '<button class="commands" data-action="start"><span class="visuallyHidden">Start Animation </span>▶</button>';
                 }
                 slidenav.appendChild(li);
-                
             }
             if (settings.slidenav) { // settings.slidenav = true : list of slides is shown.
 
@@ -177,7 +169,7 @@ export const Lightbox = (function () {
                     var kurrent = (i === 0) ? ' <span class="visuallyHidden">(Current Item)</span>' : '';
 
                     li.innerHTML = // ----------------------- list should only display picture name/title
-                        `<button  ` + klass + `data-slide="` + i + `"><span class="visuallyHidden">${currentImg.title || currentImg.title}</span>` + ( i + 1 ) + kurrent + `</button>`;
+                        `<button  ` + klass + `data-slide="` + i + `"><span class="visuallyHidden">placeholder</span>"` + ( i + 1 ) + kurrent + `</button>`;
 
                     slidenav.appendChild(li);
                 });
@@ -213,7 +205,7 @@ export const Lightbox = (function () {
         slides[0].parentNode.addEventListener('transitionend', function (event) {
             var slide = event.target;
             removeClass(slide, 'in-transition');
-            if (hasClass(slide, 'current')) {
+        if (hasClass(slide, 'current')) {
                 if (setFocus) {
                     slide.setAttribute('tabindex', '-1');
                     slide.focus();
@@ -251,7 +243,44 @@ export const Lightbox = (function () {
         setSlides(index, lightbox, slides);
 
         // AUTO ANIM ----------------------------------------------------------------
-        if (settings.startAnimated) { timer = setTimeout(nextSlide, 3000);}
+        if (settings.startAnimated) { timer = setTimeout(nextSlide, 5000);}
+
+
+        // KEYBOARD SUPPORT ----------------------------------------------------------------
+
+        const lightboxFocusableElements = document.querySelectorAll('#lightbox-main-wrapper .btn-next, #lightbox-main-wrapper .btn-prev, #lightbox-main-wrapper .slidenav button ,#lightbox-main-wrapper #closeLightboxBtn');
+        console.log('lightboxFousableElements', lightboxFocusableElements);
+
+        const videoNotFocusable = document.querySelector('li.slide video'); // disable focusable video controls IF video = not current slide
+        if (videoNotFocusable.classList.contains('current')) { videoNotFocusable.setAttribute('tabindex', '0');} else { videoNotFocusable.setAttribute('tabindex', '-1');} // ---- CHECK 
+        
+        // add tabindex 0 + keydown event to each focusable element of lightbox
+        Array.from(lightboxFocusableElements).forEach(el => { 
+            console.log('EL==', el);
+            el.setAttribute('tabindex', '0');
+
+            
+            el.addEventListener('keydown', function(event){ 
+                
+                if (event.code === 'Enter' || event.code === 'Space') { event.target.click();}
+                /* // if slidenav press enter
+                if (el === 'ul.slidenav') {
+                    let slideNavBtn = el.firstElementChild;  // focus goes on first btn element
+                    slideNavBtn.focus(); // place focus on first btn 
+                    keyAction(slideNavBtn); // delegate possible key actions
+                } */
+                
+
+            }, false);
+        });
+
+        
+
+
+
+
+
+
         
     } // end of init()
 
@@ -331,7 +360,7 @@ export const Lightbox = (function () {
         setSlides(new_current, false, 'prev', announceItem);
 
         // If lightbox = animated, go to next slide after 5s
-        if (settings.animate) { timer = setTimeout(nextSlide, 3000); }
+        if (settings.animate) { timer = setTimeout(nextSlide, 5000); }
     }
 
     // GO BACK TO PREVIOUS ----------------------------------------------------------------------------
@@ -363,7 +392,7 @@ export const Lightbox = (function () {
         lightbox = document.querySelector("#lightbox");
         settings.animate = true;
         animationSuspended = false;
-        timer = setTimeout(nextSlide, 3000);
+        timer = setTimeout(nextSlide, 5000);
         _this = lightbox.querySelector('[data-action]');
         _this.innerHTML = `<span class="visuallyHidden">Stop Animation </span>￭`;
         _this.setAttribute('data-action', 'stop');

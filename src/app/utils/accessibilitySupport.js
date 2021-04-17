@@ -86,7 +86,6 @@ export function keyAction(elem) {
         if ( action === 'directAction' ) { */
             // if elem press ENTER or SPACE =>  = click()
             if ( event.code === 'Enter' || event.code === 'Space') {
-
                 el.click();
             }
             
