@@ -10,8 +10,8 @@ export function processTitle(mediaItemName, mediaItemTag) {
     if ( mediaItemName && mediaItemTag ) {  // check entry data not null
 
         // correct tagName coming from api to match image tag
-        if (mediaItemTag === 'events') { mediaItemTag = 'event'};
-        if (mediaItemTag === 'portait') { mediaItemTag = 'portrait'};
+        if (mediaItemTag === 'events') { mediaItemTag = 'event'; }
+        if (mediaItemTag === 'portait') { mediaItemTag = 'portrait'; }
 
         let nameToProcess = mediaItemName;
 

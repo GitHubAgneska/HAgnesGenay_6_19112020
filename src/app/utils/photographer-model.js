@@ -3,19 +3,19 @@
 export class Photographer {
     constructor(id, name, tagline, portrait, url, city, country, price, bottomLikes, template, tagsTemplate, tags){
         
-        id = id;
-        name = name;
-        portrait = portrait; //  = portrait name
-        city = city;
-        country = country;
-        tagline = tagline;
-        tags = tags;
-        tagsTemplate = tagsTemplate; // navtags list - custom html element
+        this.id = id;
+        this.name = name;
+        this.portrait = portrait; //  = portrait name
+        this.city = city;
+        this.country = country;
+        this.tagline = tagline;
+        this.tags = tags;
+        this.tagsTemplate = tagsTemplate; // navtags list - custom html element
 
-        url = url; // set up by router
-        price = price; // price/day
-        bottomLikes = bottomLikes;
+        this.url = url; // set up by router
+        this.price = price; // price/day
+        this.bottomLikes = bottomLikes;
 
-        template = template; // photographer home - custom html element
+        this.ctemplate = template; // photographer home - custom html element
     }
 }

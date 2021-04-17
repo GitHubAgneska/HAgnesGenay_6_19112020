@@ -3,16 +3,13 @@
 // Source: https://gist.github.com/nuxodin/9250e56a3ce6c0446efa
 // lightbox Prototype Eric Eggert for W3C
 
-import { photographerPageModule } from "../modules/photographerPageModule";
-import { keyAction } from '../utils/accessibilitySupport';
+import { photographerPageModule } from '../modules/photographerPageModule';
 
 export const Lightbox = (function () {
 
-    "use strict"; // code should be executed in "strict mode"- you can not, for example, use undeclared variables
-
     // Initial variables
     let index, slidenav, slides, settings, timer, setFocus, animationSuspended, announceItem, _this;
-    let currentImgId;  let currentGallery; let currentImg;
+    let currentGallery; let currentImg;
     
     //HELPER FUNCTIONS
             // Helper function: Iterates over an array of elements
@@ -45,7 +42,7 @@ export const Lightbox = (function () {
 
     function init(set) { // Make settings available to all functions
         settings = set;
-        currentImgId = settings.currentImgId; // console.log('CURRENT ID CLICKED==', currentImgId);
+        // currentImgId = settings.currentImgId; // console.log('CURRENT ID CLICKED==', currentImgId);
         currentImg = settings.currentImg ; // = mediaItem object
         currentGallery = settings.currentGallery;
 
@@ -71,7 +68,7 @@ export const Lightbox = (function () {
         </div>
         `;
 
-        closeLightboxBtn.addEventListener('click', function(){photographerPageModule.closeLightbox(lightboxWrapper)});
+        closeLightboxBtn.addEventListener('click', function(){photographerPageModule.closeLightbox(lightboxWrapper);});
 
         lightboxElement.appendChild(closeLightboxBtn);
 
@@ -83,7 +80,7 @@ export const Lightbox = (function () {
         root.appendChild(lightboxWrapper);
 
         // from here, definition of 'lightbox':
-        const lightbox = lightboxWrapper.querySelector("#lightbox");
+        const lightbox = lightboxWrapper.querySelector('#lightbox');
 
 
         // HERE : generate first ul, injecting data from json as bg images into li elements
@@ -97,9 +94,11 @@ export const Lightbox = (function () {
             liItem.className = 'slide';
             liItem.setAttribute('data', pic.id);
 
+            // eslint-disable-next-line no-prototype-builtins
             if (pic.hasOwnProperty('image')) {
                 liItem.setAttribute('style', 'background-image:url("./assets/img/' + pic.photographerName + '/XL/'+ (pic.image ) + '")' );
             }
+            // eslint-disable-next-line no-prototype-builtins
             else if (pic.hasOwnProperty('video')) {
                 let videoWrapper = document.createElement('video');
                 videoWrapper.setAttribute('controls', '');
@@ -169,6 +168,7 @@ export const Lightbox = (function () {
                     var kurrent = (i === 0) ? ' <span class="visuallyHidden">(Current Item)</span>' : '';
 
                     li.innerHTML = // ----------------------- list should only display picture name/title
+                        // eslint-disable-next-line quotes
                         `<button  ` + klass + `data-slide="` + i + `"><span class="visuallyHidden">placeholder</span>"` + ( i + 1 ) + kurrent + `</button>`;
 
                     slidenav.appendChild(li);
@@ -181,9 +181,9 @@ export const Lightbox = (function () {
                     if (button.getAttribute('data-slide')) {
                         stopAnimation();
                         setSlides(button.getAttribute('data-slide'), true);
-                    } else if (button.getAttribute('data-action') == "stop") {
+                    } else if (button.getAttribute('data-action') == 'stop') {
                         stopAnimation();
-                    } else if (button.getAttribute('data-action') == "start") {
+                    } else if (button.getAttribute('data-action') == 'start') {
                         startAnimation();
                     }
                 }
@@ -197,9 +197,9 @@ export const Lightbox = (function () {
                         stopAnimation();
                         setSlides(button.getAttribute('data-slide'), true);
 
-                    } else if (button.getAttribute('data-action') == "stop") {
+                    } else if (button.getAttribute('data-action') == 'stop') {
                         stopAnimation();
-                    } else if (button.getAttribute('data-action') == "start") {
+                    } else if (button.getAttribute('data-action') == 'start') {
                         startAnimation();
                     }
                 }
@@ -235,7 +235,7 @@ export const Lightbox = (function () {
         lightbox.addEventListener('mouseenter', suspendAnimation);
 
         // When the mouse leaves the lightbox, and the animation is suspended, start the animation.
-        lightbox.addEventListener('mouseleave', function (event) {
+        lightbox.addEventListener('mouseleave', function () {
             if (animationSuspended) {
                 startAnimation();
             }
@@ -279,9 +279,8 @@ export const Lightbox = (function () {
             el.addEventListener('keydown', function(event){  
                 if (event.code === 'Enter' || event.code === 'Space') { event.target.click();}
 
-                if (el.getAttribute('data-slide') == slidesAmount-1 ) { // tab on last btn on slidenav
+                if (el.getAttribute('data-slide') == slidesAmount-1 ) { // tab on last btn on slidenav  ------- TO REVIEW : add tab goes to 1st 
                     console.log('I AM LAST !');
-                    
                 }
             }, false);
         });
@@ -301,7 +300,7 @@ export const Lightbox = (function () {
         transition = typeof transition !== 'undefined' ? transition : 'none';
         announceItem = typeof announceItemHere !== 'undefined' ? announceItemHere : false;
         
-        lightbox = document.querySelector("#lightbox");
+        lightbox = document.querySelector('#lightbox');
         // console.log('SLIDES====', slides); 
         //currentImgId = currentImgId;
         new_current = parseFloat(new_current); 
@@ -316,7 +315,7 @@ export const Lightbox = (function () {
 
 
         // RESET SLIDES CLASS --------------------------------------------------------------------------------------------
-        for (var i = slides.length - 1; i >= 0; i--) { slides[i].className = "slide"; }
+        for (var i = slides.length - 1; i >= 0; i--) { slides[i].className = 'slide'; }
 
         // CLASSES UPDATE : Add classes to the previous, next and current slide ------------------------------------------
         slides[new_next].className = 'next slide' + ( (transition == 'next') ? ' in-transition' : '' );
@@ -339,13 +338,20 @@ export const Lightbox = (function () {
             var buttons = lightbox.querySelectorAll('.slidenav button[data-slide]');
             for (var j = buttons.length - 1; j >= 0; j--) {
                 buttons[j].className = '';
+                // eslint-disable-next-line quotes
                 buttons[j].innerHTML = `<span class="visuallyHidden"></span> ` + ( j + 1 );  // ------- TO REVIEW : images titles should be displayed
             }
-            buttons[new_current].className = "current";
-            buttons[new_current].innerHTML = `
-                <span class="visuallyHidden"></span> ` 
-                + ( new_current + 1 ) 
-                + ` <span class="visuallyHidden">(Current Item)</span>`;
+            buttons[new_current].className = 'current';
+
+            buttons[new_current].innerHTML = 
+                `
+                    <span class="visuallyHidden"></span> 
+                    ` 
+                    + ( new_current + 1 ) 
+                    + 
+                    `
+                    <span class="visuallyHidden">(Current Item)</span>
+                `;
         }
         // global index = new current value
         index = new_current;
@@ -383,22 +389,24 @@ export const Lightbox = (function () {
 
     // STOP ANIM ----------------------------------------------------------------------------------------
     function stopAnimation(lightbox) {
-        lightbox = document.querySelector("#lightbox");
+        lightbox = document.querySelector('#lightbox');
         clearTimeout(timer);
         settings.animate = false;
         animationSuspended = false; // -------------------------- true?
         _this = lightbox.querySelector('[data-action]');
+        // eslint-disable-next-line quotes
         _this.innerHTML = `<span class="visuallyHidden">Start Animation </span>▶`;
         _this.setAttribute('data-action', 'start');
     }
 
     // START ANIM ----------------------------------------------------------------------------------------
     function startAnimation(lightbox) {
-        lightbox = document.querySelector("#lightbox");
+        lightbox = document.querySelector('#lightbox');
         settings.animate = true;
         animationSuspended = false;
         timer = setTimeout(nextSlide, 5000);
         _this = lightbox.querySelector('[data-action]');
+        // eslint-disable-next-line quotes
         _this.innerHTML = `<span class="visuallyHidden">Stop Animation </span>￭`;
         _this.setAttribute('data-action', 'stop');
     }

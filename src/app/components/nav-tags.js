@@ -24,7 +24,6 @@ export class NavTags extends HTMLElement {
             navTagsTemplate.setAttribute('aria-label', 'main-navigation');
 
             navTagsTemplate.setAttribute('tabindex', '0'); // make nav tabbable - only on homepage
-            
         }
         if (parent === 'profile-home') {
             navTagsTemplate.setAttribute('id', 'profile-nav'); // ------------------ TO REVIEW : multiple ID ( role of this ID anyway ?)
@@ -47,14 +46,14 @@ export class NavTags extends HTMLElement {
             // ADD to <a> tag :
             // event listener click => will call updateView function,
             // & passing name of tag as parameter (example : 'portrait')
-            navTagItem.addEventListener('click', function() { homeModule.updateSortedHome(navTags[i])}, false);
+            navTagItem.addEventListener('click', function() { homeModule.updateSortedHome(navTags[i]); }, false);
 
             var navTagItemContent = document.createTextNode('#' + navTags[i]);
             navTagItem.appendChild(navTagItemContent);
 
             // ADD to <a> tag : span element for accessibility ( visually hidden )
             var spanAccessibility = document.createElement('span');
-            spanAccessibility.setAttribute('class', 'visuallyHidden') // => TO REVIEW : not necessary if 'visuallyHidden' is a mixin 
+            spanAccessibility.setAttribute('class', 'visuallyHidden'); // => TO REVIEW : not necessary if 'visuallyHidden' is a mixin 
             var spanAccessibilityContent = document.createTextNode(navTags[i]); // attach navTag name to span
             spanAccessibility.appendChild(spanAccessibilityContent);
 
@@ -62,7 +61,7 @@ export class NavTags extends HTMLElement {
             navTagItem.appendChild(spanAccessibility);
             //attach tag to nav
             navTagsTemplate.appendChild(navTagItem);
-        };
+        }
 
         // KEYBOARD NAV SUPPORT        
             // let actionType = 'undirectAction';
@@ -80,7 +79,6 @@ export class NavTags extends HTMLElement {
                 keyAction(navItem); // determine possible key actions
             }
         }, false);
-
 
         this.appendChild(navTagsTemplate); 
     }

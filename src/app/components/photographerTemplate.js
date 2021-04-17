@@ -1,10 +1,8 @@
 // ---------------------------------------------------------------------------------------
 // PHOTOGRAPHER CUSTOM HTML ELEMENT - HOME : how each photographer component is generated
 // ---------------------------------------------------------------------------------------
-import { NavTags } from './nav-tags';
-import { initPhotographerPageView } from '../../index';
-import { photographerPageModule } from '../modules/photographerPageModule';
-// import { navigateTo } from '../../index';
+import {NavTags} from './nav-tags';
+import {photographerPageModule} from '../modules/photographerPageModule';
 
 export class PhotographerTemplateHome extends HTMLElement {
         constructor(photog) {

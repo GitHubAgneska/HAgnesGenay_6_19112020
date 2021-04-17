@@ -9,7 +9,6 @@ export class PhotographerInfosTemplate extends HTMLElement {
         super();
         // retrieve photographer object from param
         let photographer = photog;
-        let modalContactOpen = false;
 
         // create a shadow root
         // const shadow2 = this.attachShadow({mode: 'open'});
@@ -17,11 +16,6 @@ export class PhotographerInfosTemplate extends HTMLElement {
         // INFOS BLOCK ======================================================================
         // create photographer main presentation block (top infos + bottom likes / price)
         const photographerInfosBlock = document.createElement('section');
-        // link component to main stylesheet
-        const stylePage = document.createElement('link');
-        stylePage.setAttribute('rel', 'stylesheet');
-        stylePage.setAttribute('href', './main.css');
-        stylePage.setAttribute('type', 'text/css');
         
         // set up which photographer is passed as param
         photographerInfosBlock.setAttribute('data', photographer);
@@ -44,7 +38,7 @@ export class PhotographerInfosTemplate extends HTMLElement {
         const contactBtn = photographerInfosBlock.querySelector('#contact-btn');
 
         contactBtn.addEventListener('click', function(){
-            photographerPageModule.openContactForm(photographer)
+            photographerPageModule.openContactForm(photographer);
         }, false); //passes current photographer object as param
     
 
@@ -60,7 +54,7 @@ export class PhotographerInfosTemplate extends HTMLElement {
                 <div class="photographer__bottom-infos" id="bottom-infos">
                     <div class="photographer__likes" id="${photographer.bottomLikes}">
                         <h4>${photographer.bottomLikes}</h4>
-                        <img id="photographer-likes-icon" class="heart-icon" src="./assets/icons/heart-icon.png">
+                        <img id="photographer-likes-icon" class="heart-icon" alt="likes icon" src="./assets/icons/heart-icon.png">
                     </div>
                     <h4 class="photographer__price" id="photographer-price">${photographer.price}€/jour</h4>
                 </div>

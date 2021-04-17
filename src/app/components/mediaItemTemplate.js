@@ -3,7 +3,7 @@
     // CUSTOM ELEMENT TEMPLATE FOR IMAGES FROM GALLERY
     // ----------------------------------------------------
 
-import { photographerPageModule } from "../modules/photographerPageModule";
+import { photographerPageModule } from '../modules/photographerPageModule';
 
     // how each photo/video of photographer gallery will be generated as a html template
     export class MediaItemTemplate extends HTMLElement {
@@ -23,34 +23,36 @@ import { photographerPageModule } from "../modules/photographerPageModule";
             mediaWrapper.setAttribute('class', 'pic-wrapper');
             mediaWrapper.setAttribute('tabindex', '0'); // make element tabbable
 
+            // eslint-disable-next-line no-prototype-builtins
             if ( medium.hasOwnProperty('image') ) {
                 mediaWrapper.innerHTML = 
                     ` 
                     <a aria-label="enlarge photo">
-                        <img src="./assets/img/${medium.photographerName}/S/${medium.image}" alt="${medium.imageName}">
+                        <img src="./assets/img/${medium.photographerName}/S/${medium.image}" alt="${medium.altDescription}">
                     </a>
-                    `
+                    `;
+            // eslint-disable-next-line no-prototype-builtins
             } else if ( medium.hasOwnProperty('video') ) {
                 mediaWrapper.innerHTML = 
                 `
-                <a aria-label="enlarge photo">
+                <a aria-label="enlarge video">
                     <video controls>
-                        <source src="./assets/img/${medium.photographerName}/${medium.video}" type="video/mp4">
+                        <source aria-labelledby="${medium.video}" src="./assets/img/${medium.photographerName}/${medium.video}" type="video/mp4">
                     </video> 
                 </a>
-                `
+                `;
             }
 
             // add event listener to OPEN LIGHTBOX
             mediaWrapper.addEventListener('click', function(event) {
                 mediaItem.id = event.target;
-                photographerPageModule.openLightbox(event, medium.id, medium, currentGallery)   // --------- TO REVIEW : currentGallery order = api images order => ≠ sortedBy
+                photographerPageModule.openLightbox(event, medium.id, medium, currentGallery);   // --------- TO REVIEW : currentGallery order = api images order => ≠ sortedBy
             }, false);
             
             // KEYBOARD NAV SUPPORT
             mediaWrapper.addEventListener('keydown', function(event) {
                 if ( event.code === 'Enter'|| event.code === 'Space') {
-                    photographerPageModule.openLightbox(event, medium.id, medium, currentGallery)
+                    photographerPageModule.openLightbox(event, medium.id, medium, currentGallery);
                 }
             }, false);
 
@@ -75,7 +77,7 @@ import { photographerPageModule } from "../modules/photographerPageModule";
             const likesCount = mediaInfosWrapper.querySelector('#mediaItem-likes-count');
             const heartLikes = mediaInfosWrapper.querySelector('#mediaItem-likes-icon');
 
-            heartLikes.addEventListener('click', function(event) {
+            heartLikes.addEventListener('click', function() {
                 likes += 1;
                 likesCount.innerHTML=`${likes} `;
             });
@@ -94,7 +96,7 @@ import { photographerPageModule } from "../modules/photographerPageModule";
 
                     icon.addEventListener('keydown', function(event){
                         if ( event.code === 'Enter'|| event.code === 'Space') {
-                            icon.click()
+                            icon.click();
                         }
                     }, false);
                 }

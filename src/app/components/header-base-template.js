@@ -1,25 +1,12 @@
-/*         
-
-<div class="header-wrapper">
-    <header class="header" role="banner" id="header">
-        <div class="header__logo-wrapper">
-            <a href="/" aria-label="Fisheye Home page"><img src="./assets/logo/logo.png" alt="Fisheye logo"></a>
-        </div>
-    </header>
-</div> 
-
-*/
 
 /* ================================================== */
 /* BASE TEMPLATE CONTEXT FOR HEADER */
 /* ================================================== */
 
 export class HeaderBaseTemplate extends HTMLElement {
-    constructor(page) {
+    constructor() {
     // constructor(page) {
         super();
-
-        page = page;
 
         this.innerHTML = 
         `
@@ -43,7 +30,7 @@ export class HeaderBaseTemplate extends HTMLElement {
                         logo.firstElementChild.click();}
                 }, false);
             }
-        }, false)
+        }, false);
     }
 }
 // register custom element in the built-in CustomElementRegistry object

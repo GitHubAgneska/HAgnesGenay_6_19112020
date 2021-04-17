@@ -1,10 +1,9 @@
+
 // ----------------------------------------------------
 // MODAL CONTACT - CONFIRM BOX  ---PHOTOGRAPHER PAGE
 // ----------------------------------------------------
-import { photographerPageModule } from '../modules/photographerPageModule';
-import { keyAction } from '../utils/accessibilitySupport';
-import { disableAllBgElements } from '../utils/accessibilitySupport';
-import { enableAllBgElements } from '../utils/accessibilitySupport';
+import {photographerPageModule} from '../modules/photographerPageModule';
+import {keyAction} from '../utils/accessibilitySupport';
 
 
 export class ConfirmBox extends HTMLElement {
@@ -27,7 +26,7 @@ export class ConfirmBox extends HTMLElement {
 
             // add events on yes/no btns
             const yesBtn = this.querySelector('#yes-btn');
-            yesBtn.onclick = (event) => {  photographerPageModule.closeModal(event, false); };
+            yesBtn.onclick = (event) => {photographerPageModule.closeModal(event, false);};
             yesBtn.addEventListener('keydown', function(event){ 
                 let yes = event.target;
 
@@ -38,7 +37,6 @@ export class ConfirmBox extends HTMLElement {
                         keyAction(yes.nextElementSibling);
                     }
                 }
-            
             }, false);
 
             const noBtn = this.querySelector('#no-btn');
@@ -47,7 +45,6 @@ export class ConfirmBox extends HTMLElement {
             noBtn.onclick = (event) => { photographerPageModule.closeConfirmBox(event, elParent, elToRemove ); }; 
             noBtn.addEventListener('keydown', function(){ noBtn.click(); }, false); 
         }
-
         else if (confirmationType === 'closeModalAfterSubmitted') {
 
             this.innerHTML =
@@ -62,8 +59,6 @@ export class ConfirmBox extends HTMLElement {
             finishBtn.onclick = (event) => { photographerPageModule.closeModal(event, mainModalWrapper, false); };
             finishBtn.onkeydown = () => finishBtn.click();
         }
-
-        // this.appendChild(confirmBoxStyle);
     }
 }
 // register custom element in the built-in CustomElementRegistry object

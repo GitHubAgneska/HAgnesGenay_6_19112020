@@ -27,7 +27,6 @@ export function validateFormInputs(form, inputs) {
                     // if field valid : set field in valid object to true 
                     valid.firstName = true;
                 }
-                
             }
             // check lastname validity
             if (input.id === 'lastName') {
@@ -46,7 +45,7 @@ export function validateFormInputs(form, inputs) {
             // check email validity
             if (input.id === 'email') {
                 const email = input.value;
-                const emailCorrectFormat = "[a-zA-Z0-9!#$%&amp;'*+\/=?^_`{|}~.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*";
+                const emailCorrectFormat = /\S+@\S+\.\S+/;
                 const emailTest = (email).match(emailCorrectFormat);
                 if ( !emailTest ) {
                     // mark fiels as not valid 
@@ -67,9 +66,8 @@ export function validateFormInputs(form, inputs) {
             // so when USER EDITS it again, requirement message disappears
                 notValid.forEach(x => {
                     x.addEventListener('input', function () { 
-                        removeRequirementsMessage(x.id), false }) });
+                        removeRequirementsMessage(x.id), false; }); });
             }
-            
             for (let field in valid) {
                 if ( !valid[field] ) {
                     isFormValid = false;
@@ -97,7 +95,6 @@ export function validateFormInputs(form, inputs) {
         // set element's requirements attributes to be visible
         if (requirement.classList.contains('visuallyHidden')) {
             requirement.classList.remove('visuallyHidden');
-           //  requirement.setAttribute('requOn', 'true');
         }
     } 
 
@@ -114,28 +111,4 @@ export function validateFormInputs(form, inputs) {
         let requirement = elementFromId.nextElementSibling;
         /// console.log('REQUIREMENT=', requirement);
         requirement.setAttribute('class', 'visuallyHidden');
-
     }
-
-
-
-        /* 
-        //  hide form 
-        signUpForm.style.display = 'none';
-        //  display confirmation message 
-        signedUpConfirmationMessage.style.display = 'flex';
-        //  'go' form btn becomes 'close' confirmation message 
-        closeConfirmationBtn.value = "close";
-        //  add event method to enable it to close modal 
-        closeConfirmationBtn.addEventListener('click', function (event) {
-            event.stopPropagation();
-            //  close modal 
-            signUpmodal.setAttribute("style", "animation: fade-out 0.6s;");
-            //  confirmation message returns to invisible (so won't show next time modal 's opened) 
-            signedUpConfirmationMessage.style.display = 'none';
-            //  form returns to visible (so will show next time modal 's opened) 
-            signUpForm.style.display = 'block';
-            //  reset form fields 
-            signUpForm.reset();
-            //  default btn text 
-            closeConfirmationBtn.value = 'go'; */

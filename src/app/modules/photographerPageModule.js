@@ -1,21 +1,19 @@
 
-import { homeModule } from './homeModule';
-import { PagePhotogTemplateBase } from '../components/base-page-template';
-import { HeaderBaseTemplate } from '../components/header-base-template';
-import { PhotographerInfosTemplate } from '../components/photographerInfosTemplate';
-import { MediaItemTemplate } from '../../app/components/mediaItemTemplate';
-import { DropdownTemplate } from '../components/dropdown-template';
-import { Lightbox } from '../components/lightbox';
-import { ModalContact } from '../components/modal-contact';
-import { ConfirmBox } from '../components/confirm-box';
-import { validateFormInputs } from '../utils/validateFormInputs';
-import { processTitle } from '../../app/utils/processApiTitles';
-import { destroyView } from '../../app/utils/destroyView';
-import { sortBy } from '../../app/utils/sortBy';
-import { root } from 'postcss';
-import { disableAllBgElements } from '../utils/accessibilitySupport';
-import { enableAllBgElements } from '../utils/accessibilitySupport';
-
+import {homeModule } from './homeModule';
+import {PagePhotogTemplateBase} from '../components/base-page-template';
+import {HeaderBaseTemplate} from '../components/header-base-template';
+import {PhotographerInfosTemplate} from '../components/photographerInfosTemplate';
+import {MediaItemTemplate} from '../../app/components/mediaItemTemplate';
+import {DropdownTemplate} from '../components/dropdown-template';
+import {Lightbox} from '../components/lightbox';
+import {ModalContact} from '../components/modal-contact';
+import {ConfirmBox} from '../components/confirm-box';
+import {validateFormInputs} from '../utils/validateFormInputs';
+import {processTitle} from '../../app/utils/processApiTitles';
+import {destroyView} from '../../app/utils/destroyView';
+import {sortBy} from '../../app/utils/sortBy';
+import {disableAllBgElements} from '../utils/accessibilitySupport';
+import {enableAllBgElements} from '../utils/accessibilitySupport';
 
 
 // MODULE PATTERN STRUCTURE
@@ -25,7 +23,6 @@ export const photographerPageModule = (function() {
 
     // RETRIEVE ALL PHOTOGRAPHERS [] from homeModule
     function getAllData() { return homeModule.getAllData(); }
-
 
     // CREATE BASE HTML CONTEXT TO HOST PAGE CONTENT + retrieve data
     // -------------------------------------------------------------------------------
@@ -96,11 +93,11 @@ export const photographerPageModule = (function() {
                         mediaItem.template = new MediaItemTemplate(mediaItem, currentGallery);
 
                 });
-                function getPhotographerMedia() { return photog.photographerMedia }; // used by lightbox methods when called from mediaItem
+                function getPhotographerMedia() { return photog.photographerMedia; } // used by lightbox methods when called from mediaItem
 
                 renderSortedView(photographerGalleryBlock, photog, 'likes');
             } // ( end of if photog.id  ) 
-        })  // ( end of forEach(photog) )
+        });  // ( end of forEach(photog) )
     } // ( end of initPhotog() )
     
     // SORTING MEDIA ITEMS ==========================================================
@@ -110,10 +107,10 @@ export const photographerPageModule = (function() {
         let id = id || photog.id;
         // console.log('photog====', photog);
         let allMediaOfPhotog = photog.photographerMedia;
-        if ( !type) { type = 'likes'} else { type = type; } // default view = sorted by popularity (likes)
+        if ( !type) { type = 'likes'; }  // default view = sorted by popularity (likes)
 
         const mediaSortedBy = sortBy(allMediaOfPhotog, type);
-        mediaSortedBy.forEach(item => { photographerGalleryBlock.appendChild(item.template) });
+        mediaSortedBy.forEach(item => { photographerGalleryBlock.appendChild(item.template); });
 
         const main = document.querySelector('#photographer-content');
         main.appendChild(photographerGalleryBlock);
@@ -123,10 +120,8 @@ export const photographerPageModule = (function() {
     // LIGHTBOX ======================================================================
 
     function openLightbox (event, currentImgId, currentImg, currentGallery) {
-
-        var currentImgId = currentImgId;
-        var currentImg = currentImg;
-        var currentGallery = currentGallery;   // --------- TO REVIEW : currentGallery order = api images order => ≠ sortedBy : BUG at lightbox opening
+    
+        // -------------------------------------- TO REVIEW : currentGallery order = api images order => ≠ sortedBy : BUG at lightbox opening
         // console.log('currentImg==', currentImg,'currentGallery==', currentGallery );
         
         new Lightbox().init({currentImgId:currentImgId, currentImg:currentImg, currentGallery:currentGallery, slidenav: true, animate: true, startAnimated: true});
@@ -136,8 +131,7 @@ export const photographerPageModule = (function() {
         disableAllBgElements(lightboxBgTabbables);
     }
 
-    function closeLightbox(lightboxWrapper) {
-        // destroyView(lightboxWrapper);
+    function closeLightbox() {
         const root = document.querySelector('#root');
         root.removeChild(root.lastChild);
         // reactivate keyboard events on lightbox Bg elements when closing
@@ -148,7 +142,6 @@ export const photographerPageModule = (function() {
     function openContactForm(currentPhotographer) {
 
         const root = document.querySelector('#photographer-content');
-        currentPhotographer = currentPhotographer;
         let contactModal = new ModalContact(currentPhotographer);
         root.appendChild(contactModal);
         contactModal.focus();
@@ -160,11 +153,11 @@ export const photographerPageModule = (function() {
     }
 
 
-    function closeModal(event, inputsTouched, modal) {
+    function closeModal(event, inputsTouched) {
 
         event.stopPropagation();
         let mainModalWrapper = document.querySelector('#modal-contact');
-        modal = modal;
+
         // check inputs touched => confirmation box
         if (inputsTouched) { 
             let confirmBox = new ConfirmBox('cancelModal');
@@ -192,7 +185,6 @@ export const photographerPageModule = (function() {
     function submitForm(event, photog, form, formInputs) {
         let inputElements = formInputs;
         let newContactRequest = [];
-        photog = photog;
         let photogCurrentContactRequests = photog.contactRequests;
 
         let isFormValid = validateFormInputs(form,inputElements);
@@ -244,5 +236,5 @@ export const photographerPageModule = (function() {
         closeConfirmBox:closeConfirmBox,
         renderSortedView: renderSortedView,
         run: initPhotographerPageView, // for router
-    }
+    };
 }());

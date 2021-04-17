@@ -1,9 +1,9 @@
-import { homePageTemplate } from '../components/base-page-template';
-import { HeaderBaseTemplate } from '../components/header-base-template';
-import { NavTags } from '../../app/components/nav-tags';
-import { PhotographerFactory } from '../../app/utils/photographerFactory';
-import { PhotographerTemplateHome } from '../../app/components/photographerTemplate';
-import { MediaItemFactory } from '../../app/utils/mediaItem-factory';
+import {homePageTemplate} from '../components/base-page-template';
+import {HeaderBaseTemplate} from '../components/header-base-template';
+import {NavTags} from '../../app/components/nav-tags';
+import {PhotographerFactory} from '../../app/utils/photographerFactory';
+import {PhotographerTemplateHome} from '../../app/components/photographerTemplate';
+import {MediaItemFactory} from '../../app/utils/mediaItem-factory';
 
 const apiUrl = 'https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/Front-End+V2/P5+Javascript+%26+Accessibility/FishEyeDataFR.json';
 const tagslistMainNav = [ 'portrait', 'art', 'fashion', 'architecture', 'travel', 'sport', 'animals', 'events'];  
@@ -33,7 +33,7 @@ export const homeModule = (function() {
         headers: myHeaders,
         mode: 'cors', //  mode: 'no-cors' ? 
         cache: 'default',
-        credentials: "include"
+        credentials: 'include'
     });
 
     function initData() { 
@@ -98,7 +98,8 @@ export const homeModule = (function() {
                 mediaItem.likes,
                 mediaItem.date,
                 mediaItem.price,
-                mediaItem.title
+                mediaItem.title,
+                mediaItem.altDescription = 'lorem ipsum'
             );
             mymedias.push(mediaItem);
         });
@@ -107,8 +108,8 @@ export const homeModule = (function() {
         myphotographers.forEach( photog => { 
             mymedias.forEach(med => { 
                 if (photog.id === med.photographerId) {
-                    photog.photographerMedia.push(med); }})
-        })
+                    photog.photographerMedia.push(med); }});
+        });
         setUpTemplates(myphotographers); 
     } // end of initializeData()
 
@@ -123,7 +124,7 @@ export const homeModule = (function() {
             // attach each new created component to this section
             photographerContainer.appendChild(photog.template);
             location.hash = '#/home';
-        })
+        });
     }
 
     // function used by 'navtags component' as an event listener on each navtag item
@@ -134,7 +135,7 @@ export const homeModule = (function() {
         // define homepage content
         const photographersList = document.querySelector('.photographers');
         // remove eveything that's displayed by default
-        while (photographersList.firstChild) {photographersList.removeChild(photographersList.firstChild)}
+        while (photographersList.firstChild) {photographersList.removeChild(photographersList.firstChild);}
         filterPhotographers(myphotographers, sortingTerm);
         location.hash = '#/view/' + sortingTerm;
     }
@@ -153,8 +154,5 @@ export const homeModule = (function() {
         useSetUpTemplates: setUpTemplates,
         updateSortedHome: updateHomePageView,
         run: initData// for router
-    }
+    };
 }());
-
-
-
