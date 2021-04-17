@@ -129,7 +129,7 @@ export const photographerPageModule = (function() {
         var currentGallery = currentGallery;   // --------- TO REVIEW : currentGallery order = api images order => ≠ sortedBy : BUG at lightbox opening
         // console.log('currentImg==', currentImg,'currentGallery==', currentGallery );
         
-        new Lightbox().init({currentImgId:currentImgId, currentImg:currentImg, currentGallery:currentGallery, slidenav: true, animate: true, startAnimated: false});
+        new Lightbox().init({currentImgId:currentImgId, currentImg:currentImg, currentGallery:currentGallery, slidenav: true, animate: true, startAnimated: true});
         // deactivate keyboard events for lightbox BG elements
         let lightboxBgTabbables = document.querySelectorAll('#header__logo-wrapper, #photographer-content [tabindex="0"], #photographer-content button, #photographer-content  a, #photographer-content video, #photographer-content source');
         console.log(lightboxBgTabbables);

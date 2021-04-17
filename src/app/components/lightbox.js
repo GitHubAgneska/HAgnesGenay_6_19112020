@@ -153,7 +153,7 @@ export const Lightbox = (function () {
 
             if (settings.animate) {  // 'If true, the slides can be animated => add start/stop btns
 
-                var li = document.createElement('li');
+                var li = document.createElement('li');  
                 if (settings.startAnimated) {
                     li.innerHTML = '<button class="commands" data-action="stop"><span class="visuallyHidden">Stop Animation </span>￭</button>';
                 } else {
@@ -181,6 +181,22 @@ export const Lightbox = (function () {
                     if (button.getAttribute('data-slide')) {
                         stopAnimation();
                         setSlides(button.getAttribute('data-slide'), true);
+                    } else if (button.getAttribute('data-action') == "stop") {
+                        stopAnimation();
+                    } else if (button.getAttribute('data-action') == "start") {
+                        startAnimation();
+                    }
+                }
+            }, true);
+
+            // KEYBOARD SUPPORT
+            slidenav.addEventListener('keydown', function (event) {
+                var button = event.target;
+                if (button.localName == 'button') {
+                    if (button.getAttribute('data-slide')) {
+                        stopAnimation();
+                        setSlides(button.getAttribute('data-slide'), true);
+
                     } else if (button.getAttribute('data-action') == "stop") {
                         stopAnimation();
                     } else if (button.getAttribute('data-action') == "start") {
@@ -254,34 +270,23 @@ export const Lightbox = (function () {
         const videoNotFocusable = document.querySelector('li.slide video'); // disable focusable video controls IF video = not current slide
         if (videoNotFocusable.classList.contains('current')) { videoNotFocusable.setAttribute('tabindex', '0');} else { videoNotFocusable.setAttribute('tabindex', '-1');} // ---- CHECK 
         
+        let slidesAmount = currentGallery.length;
+
         // add tabindex 0 + keydown event to each focusable element of lightbox
         Array.from(lightboxFocusableElements).forEach(el => { 
-            console.log('EL==', el);
+            // console.log('EL==', el);
             el.setAttribute('tabindex', '0');
-
-            
-            el.addEventListener('keydown', function(event){ 
-                
+            el.addEventListener('keydown', function(event){  
                 if (event.code === 'Enter' || event.code === 'Space') { event.target.click();}
-                /* // if slidenav press enter
-                if (el === 'ul.slidenav') {
-                    let slideNavBtn = el.firstElementChild;  // focus goes on first btn element
-                    slideNavBtn.focus(); // place focus on first btn 
-                    keyAction(slideNavBtn); // delegate possible key actions
-                } */
-                
 
+                if (el.getAttribute('data-slide') == slidesAmount-1 ) { // tab on last btn on slidenav
+                    console.log('I AM LAST !');
+                    
+                }
             }, false);
         });
 
-        
-
-
-
-
-
-
-        
+    
     } // end of init()
 
     // SET SLIDE TO CURRENT SLIDE -----------------------------------------------------
