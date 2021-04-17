@@ -145,7 +145,7 @@ export const homeModule = (function() {
             setUpTemplates(filtered);
     }
 
-    function getPhotographers(){ return myphotographers}; // make all data public
+    function getPhotographers(){ return myphotographers; } // make all data public
 
     // public part of module (these methods can be used outside of this module)
     return {

@@ -74,6 +74,7 @@ export const photographerPageModule = (function() {
                 photographerGalleryBlock.setAttribute('aria-label', photog.name + ' gallery collection');
 
                 
+                // eslint-disable-next-line no-inner-declarations
                 function getName() { return photog.name; } // necessary for gallery imgs urls
 
                 // EACH PIC OF GALLERY BLOCK ======================================================================
@@ -93,6 +94,7 @@ export const photographerPageModule = (function() {
                         mediaItem.template = new MediaItemTemplate(mediaItem, currentGallery);
 
                 });
+                // eslint-disable-next-line no-inner-declarations
                 function getPhotographerMedia() { return photog.photographerMedia; } // used by lightbox methods when called from mediaItem
 
                 renderSortedView(photographerGalleryBlock, photog, 'likes');

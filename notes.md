@@ -68,3 +68,9 @@ It will be visible now, so simply enable it.
 Restart Chrome again.
 
 ----
+
+
+RUN ESLINT 
+----
+
+        ` npx eslint src `

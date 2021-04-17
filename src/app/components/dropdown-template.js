@@ -13,12 +13,6 @@ export class DropdownTemplate extends HTMLElement {
         dropdownWrapper.setAttribute('class', 'listbox-area');
         dropdownWrapper.setAttribute('aria-label', 'dropdown navigation container');
 
-        // link component to main stylesheet
-/*         const dropdownStyle = document.createElement('link');
-        dropdownStyle.setAttribute('href', './main.css');
-        dropdownStyle.setAttribute('type', 'text/css');
-        dropdownStyle.setAttribute('rel', 'stylesheet'); */
-
         let currentTitle = 'popularité';
 
         // set dropdow wrapper content
@@ -72,26 +66,20 @@ export class DropdownTemplate extends HTMLElement {
             }
         }
 
-        function updateBtnSortTerm(currentTitle) {
-            sortByLikesBtn.textContent = currentTitle;
-        }
-
-
         const photographerGalleryBlock = document.querySelector('.gallery-wrapper');
         
-        sortByDateBtn.addEventListener('click', function(event){ 
+        sortByDateBtn.addEventListener('click', function(){ 
             let type = 'date';
             currentTitle = type;
             photographerPageModule.renderSortedView(photographerGalleryBlock, photog, type);
         }, false);
 
-        sortByTitleBtn.addEventListener('click', function(event){ 
+        sortByTitleBtn.addEventListener('click', function(){ 
             let type = 'title';
             currentTitle = type;
             photographerPageModule.renderSortedView(photographerGalleryBlock, photog, type);}, false);
 
-        sortByLikesBtn.addEventListener('click', function(event){ 
-            let btn = event.currentTarget;
+        sortByLikesBtn.addEventListener('click', function(){ 
             let type = 'likes';
             currentTitle ='popularité';
             photographerPageModule.renderSortedView(photographerGalleryBlock, photog, type);}, false );
@@ -102,7 +90,6 @@ export class DropdownTemplate extends HTMLElement {
         dropdownMenu.addEventListener('keydown' , function(event){
             if ( event.code === 'Enter'|| event.code === 'Space') {
 
-                let menuDiv = event.target; // default tabbing on parent
                 let caret = document.getElementById('open');
                 
                 // FOCUS IS ON CARET
@@ -114,7 +101,6 @@ export class DropdownTemplate extends HTMLElement {
                     // ENTER : open dropdown
                     if ( event.code === 'Enter' || event.code === 'Space') { 
                         caret.click();
-                        dropdownOpened = true;
                     }
                     // ONCE DROPDOWN = OPEN
                     // RIGHT or DOWN => focus goes to FIRST LI
@@ -140,9 +126,6 @@ export class DropdownTemplate extends HTMLElement {
             }
         }, false);
 
-
-
-            
         this.appendChild(dropdownWrapper);
     }
 }
