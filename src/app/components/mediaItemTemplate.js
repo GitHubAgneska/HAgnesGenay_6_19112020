@@ -37,7 +37,7 @@ import { photographerPageModule } from '../modules/photographerPageModule';
                 `
                 <a aria-label="enlarge video">
                     <video controls>
-                        <source aria-labelledby="${medium.video}" src="./assets/img/${medium.photographerName}/${medium.video}" type="video/mp4">
+                        <source src="./assets/img/${medium.photographerName}/${medium.video}" type="video/mp4">
                         <track src="chrome-subtitles-en.vtt" kind="captions" srclang="en" label="english_captions">
                     </video> 
                 </a>

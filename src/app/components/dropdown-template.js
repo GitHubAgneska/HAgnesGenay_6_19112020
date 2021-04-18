@@ -23,10 +23,10 @@ export class DropdownTemplate extends HTMLElement {
                     <button type="button" tabindex="0" id="sortBy-likes" class="open-dropdown-btn" aria-haspopup="listbox">
                         ${currentTitle}
                     </button> 
-                    <img tabindex="3" id="open" src="./assets/icons/caret.png" alt="logo open" alt="open menu logo">
+                    <img tabindex="0" id="open" src="./assets/icons/caret.png" alt="logo open" alt="open menu logo">
                     <ul id="sortBy" role="listbox" aria-labelledby="sortBy">
-                        <li tabindex="4" id="sortBy-date" role="option">date</li>
-                        <li tabindex="5" id="sortBy-title" role="option">titre</li>
+                        <li tabindex="0" id="sortBy-date" role="option">date</li>
+                        <li tabindex="0" id="sortBy-title" role="option">titre</li>
                     </ul>
                 </div>
             `;
