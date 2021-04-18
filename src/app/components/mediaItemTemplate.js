@@ -38,6 +38,7 @@ import { photographerPageModule } from '../modules/photographerPageModule';
                 <a aria-label="enlarge video">
                     <video controls>
                         <source aria-labelledby="${medium.video}" src="./assets/img/${medium.photographerName}/${medium.video}" type="video/mp4">
+                        <track src="" kind="subtitles" srclang="en" label="English">
                     </video> 
                 </a>
                 `;
@@ -68,7 +69,7 @@ import { photographerPageModule } from '../modules/photographerPageModule';
                     <h5 class="mediaItem-price" id="mediaItem-price">${medium.price}€</h5>
                     <div class="mediaItem-likes">
                         <h5 class="mediaItem-likes-count" data="likes">${medium.likes}</h5>
-                        <img tabindex="0" class="mediaItem-likes-icon heart-icon" src="./assets/icons/heart-icon.png">
+                        <img tabindex="0" class="mediaItem-likes-icon heart-icon" alt="icon likes" src="./assets/icons/heart-icon.png">
                     </div>
                 `;
             

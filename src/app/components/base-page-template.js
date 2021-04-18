@@ -31,7 +31,7 @@ export class homePageTemplate extends HTMLElement {
             <section class="photographers" id="photographersList" aria-label="photographers presentation list">
             </section>
 
-            <div class="nav-help visuallyHidden" id="nav-help" tabindex="0">
+            <div class="nav-help visuallyHidden" id="nav-help" tabindex="0" role="navigation helper">
                 <a aria-label="go to main content"><span>passer au contenu</span></a>
             </div>
         `;
@@ -80,20 +80,6 @@ export class PagePhotogTemplateBase extends HTMLElement {
 
         main.setAttribute('id', 'photographer-content');
         main.setAttribute('class', 'photographer-content-wrapper');
-
-        // set static base content for main
-        main.innerHTML = `
-            <div id="photographer-content" class="photographer-content-wrapper"></div>
-        `;
-
-        // link component to main stylesheet
-        const pageStyle = document.createElement('link');
-        pageStyle.setAttribute('href', './main.css');
-        pageStyle.setAttribute('type', 'text/css');
-        pageStyle.setAttribute('rel', 'stylesheet');
-
-        // attach style to main
-        main.appendChild(pageStyle);
     }
 }
 // register custom element in the built-in CustomElementRegistry object

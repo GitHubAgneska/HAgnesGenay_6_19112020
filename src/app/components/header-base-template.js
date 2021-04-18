@@ -16,7 +16,7 @@ export class HeaderBaseTemplate extends HTMLElement {
                     <a href="" aria-label="Fisheye Home page"><img src="./assets/logo/logo.png" alt="Fisheye logo"></a>
                 </div>
             </header>
-        </div> 
+        </div>
         `;
 
         // KEYBOARD NAV SUPPORT
