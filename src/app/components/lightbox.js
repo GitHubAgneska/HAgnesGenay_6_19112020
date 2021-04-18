@@ -128,10 +128,10 @@ export const Lightbox = (function () {
         ctrls.className = 'controls';
         ctrls.innerHTML = 
             `<li>
-                <button type="button" class="btn-prev"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+                <button type="button" aria-label="previous photo" class="btn-prev"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
             </li> 
             <li>
-                <button type="button" class="btn-next"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+                <button type="button" aria-label="next photo" class="btn-next"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
             </li>
             `;
         
@@ -154,9 +154,9 @@ export const Lightbox = (function () {
 
                 var li = document.createElement('li');  
                 if (settings.startAnimated) {
-                    li.innerHTML = '<button class="commands" data-action="stop"><span class="visuallyHidden">Stop Animation </span>￭</button>';
+                    li.innerHTML = '<button aria-label="stop slides animation" class="commands" data-action="stop"><span class="visuallyHidden">Stop Animation </span>￭</button>';
                 } else {
-                    li.innerHTML = '<button class="commands" data-action="start"><span class="visuallyHidden">Start Animation </span>▶</button>';
+                    li.innerHTML = '<button aria-label="start slides animation" class="commands" data-action="start"><span class="visuallyHidden">Start Animation </span>▶</button>';
                 }
                 slidenav.appendChild(li);
             }
@@ -169,7 +169,7 @@ export const Lightbox = (function () {
 
                     li.innerHTML = // ----------------------- list should only display picture name/title
                         // eslint-disable-next-line quotes
-                        `<button  ` + klass + `data-slide="` + i + `"><span class="visuallyHidden">placeholder</span>"` + ( i + 1 ) + kurrent + `</button>`;
+                        `<button  ` + klass + `aria-label="picture-title" `   + `data-slide="` + i + `"><span class="visuallyHidden">placeholder</span>"` + ( i + 1 ) + kurrent + `</button>`;
 
                     slidenav.appendChild(li);
                 });
@@ -282,6 +282,10 @@ export const Lightbox = (function () {
                 if (el.getAttribute('data-slide') == slidesAmount-1 ) { // tab on last btn on slidenav  ------- TO REVIEW : add tab goes to 1st 
                     console.log('I AM LAST !');
                 }
+                if (el.classList.contains('btn-next') || el.classList.contains('btn-prev') ) { 
+                    if (event.code === 'ArrowRight' || event.code === 'ArrowLeft') { event.target.click();}
+                }
+                
             }, false);
         });
 
