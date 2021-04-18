@@ -69,7 +69,7 @@ import { photographerPageModule } from '../modules/photographerPageModule';
                     <p class="mediaItem-price">${medium.price}€</p>
                     <div class="mediaItem-likes">
                         <p class="mediaItem-likes-count" data="likes">${medium.likes}</p>
-                        <img tabindex="0" class="mediaItem-likes-icon heart-icon" alt="icon likes" src="./assets/icons/heart-icon.png">
+                        <img tabindex="0" class="mediaItem-likes-icon heart-icon" aria-label="increase likes by one" src="./assets/icons/heart-icon.png">
                     </div>
                 `;
             
