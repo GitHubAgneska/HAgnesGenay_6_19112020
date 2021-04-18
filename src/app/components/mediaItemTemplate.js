@@ -38,7 +38,7 @@ import { photographerPageModule } from '../modules/photographerPageModule';
                 <a aria-label="enlarge video">
                     <video controls>
                         <source aria-labelledby="${medium.video}" src="./assets/img/${medium.photographerName}/${medium.video}" type="video/mp4">
-                        <track src="" kind="subtitles" srclang="en" label="English">
+                        <track src="chrome-subtitles-en.vtt" kind="captions" srclang="en" label="english_captions">
                     </video> 
                 </a>
                 `;
@@ -65,8 +65,8 @@ import { photographerPageModule } from '../modules/photographerPageModule';
             
             mediaInfosWrapper.innerHTML =
                 `
-                    <p class="mediaItem-title" id="mediaItem-title">${medium.title}</p>
-                    <p class="mediaItem-price" id="mediaItem-price">${medium.price}€</p>
+                    <p class="mediaItem-title">${medium.title}</p>
+                    <p class="mediaItem-price">${medium.price}€</p>
                     <div class="mediaItem-likes">
                         <p class="mediaItem-likes-count" data="likes">${medium.likes}</p>
                         <img tabindex="0" class="mediaItem-likes-icon heart-icon" alt="icon likes" src="./assets/icons/heart-icon.png">
