@@ -65,10 +65,10 @@ import { photographerPageModule } from '../modules/photographerPageModule';
             
             mediaInfosWrapper.innerHTML =
                 `
-                    <h5 class="mediaItem-title" id="mediaItem-title">${medium.title}</h5>
-                    <h5 class="mediaItem-price" id="mediaItem-price">${medium.price}€</h5>
+                    <p class="mediaItem-title" id="mediaItem-title">${medium.title}</p>
+                    <p class="mediaItem-price" id="mediaItem-price">${medium.price}€</p>
                     <div class="mediaItem-likes">
-                        <h5 class="mediaItem-likes-count" data="likes">${medium.likes}</h5>
+                        <p class="mediaItem-likes-count" data="likes">${medium.likes}</p>
                         <img tabindex="0" class="mediaItem-likes-icon heart-icon" alt="icon likes" src="./assets/icons/heart-icon.png">
                     </div>
                 `;
