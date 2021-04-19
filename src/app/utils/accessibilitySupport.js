@@ -65,7 +65,7 @@ export function keyAction(elem) {
                     el.previousElementSibling.focus();
                     keyAction(el.previousElementSibling); 
                 } else { // if no next sibling > focus goes back to parent
-                    event.preventDefault(); // which is whole page scrolling
+                    event.preventDefault(); // which is whole page scrolling ---- TO REVIEW : has any effect? + bg elements events = disabled anyway
                     el.blur();
                     el.parentNode.focus(); }
             }
@@ -73,7 +73,7 @@ export function keyAction(elem) {
             // if elem press LEFT => focus moves onto nextelem + listen to key
             if ( event.key === 'Escape' ) {
                 el.parentNode.focus();
-                console.log('ESCAPED!');
+                // console.log('ESCAPED!');
             }
        //  }
     }, false);

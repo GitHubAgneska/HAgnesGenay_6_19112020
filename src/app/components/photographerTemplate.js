@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------------------------------
 import {NavTags} from './nav-tags';
 import {photographerPageModule} from '../modules/photographerPageModule';
+import {keyAction} from '../utils/accessibilitySupport';
 
 export class PhotographerTemplateHome extends HTMLElement {
         constructor(photog) {
@@ -11,24 +12,29 @@ export class PhotographerTemplateHome extends HTMLElement {
             let photographer = photog;
 
             // create a shadow root
-            const shadow = this.attachShadow({mode: 'open'});
+            // const shadow = this.attachShadow({mode: 'open'});
             this.setAttribute('style', 'flex:auto;flex-basis:30%;');  // ------- TO REVIEW 
+            this.setAttribute('aria-label', photog.name + ' profile');
+            this.setAttribute('tabindex', '0');
+
 
             // create photographer component main container div
             const photographerWrapperHome = document.createElement('div');
 
             // link component to main stylesheet (beware of content hash exported href in webpack)
-            const styleHome = document.createElement('link');
+           /*  const styleHome = document.createElement('link');
             styleHome.setAttribute('rel', 'stylesheet');
             styleHome.setAttribute('href', './main.css');
-            styleHome.setAttribute('type', 'text/css');
+            styleHome.setAttribute('type', 'text/css'); */
             
             // set up which photogtapher is passed as param
             photographerWrapperHome.setAttribute('data', photographer);
-
+            
             // set photographer main container div attributes/properties
             photographerWrapperHome.setAttribute('class', 'photographer photographer--home');
             photographerWrapperHome.setAttribute('id', 'photographer-'+ photographer.name); // + name
+
+            photographerWrapperHome.setAttribute('tabindex', '0');
             photographerWrapperHome.setAttribute('aria-label', photographer.name + ' presentation');
             
             
@@ -37,7 +43,7 @@ export class PhotographerTemplateHome extends HTMLElement {
             photographerMainBlock.setAttribute('class', 'photographer__main-block');
             photographerMainBlock.setAttribute('tabindex', '0'); // make element tabbable
             photographerMainBlock.innerHTML = `
-                <a aria-label="go to ${photographer.name} page" tabindex="0">
+                <a aria-label="go to ${photographer.name} page">
                     <img class="photographer__pic home" src="./assets/img/portraits/S/${photographer.portrait}" alt="${photographer.name} presentation picture" id="${photographer.name}-pres-picture">
                     <h2 class="photographer__name home" id="${photographer.name}">${photographer.name}</h2>
                 </a>
@@ -49,8 +55,29 @@ export class PhotographerTemplateHome extends HTMLElement {
             }, false);
             
             // KEYBOARD NAV SUPPORT
+            // Focus on the whole photographer COMPONENT profile block ( necessary to get screenReader announce photographer name)
+            this.addEventListener('keydown', function(event) {
+                let componentBlock = event.target;
+                let photogBlockInner1 = componentBlock.firstElementChild; // = photographerMainBlock
+                
+                // ENTER/TAB => enter profile tabbable inner elements
+                if ( event.key === 'Enter' || event.key === 'Tab' ) {
+                    photogBlockInner1.focus();
+                    keyAction(photogBlockInner1);
+
+                }
+                // ARROW LR => go to next/prev profile
+                if ( event.key === 'ArrowRight' ) { 
+                    photogBlockInner1.nexElementSibling.focus();
+                    keyAction(photogBlockInner1.nexElementSibling);
+                }
+                if ( event.key === 'ArrowLeft' && photogBlockInner1.previousElementSibling) { 
+                    photogBlockInner1.previousElementSibling.focus();
+                } 
+            }, false);
+
             photographerMainBlock.addEventListener('keydown', function(event) {
-                if ( event.keyCode === 13 ) {
+                if ( event.key === 13 ) {
                     photographerPageModule.initPagePhotographer(event, photographer.id);
                 }
             }, false);
@@ -75,10 +102,11 @@ export class PhotographerTemplateHome extends HTMLElement {
             photographerWrapperHome.appendChild(photographerTagsList);
 
             // Attach stylesheet to component
-            shadow.appendChild(styleHome);
+            // shadow.appendChild(styleHome);
 
             // Attach the created elements to the shadow dom
-            shadow.appendChild(photographerWrapperHome);
+            // shadow.appendChild(photographerWrapperHome);
+            this.appendChild(photographerWrapperHome);
         }
     }
 

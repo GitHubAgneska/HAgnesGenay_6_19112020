@@ -71,6 +71,11 @@ export class NavTags extends HTMLElement {
                 let navItem = event.target.firstElementChild;
                 navItem.focus(); // place focus on first tag 
                 keyAction(navItem); // determine possible key actions
+
+            // if nav press TAB -> go to next tabbable page element
+            if (event.key === 'Tab') {
+                this.blur();
+            }
             }
         }, false);
 

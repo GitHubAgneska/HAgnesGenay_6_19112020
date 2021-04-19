@@ -28,7 +28,7 @@ export class homePageTemplate extends HTMLElement {
                 <h1>Nos photographes</h1>
             </div>
 
-            <section class="photographers" id="photographersList" aria-label="photographers presentation list">
+            <section class="photographers" id="photographersList" aria-label="Photographers presentation list">
             </section>
 
             <div class="nav-help visuallyHidden" id="nav-help" tabindex="0" role="navigation">
@@ -45,6 +45,18 @@ export class homePageTemplate extends HTMLElement {
                 help.classList.toggle('visuallyHidden');
             }
         }, false);
+
+        // As kb nav arrives on section, ENTER redirects focus on first tabbable child
+        const mainSection = main.querySelector('#photographersList');
+        mainSection.addEventListener('keydown', function(event){
+            let firstChild = this.firstElementChild;
+            firstChild = event.target;
+            if (event.key === 'Tab' || event.key === 'Enter') {
+                this.blur();
+                firstChild.focus();
+            }
+        }, false);
+
 
         /*  
        if (pageRequest === 'photographerPage') {   // ----- + if (type..) Wont work atm ?
