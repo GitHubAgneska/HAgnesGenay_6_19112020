@@ -29,10 +29,10 @@ export function keyAction(elem) {
     // let targetElem;
     el.addEventListener('keydown', function(event) {
         el = event.target;
-        console.log('concerned==', el);
+        // console.log('concerned==', el);
 
         /* if ( action === 'undirectAction') {
-            if ( event.keyCode === 13 || event.code === 'Space') {
+            if ( event.key === 13 || event.key === 'Space') {
                 let targetElem = event.target.firstElementChild;
                 // targetElem = document.activeElement;
                 targetElem.focus();
@@ -41,12 +41,12 @@ export function keyAction(elem) {
         }
         if ( action === 'directAction' ) { */
             // if elem press ENTER or SPACE =>  = click()
-            if ( event.code === 'Enter' || event.code === 'Space') {
+            if ( event.key === 'Enter' || event.key === 'Space') {
                 el.click();
             }
             
             // if elem press RIGHT or DOWN => focus moves onto nextelem + listen to key
-            if ( event.code === 'ArrowRight' || event.code === 'ArrowDown' ) { 
+            if ( event.key === 'ArrowRight' || event.key === 'ArrowDown' ) { 
                 if (el.nextSibling && el.nextSibling!== null) {  // check the element exists
                     el.blur();
                     // console.log('el.nextSibling==', el.nextElementSibling)
@@ -60,7 +60,7 @@ export function keyAction(elem) {
             }
 
             // if elem press LEFT or UP => focus moves onto nextelem + listen to key
-            if ( event.code === 'ArrowLeft' || event.code === 'ArrowUp' ) {
+            if ( event.key === 'ArrowLeft' || event.key === 'ArrowUp' ) {
                 if (el.previousElementSibling && el.previousElementSibling !== null) { // check the element exists
                     el.previousElementSibling.focus();
                     keyAction(el.previousElementSibling); 
@@ -71,7 +71,7 @@ export function keyAction(elem) {
             }
 
             // if elem press LEFT => focus moves onto nextelem + listen to key
-            if ( event.code === 'Escape' ) {
+            if ( event.key === 'Escape' ) {
                 el.parentNode.focus();
                 console.log('ESCAPED!');
             }

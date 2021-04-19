@@ -66,7 +66,7 @@ export class NavTags extends HTMLElement {
         navTagsTemplate.addEventListener('keydown', function(event){
             
             // if NAV press enter
-            if ( event.keyCode === 13 || event.keyIdentifier === 'Space') { // Enter/Return key)
+            if (event.key === 'Enter' || event.key === 'Space') { // Enter/Return key)
                 // focus goes on first tag element
                 let navItem = event.target.firstElementChild;
                 navItem.focus(); // place focus on first tag 
