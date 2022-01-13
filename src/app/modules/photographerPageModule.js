@@ -31,7 +31,7 @@ export const photographerPageModule = (function() {
 
         // where any 'main' content will be hosted
         const root = document.querySelector('#root');
-        // destroy previous view ------------------------- SHOULD VERY PROBABLY BE ELSEWHERE OUTSIDE FROM THIS MODULE
+        // destroy previous view ------------------------- SHOULD VERY PROBABLY BE ELSEWHERE OUTSIDE OF THIS MODULE
         destroyView(root);
         const header = new HeaderBaseTemplate();
        //  const header = new HeaderBaseTemplate('page');
@@ -48,7 +48,7 @@ export const photographerPageModule = (function() {
     // -------------------------------------------------------------------------------
     function initPhotog(myphotographers, photographerId) {
         const photogId = photographerId;
-        location.hash = '#/photographer/' + photogId;
+        location.hash = '/photographer/' + photogId;
 
         // find photographer via passed id param
         myphotographers.forEach(photog => {

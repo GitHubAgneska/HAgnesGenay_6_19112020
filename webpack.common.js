@@ -1,12 +1,12 @@
 
-const path = require("path");
+const path = require('path');
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-    entry: "./src/index.js", // or { main: "./src/index.js", vendor:"./src/vendor.js", ..  } for multiple entry points
+    entry: './src/index.js', // or { main: "./src/index.js", vendor:"./src/vendor.js", ..  } for multiple entry points
     // devtool: false, // more readable version of bundles = no effect atm (?)
-    output: { assetModuleFilename: "assets/[name].[hash][ext][query]" },
+    output: { assetModuleFilename: 'assets/[name][ext][query]' },
     module: {
         rules: [
             {
@@ -22,7 +22,7 @@ module.exports = {
                 },
             {
                 test: /\.html$/,
-                use: ["html-loader"]
+                use: ['html-loader']
             },
             {
                 test: /\.(svg|png|jpg|jpeg|gif)$/i,
@@ -36,7 +36,7 @@ module.exports = {
                     // : { publicPath: ""}
                     //options: {
                         // publicPath: "",
-                        //name: "[name].[hash].[ext]",
+                        //name: "[name].[ext]",
                         //outputPath: "imgs",
                         // publicPath: ""
                     //}
@@ -45,10 +45,10 @@ module.exports = {
             {
                 test: /\.(woff|ttf|otf|eot|woff2)$/i,
                 use: { 
-                    loader: "file-loader",
+                    loader: 'file-loader',
                     options: {
-                        name: "[name].[hash].[ext]",
-                        outputPath: "fonts"
+                        name: '[name].[ext]',
+                        outputPath: 'fonts'
                     }
                 }   
             }

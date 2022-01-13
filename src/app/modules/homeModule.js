@@ -123,7 +123,7 @@ export const homeModule = (function() {
             const photographerContainer = document.querySelector('#photographersList');
             // attach each new created component to this section
             photographerContainer.appendChild(photog.template);
-            location.hash = '#/home';
+            location.hash = '/home';
         });
     }
 
@@ -137,7 +137,7 @@ export const homeModule = (function() {
         // remove eveything that's displayed by default
         while (photographersList.firstChild) {photographersList.removeChild(photographersList.firstChild);}
         filterPhotographers(myphotographers, sortingTerm);
-        location.hash = '#/view/' + sortingTerm;
+        location.hash = '/view/' + sortingTerm;
     }
 
     function filterPhotographers(myphotographers, sortingTerm){
