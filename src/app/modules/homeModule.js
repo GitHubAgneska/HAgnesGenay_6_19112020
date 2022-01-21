@@ -6,11 +6,26 @@ import {PhotographerTemplateHome} from '../../app/components/photographerTemplat
 import {MediaItemFactory} from '../../app/utils/mediaItem-factory';
 
 const apiUrl = 'https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/Front-End+V2/P5+Javascript+%26+Accessibility/FishEyeDataFR.json';
+const localUrl = '../../data.json';
 const tagslistMainNav = [ 'portrait', 'art', 'fashion', 'architecture', 'travel', 'sport', 'animals', 'events'];  
 
 
 // MODULE PATTERN STRUCTURE
 export const homeModule = (function() {
+
+/*     let url;
+    const ua = navigator.userAgent;
+    if  ( 
+        (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) 
+        || (/Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(ua))
+    ){
+        //isDesktop = false;
+        url = localUrl;
+    } else  { 
+        // isDesktop;   
+        url = localUrl;
+    } */
+    
 
     // private part of module
 
