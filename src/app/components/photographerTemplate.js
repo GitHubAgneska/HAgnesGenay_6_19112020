@@ -22,7 +22,7 @@ export class PhotographerTemplateHome extends HTMLElement {
             const photographerWrapperHome = document.createElement('div');
 
             // link component to main stylesheet (beware of content hash exported href in webpack)
-           /*  const styleHome = document.createElement('link');
+            /*  const styleHome = document.createElement('link');
             styleHome.setAttribute('rel', 'stylesheet');
             styleHome.setAttribute('href', './main.css');
             styleHome.setAttribute('type', 'text/css'); */

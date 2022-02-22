@@ -3,6 +3,9 @@
     // CUSTOM ELEMENT TEMPLATE FOR IMAGES FROM GALLERY
     // ----------------------------------------------------
 
+const randomPicture_XL_ApiUrl = 'https://picsum.photos/1600/2000?random=';  // + '1' etc
+
+
 import { photographerPageModule } from '../modules/photographerPageModule';
 
     // how each photo/video of photographer gallery will be generated as a html template
@@ -23,12 +26,15 @@ import { photographerPageModule } from '../modules/photographerPageModule';
             mediaWrapper.setAttribute('class', 'pic-wrapper');
             mediaWrapper.setAttribute('tabindex', '0'); // make element tabbable
 
+
+            //  if original data source for gallery images = local folder 
+            /*  <img src="./assets/img/${medium.photographerName}/S/${medium.image}" alt="${medium.altDescription}"> */
             // eslint-disable-next-line no-prototype-builtins
             if ( medium.hasOwnProperty('image') ) {
                 mediaWrapper.innerHTML = 
                     ` 
                     <a aria-label="enlarge photo">
-                        <img src="./assets/img/${medium.photographerName}/S/${medium.image}" alt="${medium.altDescription}">
+                        <img src="https://picsum.photos/1600/2000" alt="alt-pic">
                     </a>
                     `;
             // eslint-disable-next-line no-prototype-builtins

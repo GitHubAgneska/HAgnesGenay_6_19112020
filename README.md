@@ -15,7 +15,7 @@
 - HTML5/CSS3
 - Vanilla Javascript (Modular & object oriented)
 - Webpack
-- Sass
+- Sass (+BEM methodology)
 
 #### Tools
 - AChecker
